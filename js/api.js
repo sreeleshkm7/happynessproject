@@ -387,6 +387,127 @@
     }
   }
 
+  async function createHostTrip(trip) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('trips')
+        .insert(trip)
+        .select('id')
+        .single();
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      throw new Error(error.message || 'Could not create this trip.', { cause: error });
+    }
+  }
+
+  async function updateHostTrip(tripId, trip) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('trips')
+        .update(trip)
+        .eq('id', tripId)
+        .select('id,status')
+        .single();
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      throw new Error(error.message || 'Could not update this trip.', { cause: error });
+    }
+  }
+
+  async function saveHostTripContent(tripId, content) {
+    const client = getClient();
+    const relations = [
+      ['trip_itinerary_days', content.itinerary],
+      ['trip_inclusions', content.inclusions],
+      ['trip_pickup_points', content.pickupPoints],
+      ['trip_images', content.images]
+    ];
+    try {
+      for (const [table, rows] of relations) {
+        const { error: deleteError } = await client.from(table).delete().eq('trip_id', tripId);
+        if (deleteError) throw deleteError;
+        if (rows.length) {
+          const { error: insertError } = await client.from(table).insert(rows);
+          if (insertError) throw insertError;
+        }
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Could not save trip details.', { cause: error });
+    }
+  }
+
+  async function uploadTripImage(userId, tripId, file) {
+    const client = getClient();
+    const allowedTypes = {
+      'image/jpeg': 'jpg',
+      'image/png': 'png',
+      'image/webp': 'webp',
+      'image/gif': 'gif'
+    };
+    if (!file || !allowedTypes[file.type] || file.size > 5 * 1024 * 1024) {
+      throw new Error('Choose a JPG, PNG, WebP, or GIF image no larger than 5 MB.');
+    }
+    try {
+      const path = `${userId}/${tripId}/${crypto.randomUUID()}.${allowedTypes[file.type]}`;
+      const { data, error } = await client.storage.from('trip-images').upload(path, file, {
+        cacheControl: '3600',
+        contentType: file.type,
+        upsert: false
+      });
+      if (error) throw error;
+      return data.path;
+    } catch (error) {
+      throw new Error(error.message || 'Could not upload this image.', { cause: error });
+    }
+  }
+
+  async function listHostTrips(userId) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('trips')
+        .select('id,slug,title,destination,date_label,price_per_person,status,seats_total,seats_left,created_at,bookings(id,booking_ref,adults,children,infants,status,contact_name,booking_travellers(full_name,type,age))')
+        .eq('host_id', userId)
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      throw new Error('Could not load your hosted trips.', { cause: error });
+    }
+  }
+
+  async function listPendingTrips() {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('trips')
+        .select('id,title,destination,date_label,price_per_person,status,host_id,created_at')
+        .eq('status', 'pending')
+        .order('created_at', { ascending: true });
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      throw new Error('Could not load trips awaiting approval.', { cause: error });
+    }
+  }
+
+  async function reviewPendingTrip(tripId, status) {
+    const client = getClient();
+    if (!['approved', 'rejected'].includes(status)) throw new Error('Choose approve or reject.');
+    try {
+      const { data, error } = await client.from('trips')
+        .update({ status })
+        .eq('id', tripId)
+        .eq('status', 'pending')
+        .select('id,status')
+        .single();
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      throw new Error(error.message || 'Could not update this trip approval.', { cause: error });
+    }
+  }
+
   async function getMyProfile(userId) {
     const client = getClient();
     try {
@@ -424,6 +545,13 @@
     getBooking,
     listMyBookings,
     cancelBooking,
+    createHostTrip,
+    updateHostTrip,
+    saveHostTripContent,
+    uploadTripImage,
+    listHostTrips,
+    listPendingTrips,
+    reviewPendingTrip,
     getMyProfile
   });
 })();

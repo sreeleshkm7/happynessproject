@@ -138,466 +138,82 @@
 <script>document.documentElement.classList.add('hp-auth-pending');</script>
 </head>
 <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
-<!-- MAIN SCROLLABLE CONTENT CANVAS -->
 <main class="flex-1 max-w-2xl w-full mx-auto px-4 pt-5 pb-36">
-<!-- SUBMISSION NOTIFICATION TOAST PREVIEW -->
-<div class="mb-5 p-4 rounded-xl bg-surface-container-lowest border-l-4 border-secondary shadow-[0_4px_20px_-2px_rgba(15,118,110,0.08)] flex items-start gap-3 transition-all duration-200">
-<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary shrink-0 mt-0.5">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">mark_email_read</span>
-</div>
-<div class="flex-1">
-<div class="flex items-center justify-between">
-<p class="font-title-md text-body-sm font-semibold text-on-surface">Submission Received!</p>
-<span class="font-label-sm text-label-sm text-outline">Just now</span>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-          Status: <span class="font-semibold text-secondary">Pending Approval</span> • ID #TRIP-704
-        </p>
-</div>
-<button aria-label="Dismiss alert" class="text-outline hover:text-on-surface p-1 text-sm">
-<span class="material-symbols-outlined text-[18px]">close</span>
-</button>
-</div>
-<!-- HEADER TITLE & SUBTEXT -->
-<div class="mb-6">
-<div class="inline-flex items-center gap-1.5 text-primary-container font-label-md text-label-md mb-1.5 uppercase tracking-wide">
-<span class="material-symbols-outlined text-[16px]">travel_explore</span>
-<span>Host Program</span>
-</div>
-<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold tracking-tight">Host a Trip</h1>
-<p class="font-body-md text-body-md text-on-surface-variant mt-1.5 leading-relaxed">
-        Share your experience with fellow travellers and monetize your secret trails.
-      </p>
-</div>
-<!-- HORIZONTAL PROGRESS STEPPER (5 Stages) -->
-<section aria-label="Creation Progress" class="mb-8">
-<div class="flex items-center justify-between relative px-2">
-<!-- Connecting Line Background -->
-<div class="absolute left-6 right-6 top-4 h-0.5 bg-surface-variant -z-0"></div>
-<!-- Active Progress Line -->
-<div class="absolute left-6 w-[45%] top-4 h-0.5 bg-primary -z-0 transition-all duration-300"></div>
-<!-- Step 1: Basics (Completed) -->
-<div class="flex flex-col items-center gap-1.5 z-10 cursor-pointer">
-<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md shadow-sm">
-<span class="material-symbols-outlined text-[16px]">check</span>
-</div>
-<span class="font-label-sm text-label-sm text-primary font-bold">Basics</span>
-</div>
-<!-- Step 2: Media (Active) -->
-<div class="flex flex-col items-center gap-1.5 z-10 cursor-pointer">
-<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container ring-4 ring-primary-fixed/40 flex items-center justify-center font-label-md text-label-md font-bold shadow-md">
-            2
-          </div>
-<span class="font-label-sm text-label-sm text-primary-container font-bold">Media</span>
-</div>
-<!-- Step 3: Pricing -->
-<div class="flex flex-col items-center gap-1.5 z-10 cursor-pointer">
-<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-md text-label-md">
-            3
-          </div>
-<span class="font-label-sm text-label-sm text-outline">Pricing</span>
-</div>
-<!-- Step 4: Details -->
-<div class="flex flex-col items-center gap-1.5 z-10 cursor-pointer">
-<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-md text-label-md">
-            4
-          </div>
-<span class="font-label-sm text-label-sm text-outline">Details</span>
-</div>
-<!-- Step 5: Review -->
-<div class="flex flex-col items-center gap-1.5 z-10 cursor-pointer">
-<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-label-md text-label-md">
-            5
-          </div>
-<span class="font-label-sm text-label-sm text-outline">Review</span>
-</div>
-</div>
-</section>
-<!-- MULTI-STEP FORM FLOW CONTAINER -->
-<div class="space-y-6">
-<!-- STEP 1: BASICS -->
-<section class="bg-surface-container-lowest rounded-2xl p-5 md:p-6 shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06)] border border-surface-container">
-<div class="flex items-center justify-between pb-4 border-b border-surface-container mb-5">
-<div class="flex items-center gap-2.5">
-<span class="w-7 h-7 rounded-lg bg-primary-fixed flex items-center justify-center text-primary font-bold text-label-md">1</span>
-<h2 class="font-headline-sm text-headline-sm text-on-surface">Trip Basics</h2>
-</div>
-<span class="font-label-sm text-label-sm bg-primary-fixed/50 text-on-primary-fixed-variant px-2.5 py-0.5 rounded-full font-semibold">Completed</span>
-</div>
-<div class="space-y-4">
-<!-- Destination Field -->
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-1.5" for="destination">Destination</label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3.5 top-3 text-outline text-[20px]">pin_drop</span>
-<input class="w-full h-12 pl-11 pr-4 bg-surface rounded-xl border border-surface-variant text-on-surface font-body-md focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none" id="destination" type="text" value="Tirthan Valley &amp; Great Himalayan National Park"/>
-</div>
-</div>
-<!-- Trip Title Field -->
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-1.5" for="trip-title">Trip Title</label>
-<input class="w-full h-12 px-4 bg-surface rounded-xl border border-surface-variant text-on-surface font-body-md focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none" id="trip-title" type="text" value="Secret Waterfall &amp; Trout Valley Trek"/>
-</div>
-<!-- Category Tags -->
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-2">Category Tags</label>
-<div class="flex flex-wrap gap-2">
-<span class="h-8 px-3 rounded-full bg-primary-container text-on-primary font-label-md text-label-md flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[16px]">hiking</span>
-                Adventure
-              </span>
-<span class="h-8 px-3 rounded-full bg-primary-container text-on-primary font-label-md text-label-md flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[16px]">forest</span>
-                Nature
-              </span>
-<span class="h-8 px-3 rounded-full bg-primary-container text-on-primary font-label-md text-label-md flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[16px]">explore</span>
-                Offbeat
-              </span>
-<button class="h-8 px-3 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center gap-1 hover:bg-tertiary-fixed transition-colors" type="button">
-<span class="material-symbols-outlined text-[16px]">add</span>
-                Add Tag
-              </button>
-</div>
-</div>
-<!-- Description Textarea with Character Counter -->
-<div>
-<div class="flex justify-between items-center mb-1.5">
-<label class="block font-label-md text-label-md text-on-surface" for="description">Trip Overview</label>
-<span class="font-label-sm text-label-sm text-outline">420 / 1000</span>
-</div>
-<textarea class="w-full p-3.5 bg-surface rounded-xl border border-surface-variant text-on-surface font-body-sm focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none resize-none leading-relaxed" id="description" rows="4">Embark on an immersive journey through pine-scented forests and crystal glacial streams in the tranquil Tirthan Valley. We'll explore hidden waterfalls known only to local shepherds, savor organic Himachali trout dinners around campfires, and embark on day trails inside the UNESCO World Heritage Great Himalayan National Park. Intimate small-group vibes with mindful stays.</textarea>
-</div>
-</div>
-</section>
-<!-- STEP 2: MEDIA UPLOADS -->
-<section class="bg-surface-container-lowest rounded-2xl p-5 md:p-6 shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06)] border border-primary-container/20 ring-1 ring-primary-container/10">
-<div class="flex items-center justify-between pb-4 border-b border-surface-container mb-5">
-<div class="flex items-center gap-2.5">
-<span class="w-7 h-7 rounded-lg bg-primary-container text-on-primary font-bold text-label-md">2</span>
-<div>
-<h2 class="font-headline-sm text-headline-sm text-on-surface">Photos &amp; Media</h2>
-<p class="font-label-sm text-label-sm text-on-surface-variant">High-res landscape photography drives 3x more bookings</p>
-</div>
-</div>
-<span class="font-label-sm text-label-sm bg-secondary-fixed text-secondary px-2.5 py-0.5 rounded-full font-bold">In Progress</span>
-</div>
-<!-- Cover Image Drag-and-Drop Box -->
-<div class="mb-5">
-<label class="block font-label-md text-label-md text-on-surface mb-2">Cover Photography (Primary Banner)</label>
-<div class="relative w-full h-44 rounded-xl border-2 border-dashed border-primary-container/40 bg-surface-container-low hover:bg-surface-container flex flex-col items-center justify-center p-4 text-center cursor-pointer transition-all duration-200 group">
-<div class="w-12 h-12 rounded-full bg-surface-container-lowest shadow-sm flex items-center justify-center text-primary-container mb-2 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-[26px]">cloud_upload</span>
-</div>
-<p class="font-title-md text-label-lg text-on-surface font-semibold">Drop high-res cover image here</p>
-<p class="font-label-sm text-label-sm text-outline mt-0.5">PNG, JPG, or WEBP up to 15MB (16:9 ratio recommended)</p>
-<button class="mt-3 px-3.5 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-primary-container font-label-md text-label-md shadow-sm" type="button">
-              Browse Files
-            </button>
-</div>
-</div>
-<!-- Gallery Thumbnails Preview Slots -->
-<div>
-<div class="flex justify-between items-center mb-2.5">
-<label class="block font-label-md text-label-md text-on-surface">Gallery Shots</label>
-<span class="font-label-sm text-label-sm text-primary font-bold bg-primary-fixed/40 px-2 py-0.5 rounded-full">2/3 added</span>
-</div>
-<div class="grid grid-cols-3 gap-3">
-<!-- Thumbnail 1 (Uploaded Mountain Vista) -->
-<div class="relative aspect-square rounded-xl overflow-hidden shadow-sm group border border-surface-container">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Sunlight breaking through pine trees in a misty mountain valley with turquoise glacial river in the Himalayas. The atmospheric morning light reflects on mountain waters with cinematic teal and warm golden hour tones, emphasizing wilderness and calm exploration." src="../images/image-346df73.jpg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-<button aria-label="Remove image" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-surface-container-lowest/90 backdrop-blur text-error hover:bg-surface-container-lowest flex items-center justify-center shadow-md transition-transform active:scale-90" type="button">
-<span class="material-symbols-outlined text-[16px]">close</span>
-</button>
-<span class="absolute bottom-1.5 left-2 font-label-sm text-[10px] text-white font-medium">Valley View</span>
-</div>
-<!-- Thumbnail 2 (Uploaded Riverside Homestay) -->
-<div class="relative aspect-square rounded-xl overflow-hidden shadow-sm group border border-surface-container">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Charming rustic wooden Himalayan chalet nestled beside an alpine orchard with stone campfire setup and outdoor lounge seating. The lighting is warm dusk with soft fairy lights, casting golden and deep green tones evoking tranquil group retreat experiences." src="../images/image-ac2ff43.jpg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-<button aria-label="Remove image" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-surface-container-lowest/90 backdrop-blur text-error hover:bg-surface-container-lowest flex items-center justify-center shadow-md transition-transform active:scale-90" type="button">
-<span class="material-symbols-outlined text-[16px]">close</span>
-</button>
-<span class="absolute bottom-1.5 left-2 font-label-sm text-[10px] text-white font-medium">Boutique Stay</span>
-</div>
-<!-- Slot 3 (Empty Upload Trigger) -->
-<button class="aspect-square rounded-xl border-2 border-dashed border-outline-variant hover:border-primary-container bg-surface-container-low flex flex-col items-center justify-center text-outline hover:text-primary-container transition-all" type="button">
-<span class="material-symbols-outlined text-[24px]">add_photo_alternate</span>
-<span class="font-label-sm text-label-sm mt-1 font-semibold">+ Add Slot</span>
-</button>
-</div>
-</div>
-</section>
-<!-- STEP 3: PRICING & SCHEDULE -->
-<section class="bg-surface-container-lowest rounded-2xl p-5 md:p-6 shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06)] border border-surface-container">
-<div class="flex items-center justify-between pb-4 border-b border-surface-container mb-5">
-<div class="flex items-center gap-2.5">
-<span class="w-7 h-7 rounded-lg bg-surface-variant flex items-center justify-center text-on-surface font-bold text-label-md">3</span>
-<h2 class="font-headline-sm text-headline-sm text-on-surface">Pricing &amp; Schedule</h2>
-</div>
-<span class="font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed px-2.5 py-0.5 rounded-full font-semibold">Tier 1</span>
-</div>
-<div class="space-y-5">
-<!-- Package Price Input -->
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-1.5" for="price-amount">Package Amount (per traveler)</label>
-<div class="relative">
-<span class="absolute left-4 top-3 text-primary-container font-price-display text-price-display">₹</span>
-<input class="w-full h-12 pl-10 pr-24 bg-surface rounded-xl border border-surface-variant text-on-surface font-price-display text-price-display font-bold focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none" id="price-amount" type="text" value="14,500"/>
-<span class="absolute right-3.5 top-3.5 text-outline font-label-sm text-label-sm">/person (incl. GST)</span>
-</div>
-<p class="font-label-sm text-label-sm text-on-surface-variant mt-1.5 flex items-center gap-1">
-<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
-              Host payout: ₹13,050/seat after 10% platform fee
-            </p>
-</div>
-<!-- Date Range & Duration Badge -->
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 items-end">
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-1.5" for="date-range">Trip Departure Window</label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3.5 top-3 text-outline text-[20px]">calendar_month</span>
-<input class="w-full h-12 pl-11 pr-4 bg-surface rounded-xl border border-surface-variant text-on-surface font-body-sm font-medium focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none" id="date-range" type="text" value="July 10 – July 14, 2025"/>
-</div>
-</div>
-<div>
-<div class="h-12 bg-surface-container-low rounded-xl px-4 flex items-center justify-between border border-surface-variant">
-<span class="font-label-sm text-label-sm text-outline">Calculated Duration:</span>
-<span class="font-label-lg text-label-lg bg-tertiary-fixed text-primary px-3 py-1 rounded-lg font-bold shadow-sm">
-                  5D / 4N
-                </span>
-</div>
-</div>
-</div>
-<!-- Group Size Slider & Available Seats -->
-<div class="pt-2 border-t border-surface-container">
-<div class="flex justify-between items-center mb-2">
-<label class="font-label-md text-label-md text-on-surface" for="group-slider">Group Capacity Range</label>
-<span class="font-label-lg text-label-lg text-primary font-bold">Min 8 • Max 14 travelers</span>
-</div>
-<input class="w-full accent-primary-container cursor-pointer h-2 bg-surface-variant rounded-lg" id="group-slider" max="20" min="4" type="range" value="14"/>
-<div class="flex justify-between text-[11px] text-outline mt-1 font-medium">
-<span>Small (4-8)</span>
-<span>Optimal (10-14)</span>
-<span>Expedition (16+)</span>
-</div>
-<!-- Seat Counter Widget -->
-<div class="mt-4 p-3 bg-surface-container-low rounded-xl flex items-center justify-between border border-surface-container">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary-container text-[22px]">group</span>
-<div>
-<p class="font-label-md text-label-md text-on-surface">Available Seats for Booking</p>
-<p class="font-label-sm text-label-sm text-outline">Capped strictly at group threshold</p>
-</div>
-</div>
-<div class="flex items-center gap-2.5">
-<button class="w-8 h-8 rounded-lg bg-surface-container-lowest border border-surface-variant flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors font-bold" type="button">-</button>
-<span class="font-price-display text-body-lg font-bold text-on-surface w-6 text-center">14</span>
-<button class="w-8 h-8 rounded-lg bg-surface-container-lowest border border-surface-variant flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors font-bold" type="button">+</button>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- STEP 4: DETAILED ITINERARY & INCLUSIONS -->
-<section class="bg-surface-container-lowest rounded-2xl p-5 md:p-6 shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06)] border border-surface-container">
-<div class="flex items-center justify-between pb-4 border-b border-surface-container mb-5">
-<div class="flex items-center gap-2.5">
-<span class="w-7 h-7 rounded-lg bg-surface-variant flex items-center justify-center text-on-surface font-bold text-label-md">4</span>
-<h2 class="font-headline-sm text-headline-sm text-on-surface">Trip Logistics &amp; Itinerary</h2>
-</div>
-<span class="font-label-sm text-label-sm text-outline">Customizable</span>
-</div>
-<!-- Inclusions -->
-<div class="mb-5">
-<label class="block font-label-md text-label-md text-on-surface mb-2">Inclusions</label>
-<div class="flex flex-wrap gap-2">
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary-fixed/40 text-on-primary-fixed-variant font-label-md text-label-md border border-primary-fixed">
-<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
-              Boutique Homestay
-            </span>
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary-fixed/40 text-on-primary-fixed-variant font-label-md text-label-md border border-primary-fixed">
-<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
-              All Meals
-            </span>
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary-fixed/40 text-on-primary-fixed-variant font-label-md text-label-md border border-primary-fixed">
-<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
-              Guided Trek
-            </span>
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary-fixed/40 text-on-primary-fixed-variant font-label-md text-label-md border border-primary-fixed">
-<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
-              Permits
-            </span>
-<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-dashed border-outline-variant text-outline hover:text-primary font-label-md text-label-md" type="button">
-<span class="material-symbols-outlined text-[16px]">add</span>
-              Add Item
-            </button>
-</div>
-</div>
-<!-- Exclusions -->
-<div class="mb-5">
-<label class="block font-label-md text-label-md text-on-surface mb-2">Exclusions</label>
-<div class="flex flex-wrap gap-2">
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container text-on-surface-variant font-label-md text-label-md">
-<span class="material-symbols-outlined text-[16px] text-outline">cancel</span>
-              Travel to Aut
-            </span>
-<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container text-on-surface-variant font-label-md text-label-md">
-<span class="material-symbols-outlined text-[16px] text-outline">cancel</span>
-              Personal Expenses
-            </span>
-<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-dashed border-outline-variant text-outline hover:text-on-surface font-label-md text-label-md" type="button">
-<span class="material-symbols-outlined text-[16px]">add</span>
-              Add Exclusion
-            </button>
-</div>
-</div>
-<!-- Pickup Points Hubs -->
-<div class="mb-6">
-<div class="flex justify-between items-center mb-2">
-<label class="font-label-md text-label-md text-on-surface">Pickup Points &amp; Hubs</label>
-<button class="text-primary font-label-md text-label-md font-bold flex items-center gap-0.5 hover:underline" type="button">
-<span class="material-symbols-outlined text-[16px]">add</span> Add Hub
-            </button>
-</div>
-<div class="space-y-2">
-<div class="p-3 bg-surface-container-low rounded-xl flex items-center justify-between border border-surface-variant">
-<div class="flex items-center gap-2.5">
-<span class="material-symbols-outlined text-primary text-[20px]">directions_bus</span>
-<div>
-<p class="font-label-md text-label-md text-on-surface font-semibold">Delhi (Majnu Ka Tilla Hub)</p>
-<p class="font-label-sm text-label-sm text-outline">Reporting Time: 06:30 PM</p>
-</div>
-</div>
-<span class="material-symbols-outlined text-outline text-[18px] cursor-pointer hover:text-error">delete</span>
-</div>
-<div class="p-3 bg-surface-container-low rounded-xl flex items-center justify-between border border-surface-variant">
-<div class="flex items-center gap-2.5">
-<span class="material-symbols-outlined text-primary text-[20px]">directions_bus</span>
-<div>
-<p class="font-label-md text-label-md text-on-surface font-semibold">Chandigarh (Tribune Chowk)</p>
-<p class="font-label-sm text-label-sm text-outline">Reporting Time: 11:30 PM</p>
-</div>
-</div>
-<span class="material-symbols-outlined text-outline text-[18px] cursor-pointer hover:text-error">delete</span>
-</div>
-</div>
-</div>
-<!-- Day-wise Itinerary Cards -->
-<div class="mb-5">
-<div class="flex justify-between items-center mb-2.5">
-<label class="font-label-md text-label-md text-on-surface">Day-wise Itinerary</label>
-<span class="font-label-sm text-label-sm text-outline">2 of 5 days filled</span>
-</div>
-<div class="space-y-3">
-<!-- Day 1 Card -->
-<div class="p-3.5 bg-surface rounded-xl border border-surface-variant relative pl-4 border-l-4 border-l-primary-container">
-<div class="flex items-center justify-between mb-1">
-<span class="font-label-md text-label-md text-primary font-bold">Day 1 • Arrival &amp; Riverside Acclimatization</span>
-<button class="text-outline hover:text-primary" type="button"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
-                Morning pick up from Aut tunnel. Transfer to riverside homestay in Gushaini, warm welcome herbal tea, afternoon stroll along Tirthan River and brief gear check.
-              </p>
-</div>
-<!-- Day 2 Card -->
-<div class="p-3.5 bg-surface rounded-xl border border-surface-variant relative pl-4 border-l-4 border-l-primary-container">
-<div class="flex items-center justify-between mb-1">
-<span class="font-label-md text-label-md text-primary font-bold">Day 2 • Chhoie Waterfall &amp; Organic Orchard Walk</span>
-<button class="text-outline hover:text-primary" type="button"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
-                Hike to the cascading sacred Chhoie waterfall followed by picnic lunch amidst apple orchards. Evening trout preparation workshop with homestay owners.
-              </p>
-</div>
-<!-- Add Day Button -->
-<button class="w-full py-2.5 rounded-xl border-2 border-dashed border-outline-variant hover:border-primary-container text-primary font-label-md text-label-md flex items-center justify-center gap-1.5 transition-all bg-surface-container-low hover:bg-surface-container" type="button">
-<span class="material-symbols-outlined text-[18px]">add_circle</span>
-              Add Day 3 Schedule
-            </button>
-</div>
-</div>
-<!-- Cancellation Policy Dropdown -->
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-1.5" for="cancellation">Cancellation Policy</label>
-<div class="relative">
-<select class="w-full h-12 px-4 pr-10 bg-surface rounded-xl border border-surface-variant text-on-surface font-body-sm focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none appearance-none cursor-pointer" id="cancellation">
-<option selected="">Flexible: Full refund up to 7 days before departure</option>
-<option>Moderate: 70% refund up to 14 days before departure</option>
-<option>Strict: 50% refund up to 30 days before departure</option>
-</select>
-<span class="material-symbols-outlined absolute right-3.5 top-3.5 text-outline pointer-events-none text-[20px]">expand_more</span>
-</div>
-</div>
-</section>
-<!-- STEP 5: REVIEW, APPROVAL CALLOUT & SUBMISSION -->
-<section class="bg-surface-container-lowest rounded-2xl p-5 md:p-6 shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06)] border border-surface-container">
-<div class="flex items-center justify-between pb-4 border-b border-surface-container mb-5">
-<div class="flex items-center gap-2.5">
-<span class="w-7 h-7 rounded-lg bg-surface-variant flex items-center justify-center text-on-surface font-bold text-label-md">5</span>
-<h2 class="font-headline-sm text-headline-sm text-on-surface">Review &amp; Submit</h2>
-</div>
-<span class="font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed px-2.5 py-0.5 rounded-full font-bold">Final Stage</span>
-</div>
-<!-- Final Summary Breakdown Card -->
-<div class="bg-surface-container-low rounded-xl p-4 border border-surface-container mb-5 space-y-3">
-<div class="flex items-start justify-between">
-<div>
-<span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">Tirthan Valley, HP</span>
-<h3 class="font-title-md text-title-md text-on-surface mt-0.5">Secret Waterfall &amp; Trout Valley Trek</h3>
-</div>
-<span class="font-price-display text-body-lg text-primary-container font-extrabold">₹14,500</span>
-</div>
-<div class="grid grid-cols-2 gap-2 pt-2 border-t border-surface-variant/60 text-body-sm">
-<div>
-<span class="text-outline font-label-sm text-label-sm block">Dates</span>
-<span class="text-on-surface font-semibold">Jul 10 - 14 (5D/4N)</span>
-</div>
-<div>
-<span class="text-outline font-label-sm text-label-sm block">Group Size</span>
-<span class="text-on-surface font-semibold">14 max slots</span>
-</div>
-</div>
-</div>
-<!-- Verification Callout Box -->
-<div class="p-4 rounded-xl bg-tertiary-fixed/30 border border-tertiary-fixed-dim/60 mb-6 flex gap-3">
-<span class="material-symbols-outlined text-secondary text-[24px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified_user</span>
-<div>
-<h4 class="font-label-lg text-label-lg font-bold text-on-surface">Curated Quality Guarantee</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
-              Your trip will be reviewed within 24 hours by the HappynessProject curation team (<span class="font-semibold text-secondary">Pending Approval</span>). We ensure safety compliance, host verification, and transparent community guidelines.
-            </p>
-</div>
-</div>
-<!-- Action CTAs inside Review Section -->
-<div class="flex flex-col sm:flex-row gap-3">
-<button class="flex-1 h-12 rounded-xl border-[1.5px] border-primary-container text-primary-container font-label-lg text-label-lg hover:bg-primary-container/10 transition-all flex items-center justify-center gap-1.5 active:scale-98" type="button">
-<span class="material-symbols-outlined text-[18px]">save</span>
-            Save Draft
-          </button>
-<button class="flex-1 h-12 rounded-xl bg-secondary-container hover:brightness-105 active:bg-secondary text-white font-label-lg text-label-lg shadow-md hover:-translate-y-0.5 transition-all flex items-center justify-center gap-1.5" type="button">
-<span class="material-symbols-outlined text-[18px]">rocket_launch</span>
-            Submit Trip for Review
-          </button>
-</div>
-</section>
-</div>
+  <div class="mb-6">
+    <div class="inline-flex items-center gap-1.5 text-primary-container font-label-md text-label-md mb-1.5 uppercase tracking-wide"><span class="material-symbols-outlined text-[16px]">travel_explore</span><span>Host Program</span></div>
+    <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold tracking-tight">Host a Trip</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant mt-1.5 leading-relaxed">Share your experience with fellow travellers and monetize your secret trails.</p>
+  </div>
+  <p id="host-access-message" class="mb-4 rounded-xl bg-secondary-fixed/40 p-4 font-body-sm text-body-sm text-on-surface-variant" role="status" hidden></p>
+  <section id="host-success" class="mb-5 rounded-2xl bg-surface-container-lowest p-6 shadow-sm" hidden>
+    <h2 id="host-success-title" class="font-headline-sm text-headline-sm text-on-surface">Trip saved</h2>
+    <p id="host-success-message" class="mt-2 font-body-sm text-body-sm text-on-surface-variant"></p>
+    <a class="mt-4 inline-flex rounded-xl bg-primary px-4 py-2 font-label-lg text-label-lg text-on-primary" href="host-dashboard.html">Go to Host Dashboard</a>
+  </section>
+  <form id="host-trip-form" class="space-y-6" novalidate>
+    <ol class="mb-8 flex items-center justify-between px-2" aria-label="Trip creation progress">
+      <li data-host-step-indicator="0" class="font-label-sm text-label-sm font-bold text-primary">Basics</li>
+      <li data-host-step-indicator="1" class="font-label-sm text-label-sm text-outline">Photos</li>
+      <li data-host-step-indicator="2" class="font-label-sm text-label-sm text-outline">Pricing</li>
+      <li data-host-step-indicator="3" class="font-label-sm text-label-sm text-outline">Details</li>
+      <li data-host-step-indicator="4" class="font-label-sm text-label-sm text-outline">Review</li>
+    </ol>
+    <section data-host-step="0" class="rounded-2xl border border-surface-container bg-surface-container-lowest p-5 shadow-sm md:p-6">
+      <h2 class="mb-5 border-b border-surface-container pb-4 font-headline-sm text-headline-sm text-on-surface">Trip Basics</h2>
+      <div class="space-y-4">
+        <label class="block font-label-md text-label-md text-on-surface">Destination<input id="host-destination" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3 font-body-md" type="text" placeholder="Where will the group travel?" required maxlength="120"></label>
+        <label class="block font-label-md text-label-md text-on-surface">Trip Title<input id="host-title" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3 font-body-md" type="text" placeholder="Give your trip a clear, memorable title" required maxlength="140"></label>
+        <label class="block font-label-md text-label-md text-on-surface">Short Description<input id="host-short-description" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3 font-body-sm" type="text" placeholder="A brief summary shown on trip cards" maxlength="240"></label>
+        <label class="block font-label-md text-label-md text-on-surface">Trip Overview<textarea id="host-description" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3 font-body-sm" rows="5" placeholder="Describe the experience, highlights, and who it is for" required maxlength="10000"></textarea></label>
+        <label class="block font-label-md text-label-md text-on-surface">Category Tag<input id="host-tag" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3 font-body-sm" type="text" placeholder="For example: Himalayan, Beach, Adventure" maxlength="40"></label>
+      </div>
+    </section>
+    <section data-host-step="1" class="rounded-2xl border border-surface-container bg-surface-container-lowest p-5 shadow-sm md:p-6" hidden>
+      <h2 class="mb-2 font-headline-sm text-headline-sm text-on-surface">Photos &amp; Media</h2>
+      <p class="mb-5 font-body-sm text-body-sm text-on-surface-variant">Upload one cover image and up to three additional trip photos. Images must be 5 MB or smaller.</p>
+      <label class="mb-2 block font-label-md text-label-md text-on-surface" for="host-cover-image">Cover Photography</label>
+      <input id="host-cover-image" class="mb-4 block w-full rounded-xl border border-surface-variant p-3" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+      <div id="host-cover-preview" class="mb-5 text-body-sm text-on-surface-variant" aria-live="polite"></div>
+      <label class="mb-2 block font-label-md text-label-md text-on-surface" for="host-extra-images">Additional Photos (up to 3)</label>
+      <input id="host-extra-images" class="block w-full rounded-xl border border-surface-variant p-3" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+      <div id="host-extra-preview" class="mt-3 grid grid-cols-2 gap-3" aria-live="polite"></div>
+      <p id="host-upload-progress" class="mt-4 font-body-sm text-body-sm text-primary" role="status" aria-live="polite"></p>
+    </section>
+    <section data-host-step="2" class="rounded-2xl border border-surface-container bg-surface-container-lowest p-5 shadow-sm md:p-6" hidden>
+      <h2 class="mb-5 border-b border-surface-container pb-4 font-headline-sm text-headline-sm text-on-surface">Pricing &amp; Capacity</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="block font-label-md text-label-md text-on-surface">Price per traveler (₹)<input id="host-price" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3" type="number" min="0" step="0.01" placeholder="0.00" required></label>
+        <label class="block font-label-md text-label-md text-on-surface">Difficulty<select id="host-difficulty" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"><option>Easy</option><option selected>Moderate</option><option>Challenging</option></select></label>
+        <label class="block font-label-md text-label-md text-on-surface">Start Date<input id="host-start-date" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3" type="date" required></label>
+        <label class="block font-label-md text-label-md text-on-surface">End Date<input id="host-end-date" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3" type="date" required></label>
+        <label class="block font-label-md text-label-md text-on-surface">Duration Label<input id="host-duration" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3" type="text" placeholder="For example: 5D/4N" required maxlength="30"></label>
+        <label class="block font-label-md text-label-md text-on-surface">Minimum Group Size<input id="host-min-group" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3" type="number" min="1" step="1" value="1" required></label>
+        <label class="block font-label-md text-label-md text-on-surface">Maximum Group Size<input id="host-max-group" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3" type="number" min="1" step="1" value="10" required></label>
+        <label class="block font-label-md text-label-md text-on-surface">Available Seats<input id="host-seats" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3" type="number" min="1" step="1" value="10" required></label>
+      </div>
+      <label class="mt-4 flex items-center gap-2 font-body-sm text-body-sm text-on-surface"><input id="host-pay-pickup" type="checkbox">Allow pay at pickup</label>
+    </section>
+    <section data-host-step="3" class="space-y-5 rounded-2xl border border-surface-container bg-surface-container-lowest p-5 shadow-sm md:p-6" hidden>
+      <h2 class="font-headline-sm text-headline-sm text-on-surface">Trip Logistics &amp; Itinerary</h2>
+      <div><div class="mb-2 flex items-center justify-between"><h3 class="font-label-lg text-label-lg text-on-surface">Inclusions</h3><button type="button" data-add-row="included" class="rounded-lg border border-dashed border-outline-variant px-3 py-1.5 text-primary">Add Inclusion</button></div><div id="host-included-list" class="space-y-2"></div></div>
+      <div><div class="mb-2 flex items-center justify-between"><h3 class="font-label-lg text-label-lg text-on-surface">Exclusions</h3><button type="button" data-add-row="excluded" class="rounded-lg border border-dashed border-outline-variant px-3 py-1.5 text-primary">Add Exclusion</button></div><div id="host-excluded-list" class="space-y-2"></div></div>
+      <div><div class="mb-2 flex items-center justify-between"><h3 class="font-label-lg text-label-lg text-on-surface">Pickup Points</h3><button type="button" data-add-row="pickup" class="rounded-lg border border-dashed border-outline-variant px-3 py-1.5 text-primary">Add Pickup Point</button></div><div id="host-pickup-list" class="space-y-2"></div></div>
+      <div><div class="mb-2 flex items-center justify-between"><h3 class="font-label-lg text-label-lg text-on-surface">Day-by-day Itinerary</h3><button type="button" data-add-row="itinerary" class="rounded-lg border border-dashed border-outline-variant px-3 py-1.5 text-primary">Add Day</button></div><div id="host-itinerary-list" class="space-y-3"></div></div>
+    </section>
+    <section data-host-step="4" class="rounded-2xl border border-surface-container bg-surface-container-lowest p-5 shadow-sm md:p-6" hidden>
+      <h2 class="mb-5 font-headline-sm text-headline-sm text-on-surface">Review &amp; Submit</h2>
+      <div class="mb-5 rounded-xl bg-surface-container-low p-4">
+        <div class="flex items-start justify-between gap-3"><div><span id="host-review-destination" class="font-label-sm text-label-sm font-bold uppercase text-primary"></span><h3 id="host-review-title" class="mt-1 font-title-md text-title-md text-on-surface"></h3></div><strong id="host-review-price" class="font-price-display text-price-display text-primary"></strong></div>
+        <div class="mt-3 grid grid-cols-2 gap-3 border-t border-surface-variant pt-3 font-body-sm text-body-sm"><div><span class="block text-outline">Dates</span><span id="host-review-dates"></span></div><div><span class="block text-outline">Seats</span><span id="host-review-seats"></span></div></div>
+      </div>
+      <label class="mb-5 block font-label-md text-label-md text-on-surface">Cancellation Policy<select id="host-cancellation" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3 font-body-sm"><option value="Flexible: Full refund up to 7 days before departure">Flexible: Full refund up to 7 days before departure</option><option value="Moderate: 70% refund up to 14 days before departure">Moderate: 70% refund up to 14 days before departure</option><option value="Strict: 50% refund up to 30 days before departure">Strict: 50% refund up to 30 days before departure</option></select></label>
+      <p class="mb-5 rounded-xl border border-tertiary-fixed-dim/60 bg-tertiary-fixed/30 p-4 font-body-sm text-body-sm text-on-surface-variant">Submitted trips are reviewed by our curation team before appearing in the catalogue.</p>
+      <div class="flex flex-col gap-3 sm:flex-row"><button id="host-save-draft" class="flex-1 rounded-xl border border-primary px-4 py-3 font-label-lg text-label-lg text-primary" type="button">Save Draft</button><button id="host-submit-trip" class="flex-1 rounded-xl bg-secondary-container px-4 py-3 font-label-lg text-label-lg text-white" type="button">Submit Trip for Review</button></div>
+    </section>
+  </form>
 </main>
-<!-- STICKY BOTTOM ACTION BAR (Sticky Navigation for Mobile Flow) -->
-<aside class="fixed bottom-0 left-0 w-full z-50 bg-surface-container-lowest shadow-[0_-4px_20px_-2px_rgba(15,118,110,0.08)] py-3 px-4 md:px-margin">
-<div class="max-w-2xl mx-auto flex items-center justify-between gap-3">
-<!-- Previous Step Button -->
-<button class="h-12 px-5 rounded-xl border-[1.5px] border-primary-container text-primary-container hover:bg-primary-container/10 font-label-lg text-label-lg flex items-center gap-1 transition-all active:scale-95" type="button">
-<span class="material-symbols-outlined text-[18px]">chevron_left</span>
-        Previous
-      </button>
-<!-- Next Step / Submit CTA Button (Sunset Coral) -->
-<button class="flex-1 h-12 px-6 rounded-xl bg-secondary-container hover:brightness-105 active:bg-secondary text-white font-label-lg text-label-lg shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-2 transition-all active:scale-98" type="button">
-<span>Next Step: Pricing</span>
-<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
-</button>
-</div>
+<aside class="fixed bottom-0 left-0 z-40 w-full bg-surface-container-lowest px-4 py-3 shadow-[0_-4px_20px_-2px_rgba(15,118,110,0.08)]">
+  <div class="mx-auto flex max-w-2xl justify-between gap-3"><button id="host-previous" class="rounded-xl border border-primary px-5 py-3 font-label-lg text-label-lg text-primary" type="button" hidden>Previous</button><button id="host-next" class="flex-1 rounded-xl bg-secondary-container px-6 py-3 font-label-lg text-label-lg text-white" type="button">Next Step: Photos</button></div>
 </aside>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
 <script src="../js/config.js"></script>
@@ -606,4 +222,5 @@
 <script src="../js/auth.js"></script>
 <script src="../js/header.js"></script>
 <script src="../js/main.js"></script>
+<script src="../js/host.js"></script>
 </body></html>

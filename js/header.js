@@ -24,6 +24,7 @@
     const onUpcomingEventsPage = pathname.endsWith('/upcoming-events.html');
     const user = window.HappynessAuth?.getUser();
     const userProfile = window.HappynessAuth?.getProfile();
+    const role = userProfile?.role;
     const emailName = user?.email ? user.email.split('@')[0] : '';
     const username = String(userProfile?.username || user?.user_metadata?.username || emailName || 'Traveler');
     const displayName = username.trim().replace(/^./, (letter) => letter.toUpperCase());
@@ -34,6 +35,8 @@
         '<a href="' + pageRoute('wishlist.html') + '">Wishlist <span class="hp-auth-count" data-auth-wishlist-count hidden>0</span></a>' +
         '<a href="' + pageRoute('my-bookings.html') + '">My Bookings</a>' +
         '<a href="' + pageRoute('host-a-trip.html') + '">Host a Trip</a>' +
+        (role === 'host' ? '<a href="' + pageRoute('host-dashboard.html') + '">Host Dashboard</a>' : '') +
+        (role === 'admin' ? '<a href="' + pageRoute('admin-approvals.html') + '">Trip Approvals</a>' : '') +
         '<button class="hp-logout-button" type="button" data-auth-logout>Logout</button>'
       : '<a class="hp-login-button" href="' + pageRoute('login.html') + '">Login</a>' +
         '<a class="hp-create-account" href="' + pageRoute('login.html') + '#signup">New here? Create account</a>';

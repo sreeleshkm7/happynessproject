@@ -117,6 +117,8 @@
       'wishlist.html',
       'my-bookings.html',
       'host-a-trip.html',
+      'host-dashboard.html',
+      'admin-approvals.html',
       'settings.html',
       'booking.html',
       'booking-confirmation.html'

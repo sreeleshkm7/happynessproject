@@ -26,7 +26,7 @@ This repository is intended as a travel UI prototype or demo application rather 
 - Package detail pages with trip highlights, itinerary sections, and CTA actions
 
 ### User actions
-- Wishlist tracking using browser local storage
+- Wishlist and cart persistence through Supabase
 - Cart management for selected trips
 - Checkout flow for booking and traveler details
 - Booking confirmation and booking history screens
@@ -35,8 +35,7 @@ This repository is intended as a travel UI prototype or demo application rather 
 ### Travel booking flow
 - Multi-step booking page with passenger information forms
 - Payment method selection and totals
-- Booking ID generation for confirmed reservations
-- Local persistence of bookings in browser storage
+- Server-generated booking references and database-backed booking history
 
 ### Support and account pages
 - Login and password reset screens
@@ -73,6 +72,7 @@ happynessproject/
 │   ├── auth.js                # Login/auth guards and session behavior
 │   ├── checkout.js            # Booking and checkout logic
 │   ├── header.js              # Shared navbar/header rendering
+│   ├── host.js                # Host trip wizard, host dashboard, and approvals
 │   ├── main.js                # Core trip browsing, wishlist, and cart behavior
 │   ├── supabase-client.js     # Shared Supabase browser client
 ├── pages/
@@ -105,16 +105,20 @@ happynessproject/
 - `pages/wishlist.html` – saved favorite trips
 - `pages/cart.html` – selected travel items queue
 - `pages/login.html` – sign-in flow
+- `pages/host-a-trip.html` – host trip draft and submission wizard
+- `pages/host-dashboard.html` – host trips and traveller details
+- `pages/admin-approvals.html` – pending trip review for admins
 - `pages/about.html`, `contact.html`, `faq.html`, `help-center.html` – informational pages
 
 ## How the App Works
 
-The app is a static multi-page front end backed by Supabase for authentication and trip-catalogue reads:
+The app is a static multi-page front end backed by Supabase for authentication and data:
 
-- Approved trips and their detail data are loaded through `js/api.js` from Supabase.
+- Approved trips, detail data, wishlist, cart, bookings, and host workflows use `js/api.js` as the Supabase data-access layer.
 - Wishlist and cart data are read and written through `js/api.js` under owner-only Supabase RLS policies.
 - Booking submissions call the `create_booking` RPC so prices, seat checks, booking references, and payment amounts are computed on the server.
 - Booking history, confirmation details, and cancellation use owner-scoped Supabase queries/RPCs; the only browser storage used during checkout is a session-scoped trip ID and traveller count.
+- Hosts can save drafts and submit trips for approval; admins review pending trips. Host and admin capabilities are enforced by profile roles and RLS, not by page visibility alone.
 - Supabase Auth session checks redirect users to the login page when protected actions are triggered.
 - The layout and styling use a travel-brand design system with warm earth tones, teal accents, and modern card-based UI
 
