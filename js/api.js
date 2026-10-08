@@ -309,6 +309,84 @@
     }
   }
 
+  async function getCoupon(code) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('coupons')
+        .select('code,percent_off')
+        .eq('code', String(code || '').trim().toUpperCase())
+        .eq('active', true)
+        .maybeSingle();
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      throw new Error('Could not verify this coupon.', { cause: error });
+    }
+  }
+
+  async function createBooking(booking) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.rpc('create_booking', {
+        p_trip_id: booking.tripId,
+        p_adults: booking.adults,
+        p_children: booking.children,
+        p_infants: booking.infants,
+        p_travellers: booking.travellers,
+        p_contact: booking.contact,
+        p_pickup: booking.pickupPoint,
+        p_payment_method: booking.paymentMethod,
+        p_coupon: booking.couponCode || null,
+        p_partial: booking.partial
+      });
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      throw new Error(error.message || 'Could not create your booking.', { cause: error });
+    }
+  }
+
+  async function getBooking(identifier) {
+    const client = getClient();
+    try {
+      let query = client.from('bookings')
+        .select('id,booking_ref,trip_id,adults,children,infants,trip_snapshot,subtotal,discount,gst,convenience_fee,total,amount_paid,balance_due,status,payment_method,pickup_point,contact_name,contact_mobile,contact_email,emergency_name,emergency_relation,emergency_mobile,special_requests,coupon_code,created_at,booking_travellers(id,type,full_name,age,dob,gender,id_type,id_number),payments(method,status,amount,last4,provider_ref,created_at)');
+      query = /^HP-\d{4}-\d+$/i.test(identifier)
+        ? query.eq('booking_ref', identifier)
+        : query.eq('id', identifier);
+      const { data, error } = await query.maybeSingle();
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      throw new Error('Could not load this booking.', { cause: error });
+    }
+  }
+
+  async function listMyBookings(userId) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('bookings')
+        .select('id,booking_ref,trip_id,adults,children,infants,trip_snapshot,subtotal,discount,gst,convenience_fee,total,amount_paid,balance_due,status,payment_method,pickup_point,created_at,booking_travellers(id,type,full_name,age,dob,gender,id_type,id_number),payments(method,status,amount,last4,created_at)')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      throw new Error('Could not load your bookings.', { cause: error });
+    }
+  }
+
+  async function cancelBooking(bookingId) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.rpc('cancel_booking', { p_booking_id: bookingId });
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      throw new Error(error.message || 'Could not cancel this booking.', { cause: error });
+    }
+  }
+
   async function getMyProfile(userId) {
     const client = getClient();
     try {
@@ -341,6 +419,11 @@
     removeCartItem,
     moveWishlistItemToCart,
     getMyItemCounts,
+    getCoupon,
+    createBooking,
+    getBooking,
+    listMyBookings,
+    cancelBooking,
     getMyProfile
   });
 })();

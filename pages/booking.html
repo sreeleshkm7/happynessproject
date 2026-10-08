@@ -16,6 +16,7 @@
     <div class="booking-main-column">
       <div class="booking-page-heading">
         <h1>Complete Your Booking</h1>
+        <p id="booking-load-status" class="booking-secure-note">Loading the latest trip details…</p>
         <ol class="booking-progress" aria-label="Booking progress">
           <li class="is-current"><span>1</span> Travellers</li><li><span>2</span> Payment</li><li><span>3</span> Confirmation</li>
         </ol>
@@ -68,6 +69,7 @@
 
         <section class="booking-section booking-payment-section">
           <h2>Payment method</h2>
+          <p class="booking-secure-note">DEMO ONLY: no payment is processed. Do not enter real payment details; card, expiry, CVV, UPI ID, and bank details are not sent to Supabase.</p>
           <div class="booking-payment-options">
             <label class="booking-payment-option"><input type="radio" name="payment-method" value="upi" checked><span class="material-symbols-outlined">account_balance</span><span>UPI</span></label>
             <label class="booking-payment-option"><input type="radio" name="payment-method" value="card"><span class="material-symbols-outlined">credit_card</span><span>Credit / Debit Card</span></label>
@@ -86,8 +88,7 @@
           <div class="booking-payment-panel" data-payment-panel="wallet" hidden><p>Continue with a supported wallet to complete your demo payment.</p><p class="booking-app-hints"><span>Paytm</span><span>Amazon Pay</span><span>Mobikwik</span></p></div>
           <div class="booking-payment-panel" data-payment-panel="pay-later" hidden><p>Your booking will be held for 30 minutes while payment is pending.</p></div>
           <label class="booking-terms"><input id="terms-agree" type="checkbox" required><span>I agree to the <a href="terms.html" target="_blank" rel="noreferrer">Terms &amp; Conditions</a> and <a href="cancellation-policy.html" target="_blank" rel="noreferrer">Cancellation &amp; Refund Policy</a></span><small class="booking-error">Please agree before payment.</small></label>
-          <p class="booking-secure-note"><span class="material-symbols-outlined">lock</span> Your payment details are encrypted.</p>
-          <div class="booking-secure-badges"><span><span class="material-symbols-outlined">verified_user</span>Secure checkout</span><span><span class="material-symbols-outlined">lock</span>Encrypted payment</span></div>
+          <div class="booking-secure-badges"><span><span class="material-symbols-outlined">info</span>Demo payment flow</span><span><span class="material-symbols-outlined">link_off</span>Gateway not connected</span></div>
         </section>
       </form>
     </div>

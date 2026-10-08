@@ -48,12 +48,42 @@
     if (window.location.pathname.endsWith('/my-bookings.html')) initializeMyBookingsPage();
   });
 
-  function initializeBookingPage() {
-    const checkout = JSON.parse(localStorage.getItem('checkout') || 'null');
-    if (!checkout) {
+  async function initializeBookingPage() {
+    let selection;
+    try {
+      selection = JSON.parse(sessionStorage.getItem('happynessCheckoutSelection') || 'null');
+    } catch (error) {
+      console.error(error);
+      selection = null;
+    }
+    if (!selection?.tripId) {
       window.location.replace('cart.html');
       return;
     }
+    let trip;
+    try {
+      trip = await window.HappynessAPI.getTrip(selection.tripId);
+      if (!trip) throw new Error('This trip is no longer available.');
+    } catch (error) {
+      console.error(error);
+      window.happynessToast?.(error.message || 'We could not load this trip.');
+      window.setTimeout(() => window.location.replace('cart.html'), 700);
+      return;
+    }
+    document.getElementById('booking-load-status').hidden = true;
+    const checkout = {
+      id: trip.id,
+      title: trip.title,
+      image: window.HappynessAPI.resolveImage(trip.cover_image_path),
+      location: trip.location || trip.destination || '',
+      dates: trip.date_label || trip.start_date || '',
+      duration: trip.duration_label || '',
+      price: Number(trip.price_per_person),
+      quantity: Math.max(1, Number(selection.travellers) || 1),
+      seatsLeft: Number(trip.seats_left) || 0,
+      pickupPoints: trip.pickup_points || [],
+      payAtPickupAllowed: trip.pay_at_pickup_allowed === true
+    };
 
     const CHILD_PRICE_PERCENT = 0.75;
     const GST_RATE = 0.05;
@@ -61,12 +91,11 @@
     const ADULT_MIN = 1;
     const CHILD_MIN = 0;
     const INFANT_MIN = 0;
-    const trip = checkout;
     const adultPrice = Number(checkout.price) || 0;
     const childPrice = Math.round(adultPrice * CHILD_PRICE_PERCENT);
-    const seatLimit = Math.max(1, Number(checkout.seatsLeft) || Number(trip.seatsLeft) || 14);
+    const seatLimit = Math.max(0, checkout.seatsLeft);
     let counts = { adults: Math.max(ADULT_MIN, Number(checkout.quantity) || 1), children: 0, infants: 0 };
-    let couponDiscount = 0;
+    let couponPercent = 0;
     let couponApplied = false;
     const touchedFields = new WeakSet();
 
@@ -82,23 +111,23 @@
 
     const image = document.getElementById('booking-trip-image');
     if (image) {
-      const imagePath = checkout.image || trip.image || '';
-      image.src = imagePath.startsWith('../images/') ? imagePath : '../' + (imagePath.startsWith('images/') ? imagePath : 'images/' + imagePath);
+      image.src = checkout.image;
       image.alt = checkout.title;
     }
     document.getElementById('booking-trip-title').textContent = checkout.title;
-    document.getElementById('booking-trip-location').textContent = checkout.location || trip.location || '';
-    document.getElementById('booking-trip-dates').textContent = `${checkout.dates || trip.dates || ''} · ${checkout.duration || trip.duration || ''}`;
+    document.getElementById('booking-trip-location').textContent = checkout.location;
+    document.getElementById('booking-trip-dates').textContent = `${checkout.dates} · ${checkout.duration}`;
     const pickup = document.getElementById('pickup-point');
     document.getElementById('seat-limit').textContent = String(seatLimit);
-    (checkout.pickupPoints || trip.pickupPoints || ['Majnu Ka Tilla, New Delhi', 'ISBT Sector 43, Chandigarh']).forEach((point) => {
+    checkout.pickupPoints.forEach((point) => {
       const option = document.createElement('option');
-      option.value = point;
-      option.textContent = point;
+      option.value = point.name;
+      option.textContent = point.name;
       pickup.append(option);
     });
     const payLaterCard = document.querySelector('[data-pay-later-card]');
-    if (payLaterCard) payLaterCard.hidden = !(checkout.payAtPickupAllowed ?? trip.payAtPickupAllowed ?? false);
+    if (payLaterCard) payLaterCard.hidden = !checkout.payAtPickupAllowed;
+    if (seatLimit < 1) window.happynessToast?.('This trip is currently sold out.');
 
     function travellerTotal() {
       return counts.adults + counts.children + counts.infants;
@@ -155,7 +184,7 @@
 
     function calculatePrice() {
       const subtotal = counts.adults * adultPrice + counts.children * childPrice;
-      const discount = couponApplied ? couponDiscount : 0;
+      const discount = couponApplied ? Math.round(subtotal * couponPercent / 100) : 0;
       const taxable = Math.max(0, subtotal - discount);
       const gst = Math.round(taxable * GST_RATE);
       const total = taxable + gst + CONVENIENCE_FEE;
@@ -295,19 +324,33 @@
       updateValidation();
     });
 
-    document.getElementById('apply-coupon').addEventListener('click', () => {
+    document.getElementById('apply-coupon').addEventListener('click', async () => {
       const message = document.getElementById('coupon-message');
       const code = document.getElementById('coupon-code').value.trim().toUpperCase();
-      if (code === 'HAPPY10') {
-        couponDiscount = Math.round((counts.adults * adultPrice + counts.children * childPrice) * 0.1);
-        couponApplied = true;
-        message.textContent = 'HAPPY10 applied: 10% off';
-        message.className = 'booking-success-message';
-      } else {
-        couponDiscount = 0;
+      if (!code) {
+        couponPercent = 0;
         couponApplied = false;
-        message.textContent = 'Invalid coupon code';
+        message.textContent = '';
+        updatePrice();
+        return;
+      }
+      const button = document.getElementById('apply-coupon');
+      button.disabled = true;
+      try {
+        const coupon = await window.HappynessAPI.getCoupon(code);
+        if (!coupon) throw new Error('Coupon is invalid or expired.');
+        couponPercent = Number(coupon.percent_off);
+        couponApplied = true;
+        message.textContent = `${coupon.code} applied: ${couponPercent}% off`;
+        message.className = 'booking-success-message';
+      } catch (error) {
+        console.error(error);
+        couponPercent = 0;
+        couponApplied = false;
+        message.textContent = error.message || 'We could not verify this coupon.';
         message.className = 'booking-field-error';
+      } finally {
+        button.disabled = false;
       }
       updatePrice();
     });
@@ -324,64 +367,76 @@
 
     function collectTravellerDetails() {
       return [...travellerForms.querySelectorAll('details')].map((card) => {
-        const details = {};
-        card.querySelectorAll('input,select').forEach((field) => { details[field.name.split('-').slice(2).join('-')] = field.value; });
-        return { type: card.querySelector('summary').textContent.split(' ')[0].toLowerCase(), ...details };
+        const type = card.querySelector('summary').textContent.split(' ')[0].toLowerCase();
+        const value = (field) => card.querySelector(`[name="${type}-${card.querySelector('summary').textContent.split(' ')[1]}-${field}"]`)?.value.trim() || '';
+        const traveller = { type, full_name: value('name') };
+        if (type === 'infant') traveller.dob = value('dob');
+        else traveller.age = Number(value('age'));
+        if (type !== 'infant') {
+          traveller.gender = value('gender');
+          traveller.id_type = value('id-type');
+          traveller.id_number = value('id-number');
+        }
+        return traveller;
       });
     }
 
-    function submitBooking(event) {
+    async function submitBooking(event) {
       event.preventDefault();
       updateValidation();
       if (payButton.disabled) {
         form.querySelector(':invalid')?.focus();
         return;
       }
+      const originalButtonLabel = `Pay ${payNowLabel.textContent}`;
       payButton.disabled = true;
-      payButton.textContent = 'Processing payment...';
-      const amounts = calculatePrice();
-      const method = document.querySelector('input[name="payment-method"]:checked').value;
-      const cardDigits = document.getElementById('card-number').value.replace(/\D/g, '');
-      const payLater = method === 'pay-later';
-      const partial = document.getElementById('reserve-partial').checked;
-      const bookingId = `HP-${new Date().getFullYear()}-${String((JSON.parse(localStorage.getItem('bookings') || '[]').length || 0) + 1).padStart(6, '0')}`;
-      const booking = {
-        bookingId,
-        status: payLater || partial ? 'Pending Payment' : 'Confirmed',
-        trip: { ...checkout },
-        travellerCounts: { ...counts },
-        travellers: collectTravellerDetails(),
-        primaryContact: {
-          name: document.getElementById('contact-name').value.trim(),
-          mobile: document.getElementById('contact-mobile').value.trim(),
-          email: document.getElementById('contact-email').value.trim(),
-          city: document.getElementById('contact-city').value.trim()
-        },
-        emergencyContact: {
-          name: document.getElementById('emergency-name').value.trim(),
-          relationship: document.getElementById('emergency-relationship').value.trim(),
-          mobile: document.getElementById('emergency-mobile').value.trim()
-        },
-        pickupPoint: pickup.value,
-        specialRequests: document.getElementById('special-requests').value.trim(),
-        subtotal: amounts.subtotal,
-        discount: amounts.discount,
-        gst: amounts.gst,
-        convenienceFee: CONVENIENCE_FEE,
-        total: amounts.total,
-        amountPaid: amounts.paidNow,
-        balanceDue: amounts.balance,
-        paymentMethod: { type: method, ...(method === 'card' ? { last4: cardDigits.slice(-4) } : {}) },
-        bookingDate: new Date().toISOString()
-      };
-      window.setTimeout(() => {
-        const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-        bookings.unshift(booking);
-        localStorage.setItem('bookings', JSON.stringify(bookings));
-        localStorage.setItem('lastBooking', JSON.stringify(booking));
-        localStorage.removeItem('checkout');
-        window.location.href = 'booking-confirmation.html';
-      }, 650);
+      payButton.textContent = 'Processing demo booking…';
+      const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+      const paymentMethod = {
+        'net-banking': 'net_banking',
+        'pay-later': 'pay_later'
+      }[selectedMethod] || selectedMethod;
+      try {
+        // Replace this demo-only flow with a payment gateway, Edge Function, and signed webhook.
+        const booking = await window.HappynessAPI.createBooking({
+          tripId: trip.id,
+          adults: counts.adults,
+          children: counts.children,
+          infants: counts.infants,
+          travellers: collectTravellerDetails(),
+          contact: {
+            name: document.getElementById('contact-name').value.trim(),
+            mobile: document.getElementById('contact-mobile').value.trim(),
+            email: document.getElementById('contact-email').value.trim(),
+            city: document.getElementById('contact-city').value.trim(),
+            emergency_name: document.getElementById('emergency-name').value.trim(),
+            emergency_relation: document.getElementById('emergency-relationship').value.trim(),
+            emergency_mobile: document.getElementById('emergency-mobile').value.trim(),
+            special_requests: document.getElementById('special-requests').value.trim()
+          },
+          pickupPoint: pickup.value,
+          paymentMethod,
+          couponCode: couponApplied ? document.getElementById('coupon-code').value.trim().toUpperCase() : null,
+          partial: document.getElementById('reserve-partial').checked
+        });
+        sessionStorage.removeItem('happynessCheckoutSelection');
+        window.location.href = `booking-confirmation.html?id=${encodeURIComponent(booking.id)}`;
+      } catch (error) {
+        console.error(error);
+        const message = String(error.message || '').toLowerCase();
+        if (message.includes('authentication required') || message.includes('not authenticated')) {
+          window.HappynessAuth?.requireLogin(`${window.location.pathname}${window.location.search}`);
+        } else if (message.includes('seats no longer available')) {
+          window.happynessToast?.('Those seats are no longer available. Please update your traveller count.');
+        } else if (message.includes('coupon')) {
+          window.happynessToast?.('That coupon is invalid or expired. Please remove it and try again.');
+        } else {
+          window.happynessToast?.(error.message || 'We could not create this booking. Please try again.');
+        }
+      } finally {
+        payButton.textContent = originalButtonLabel;
+        updateValidation();
+      }
     }
 
     form.addEventListener('submit', submitBooking);
@@ -390,30 +445,55 @@
     document.querySelector('input[name="payment-method"][value="upi"]').dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  function initializeConfirmationPage() {
-    const requestedId = new URLSearchParams(window.location.search).get('id');
-    const booking = requestedId
-      ? readList('bookings').find((entry) => entry.bookingId === requestedId)
-      : JSON.parse(localStorage.getItem('lastBooking') || 'null');
-    if (!booking) {
+  async function initializeConfirmationPage() {
+    const params = new URLSearchParams(window.location.search);
+    const identifier = params.get('id') || params.get('ref');
+    if (!identifier) {
       window.location.replace('my-bookings.html');
       return;
     }
-    document.getElementById('confirmation-id').textContent = booking.bookingId;
-    document.getElementById('confirmation-trip').textContent = booking.trip.title;
-    document.getElementById('confirmation-dates').textContent = `${booking.trip.dates} · ${booking.trip.duration}`;
-    document.getElementById('confirmation-counts').textContent = travellerCountLabel(booking.travellerCounts);
-    document.getElementById('confirmation-paid').textContent = `₹${Number(booking.amountPaid).toLocaleString('en-IN')}`;
+    let booking;
+    try {
+      booking = await window.HappynessAPI.getBooking(identifier);
+    } catch (error) {
+      console.error(error);
+      window.happynessToast?.(error.message || 'We could not load this booking.');
+      window.setTimeout(() => window.location.replace('my-bookings.html'), 700);
+      return;
+    }
+    if (!booking) {
+      window.happynessToast?.('This booking was not found or is not available to your account.');
+      window.setTimeout(() => window.location.replace('my-bookings.html'), 700);
+      return;
+    }
+    document.getElementById('confirmation-load-status').hidden = true;
+    const trip = booking.trip_snapshot || {};
+    const dates = trip.date_label || trip.start_date || '';
+    document.getElementById('confirmation-id').textContent = booking.booking_ref;
+    document.getElementById('confirmation-trip').textContent = trip.title || 'Group trip';
+    document.getElementById('confirmation-dates').textContent = `${dates} · ${trip.duration_label || ''}`;
+    document.getElementById('confirmation-counts').textContent = travellerCountLabel(booking);
+    document.getElementById('confirmation-total').textContent = formatMoney(booking.total);
+    document.getElementById('confirmation-paid').textContent = formatMoney(booking.amount_paid);
+    document.getElementById('confirmation-balance').textContent = formatMoney(booking.balance_due);
     document.getElementById('confirmation-status').textContent = booking.status;
-    const imagePath = booking.trip.image || '';
-    document.getElementById('confirmation-image').src = imagePath.startsWith('../images/') ? imagePath : '../' + imagePath;
+    const image = document.getElementById('confirmation-image');
+    if (trip.cover_image_path) image.src = window.HappynessAPI.resolveImage(trip.cover_image_path);
+    image.alt = trip.title || 'Booked trip';
     document.getElementById('confirmation-print').addEventListener('click', () => window.print());
-    document.getElementById('confirmation-calendar').addEventListener('click', () => downloadCalendar(booking));
+    document.getElementById('confirmation-calendar').addEventListener('click', () => downloadCalendar({
+      bookingId: booking.booking_ref,
+      trip: { title: trip.title || 'Group trip', dates }
+    }));
   }
 
-  function travellerCountLabel(counts) {
-    const label = (count, singular) => `${count} ${singular}${count === 1 ? '' : 's'}`;
-    return `${label(counts.adults, 'adult')} · ${label(counts.children, 'child')} · ${label(counts.infants, 'infant')}`;
+  function formatMoney(value) {
+    return `₹${Number(value || 0).toLocaleString('en-IN')}`;
+  }
+
+  function travellerCountLabel(booking) {
+    const label = (count, singular) => `${count} ${Number(count) === 1 ? singular : singular === 'child' ? 'children' : `${singular}s`}`;
+    return `${label(booking.adults, 'adult')} · ${label(booking.children, 'child')} · ${label(booking.infants, 'infant')}`;
   }
 
   function downloadCalendar(booking) {
@@ -440,7 +520,8 @@
       end.setDate(end.getDate() + 3);
     }
     const dateFormat = (date) => date.toISOString().slice(0, 10).replace(/-/g, '');
-    const calendar = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nUID:${booking.bookingId}@happynessproject\nDTSTART;VALUE=DATE:${dateFormat(start)}\nDTEND;VALUE=DATE:${dateFormat(end)}\nSUMMARY:${booking.trip.title}\nDESCRIPTION:Booking ${booking.bookingId}\nEND:VEVENT\nEND:VCALENDAR`;
+    const escapeCalendarText = (value) => String(value).replace(/\\/g, '\\\\').replace(/([,;])/g, '\\$1').replace(/\r?\n/g, '\\n');
+    const calendar = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nUID:${booking.bookingId}@happynessproject\nDTSTART;VALUE=DATE:${dateFormat(start)}\nDTEND;VALUE=DATE:${dateFormat(end)}\nSUMMARY:${escapeCalendarText(booking.trip.title)}\nDESCRIPTION:Booking ${escapeCalendarText(booking.bookingId)}\nEND:VEVENT\nEND:VCALENDAR`;
     const link = document.createElement('a');
     link.href = URL.createObjectURL(new Blob([calendar], { type: 'text/calendar' }));
     link.download = `${booking.bookingId}.ics`;
@@ -448,53 +529,127 @@
     URL.revokeObjectURL(link.href);
   }
 
-  function initializeMyBookingsPage() {
-    const bookings = readList('bookings');
-    if (!bookings.length) return;
-    const main = document.querySelector('main');
-    if (!main) return;
-    let list = document.getElementById('checkout-bookings');
-    if (!list) {
-      list = document.createElement('section');
-      list.id = 'checkout-bookings';
-      list.className = 'checkout-bookings-list';
-      main.prepend(list);
-    }
-    list.innerHTML = bookings.map((booking) => `<article class="checkout-booking-card" data-booking-status="${escapeHtml(booking.status)}"><div class="checkout-booking-meta"><span class="checkout-booking-status ${booking.status === 'Confirmed' ? 'is-confirmed' : 'is-pending'}">${escapeHtml(booking.status)}</span><strong>${escapeHtml(booking.bookingId)}</strong><b>₹${Number(booking.total).toLocaleString('en-IN')}</b></div><h2>${escapeHtml(booking.trip.title)}</h2><p>${escapeHtml(booking.trip.location || '')} · ${escapeHtml(booking.trip.dates)} · ${escapeHtml(booking.trip.duration)}</p><p>${travellerCountLabel(booking.travellerCounts)}</p><p>Paid ₹${Number(booking.amountPaid).toLocaleString('en-IN')} · Balance ₹${Number(booking.balanceDue).toLocaleString('en-IN')}</p><a href="booking-confirmation.html?id=${encodeURIComponent(booking.bookingId)}">View Booking</a></article>`).join('');
+  async function initializeMyBookingsPage() {
+    const list = document.getElementById('checkout-bookings');
+    const totalCount = document.getElementById('booking-total-count');
+    const categoryButtons = [...document.querySelectorAll('nav[aria-label="Booking Categories"] button')];
+    if (!list) return;
+    const user = window.HappynessAuth?.getUser();
+    if (!user) return;
+    let bookings = [];
+    let selectedStatus = 'Confirmed';
 
-    const categoryButtons = document.querySelectorAll('nav[aria-label="Booking Categories"] button');
-    categoryButtons.forEach((button) => {
-      const label = button.querySelector('span')?.textContent.trim();
-      const additional = label === 'Upcoming'
-        ? bookings.filter((booking) => booking.status === 'Confirmed').length
-        : label === 'Pending Payment'
-          ? bookings.filter((booking) => booking.status === 'Pending Payment').length
-          : 0;
-      const badge = button.querySelectorAll('span')[1];
-      if (badge && additional) badge.textContent = String((Number(badge.textContent) || 0) + additional);
-    });
-    const filterBookings = (status) => {
-      list.querySelectorAll('[data-booking-status]').forEach((card) => {
-        card.hidden = card.dataset.bookingStatus !== status;
-      });
+    function updateCounts() {
+      const counts = {
+        Confirmed: bookings.filter((booking) => booking.status === 'Confirmed').length,
+        'Pending Payment': bookings.filter((booking) => booking.status === 'Pending Payment').length,
+        Completed: bookings.filter((booking) => booking.status === 'Completed').length,
+        Cancelled: bookings.filter((booking) => booking.status === 'Cancelled').length
+      };
+      if (totalCount) totalCount.textContent = `${bookings.length} Trip${bookings.length === 1 ? '' : 's'} Listed`;
       categoryButtons.forEach((button) => {
-        const active = (status === 'Confirmed' && button.textContent.includes('Upcoming')) ||
-          (status === 'Pending Payment' && button.textContent.includes('Pending Payment'));
+        const label = button.querySelector('span')?.textContent.trim();
+        const status = label === 'Upcoming' ? 'Confirmed' : label;
+        const badge = button.querySelectorAll('span')[1];
+        if (badge) badge.textContent = String(counts[status] || 0);
+      });
+    }
+
+    function renderBookings() {
+      const filtered = bookings.filter((booking) => booking.status === selectedStatus);
+      list.replaceChildren();
+      if (!filtered.length) {
+        const empty = document.createElement('div');
+        empty.className = 'mt-4 border-2 border-dashed border-outline-variant/60 rounded-2xl p-6 text-center bg-surface-container-lowest/50';
+        const heading = document.createElement('h2');
+        heading.className = 'font-title-md text-title-md text-on-surface font-semibold';
+        heading.textContent = `No ${selectedStatus === 'Confirmed' ? 'upcoming' : selectedStatus.toLowerCase()} bookings`;
+        const text = document.createElement('p');
+        text.className = 'font-body-sm text-body-sm text-on-surface-variant mt-1';
+        text.textContent = 'Your bookings will appear here once you reserve a trip.';
+        const browse = document.createElement('a');
+        browse.className = 'inline-flex mt-3 font-label-md text-label-md text-primary font-bold hover:underline';
+        browse.href = 'upcoming-events.html';
+        browse.textContent = 'Browse Upcoming Trips';
+        empty.append(heading, text, browse);
+        list.append(empty);
+        return;
+      }
+      filtered.forEach((booking) => {
+        const trip = booking.trip_snapshot || {};
+        const dateLabel = trip.date_label || trip.start_date || '';
+        const travellers = travellerCountLabel(booking);
+        const statusClass = booking.status === 'Confirmed'
+          ? 'bg-primary-fixed text-on-primary-fixed-variant'
+          : booking.status === 'Pending Payment'
+            ? 'bg-secondary-fixed text-on-secondary-fixed-variant'
+            : 'bg-surface-container-high text-on-surface-variant';
+        const card = document.createElement('article');
+        card.className = 'bg-surface-container-lowest rounded-2xl p-4 shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06),0_2px_6px_-1px_rgba(31,41,55,0.04)] border border-surface-container-high/70 transition-all duration-200';
+        card.innerHTML = `<div class="flex items-center justify-between pb-3 border-b border-surface-container-low mb-3"><div class="flex items-center gap-2"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full ${statusClass} font-label-sm text-label-sm font-semibold">${escapeHtml(booking.status)}</span><span class="font-label-sm text-label-sm text-outline">#${escapeHtml(booking.booking_ref)}</span></div><div class="text-right"><span class="font-price-display text-price-display text-primary">${formatMoney(booking.total)}</span><span class="block font-label-sm text-label-sm text-outline">Total</span></div></div>` +
+          `<div class="flex gap-3.5 mb-3"><div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 relative bg-surface-container-high">${trip.cover_image_path ? `<img class="w-full h-full object-cover" src="${escapeHtml(window.HappynessAPI.resolveImage(trip.cover_image_path))}" alt="${escapeHtml(trip.title || 'Booked trip')}">` : ''}</div><div class="flex-1 min-w-0"><span class="inline-flex items-center gap-1 text-[11px] font-bold text-primary tracking-wide">${escapeHtml(trip.destination || trip.location || '')}</span><h2 class="font-title-md text-title-md text-on-surface font-semibold line-clamp-2 leading-snug">${escapeHtml(trip.title || 'Group trip')}</h2><p class="mt-1 font-body-sm text-body-sm text-on-surface-variant">${escapeHtml(dateLabel)} · ${escapeHtml(trip.duration_label || '')}</p><p class="font-body-sm text-body-sm text-on-surface-variant">${escapeHtml(travellers)}</p></div></div>` +
+          `<div class="flex flex-wrap items-center justify-between gap-2 pt-2"><span class="font-body-sm text-body-sm text-on-surface-variant">Paid ${formatMoney(booking.amount_paid)} · Balance ${formatMoney(booking.balance_due)}</span><div class="flex gap-2"><a class="hp-wishlist-action" href="booking-confirmation.html?id=${encodeURIComponent(booking.id)}">View Ticket</a>${booking.status !== 'Cancelled' && booking.status !== 'Completed' ? `<button class="hp-wishlist-action" type="button" data-cancel-booking="${escapeHtml(booking.id)}">Cancel</button>` : ''}</div></div>`;
+        list.append(card);
+      });
+    }
+
+    function setActiveStatus(status) {
+      selectedStatus = status;
+      categoryButtons.forEach((button) => {
+        const label = button.querySelector('span')?.textContent.trim();
+        const active = (label === 'Upcoming' && status === 'Confirmed') || label === status;
         button.classList.toggle('bg-primary', active);
         button.classList.toggle('text-on-primary', active);
         button.classList.toggle('shadow-sm', active);
         button.classList.toggle('bg-surface-container-high', !active);
         button.classList.toggle('text-on-surface-variant', !active);
       });
-    };
+      renderBookings();
+    }
+
+    async function loadBookings() {
+      list.textContent = 'Loading your bookings…';
+      try {
+        bookings = await window.HappynessAPI.listMyBookings(user.id);
+        updateCounts();
+        setActiveStatus(selectedStatus);
+      } catch (error) {
+        console.error(error);
+        list.replaceChildren();
+        const message = document.createElement('p');
+        message.className = 'font-body-sm text-body-sm text-on-surface-variant';
+        message.textContent = error.message || 'We could not load your bookings.';
+        const retry = document.createElement('button');
+        retry.type = 'button';
+        retry.className = 'mt-3 rounded-xl bg-primary px-4 py-2 text-on-primary';
+        retry.textContent = 'Retry';
+        retry.addEventListener('click', loadBookings);
+        list.append(message, retry);
+      }
+    }
+
     categoryButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const label = button.querySelector('span')?.textContent.trim();
-        if (label === 'Upcoming') filterBookings('Confirmed');
-        else if (label === 'Pending Payment') filterBookings('Pending Payment');
-        else list.querySelectorAll('[data-booking-status]').forEach((card) => { card.hidden = true; });
+        setActiveStatus(label === 'Upcoming' ? 'Confirmed' : label);
       });
     });
-    filterBookings(bookings[0].status);
+    list.addEventListener('click', async (event) => {
+      const button = event.target.closest('[data-cancel-booking]');
+      if (!button || !window.confirm('Cancel this booking? Seats will be returned to the trip.')) return;
+      button.disabled = true;
+      try {
+        await window.HappynessAPI.cancelBooking(button.dataset.cancelBooking);
+        window.happynessToast?.('Your booking has been cancelled.');
+        await loadBookings();
+      } catch (error) {
+        console.error(error);
+        window.happynessToast?.(error.message || 'We could not cancel this booking.');
+      } finally {
+        button.disabled = false;
+      }
+    });
+    await loadBookings();
   }
+
 })();

@@ -113,7 +113,8 @@ The app is a static multi-page front end backed by Supabase for authentication a
 
 - Approved trips and their detail data are loaded through `js/api.js` from Supabase.
 - Wishlist and cart data are read and written through `js/api.js` under owner-only Supabase RLS policies.
-- Booking records and checkout submission are being migrated in the next phase.
+- Booking submissions call the `create_booking` RPC so prices, seat checks, booking references, and payment amounts are computed on the server.
+- Booking history, confirmation details, and cancellation use owner-scoped Supabase queries/RPCs; the only browser storage used during checkout is a session-scoped trip ID and traveller count.
 - Supabase Auth session checks redirect users to the login page when protected actions are triggered.
 - The layout and styling use a travel-brand design system with warm earth tones, teal accents, and modern card-based UI
 
@@ -141,12 +142,10 @@ http://localhost:8000
 
 - This project is intended for UI/UX demonstration and frontend prototyping.
 - Supabase Auth and the approved trip catalogue are connected; the Supabase schema and seed still need to be applied in the project dashboard.
-- Wishlist and cart persist in Supabase. Booking records are not yet migrated and remain in the existing checkout flow until Phase 5.
-- No production payment gateway is connected.
+- Wishlist, cart, and booking records persist in Supabase. Checkout payment choices are demo-only; no payment gateway is connected, and card/UPI/bank credentials are not sent to Supabase.
 
 ## Suggested Future Enhancements
 
-- Database-backed bookings and inventory tracking
 - Payment gateway integration
 - Admin dashboard for trip and booking management
 
