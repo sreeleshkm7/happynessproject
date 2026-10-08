@@ -508,6 +508,60 @@
     }
   }
 
+  async function updateMyProfile(userId, profile) {
+    const client = getClient();
+    const changes = {
+      username: String(profile?.username || '').trim(),
+      full_name: String(profile?.full_name || '').trim(),
+      mobile: String(profile?.mobile || '').trim()
+    };
+    if (!changes.username || !changes.full_name) throw new Error('Username and full name are required.');
+    try {
+      const { data, error } = await client.from('profiles')
+        .update(changes)
+        .eq('id', userId)
+        .select('id,username,full_name,mobile,role')
+        .single();
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      if (error && error.code === '23505') throw new Error('That username is already taken.', { cause: error });
+      throw new Error(error.message || 'Could not update your profile.', { cause: error });
+    }
+  }
+
+  async function createCustomTripRequest(request) {
+    const client = getClient();
+    try {
+      const { error } = await client.from('custom_trip_requests').insert(request);
+      if (error) throw error;
+      return request.id;
+    } catch (error) {
+      throw new Error(error.message || 'Could not send your trip request.', { cause: error });
+    }
+  }
+
+  async function createContactMessage(message) {
+    const client = getClient();
+    try {
+      const { error } = await client.from('contact_messages').insert(message);
+      if (error) throw error;
+    } catch (error) {
+      throw new Error(error.message || 'Could not send your message.', { cause: error });
+    }
+  }
+
+  async function subscribeNewsletter(email) {
+    const client = getClient();
+    try {
+      const { error } = await client.from('newsletter_subscribers')
+        .upsert({ email: String(email).trim().toLowerCase() }, { onConflict: 'email', ignoreDuplicates: true });
+      if (error) throw error;
+    } catch (error) {
+      throw new Error(error.message || 'Could not add you to the newsletter.', { cause: error });
+    }
+  }
+
   async function getMyProfile(userId) {
     const client = getClient();
     try {
@@ -552,6 +606,10 @@
     listHostTrips,
     listPendingTrips,
     reviewPendingTrip,
+    updateMyProfile,
+    createCustomTripRequest,
+    createContactMessage,
+    subscribeNewsletter,
     getMyProfile
   });
 })();

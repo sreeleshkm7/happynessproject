@@ -386,11 +386,13 @@
 </div>
 <h3 class="font-headline-sm text-headline-sm font-bold leading-tight">Get ₹1,000 off your first group escape</h3>
 <p class="font-body-sm text-body-sm text-on-tertiary-fixed-variant mt-1 mb-4">Subscribe to early-bird seat openings and curated weekend itineraries.</p>
-<form class="flex flex-col gap-2" onsubmit="event.preventDefault(); alert('Subscribed to HappynessProject drop alerts!');">
-<input class="w-full bg-surface-container-lowest px-4 py-3 rounded-xl border border-surface-container-high text-on-surface font-body-sm focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Enter your email or WhatsApp number" required="" type="email"/>
+<form id="newsletter-form" data-form-kind="newsletter" class="flex flex-col gap-2">
+<input name="email" class="w-full bg-surface-container-lowest px-4 py-3 rounded-xl border border-surface-container-high text-on-surface font-body-sm focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Enter your email or WhatsApp number" required="" type="email"/>
+<div class="hp-honeypot" aria-hidden="true"><label>Leave this field blank<input name="website" tabindex="-1" autocomplete="off"></label></div>
 <button class="w-full bg-secondary-container hover:brightness-105 active:bg-secondary text-on-primary font-label-lg text-label-lg py-3 rounded-xl transition-all shadow-sm" type="submit">
             Claim ₹1,000 Voucher
           </button>
+<p data-form-status class="font-body-sm text-body-sm" role="status" aria-live="polite" hidden></p>
 </form>
 </div>
 </section>
@@ -497,4 +499,5 @@
 <script src="js/auth.js"></script>
 <script src="js/header.js"></script>
 <script src="js/main.js"></script>
+<script src="js/forms.js"></script>
 </body></html>

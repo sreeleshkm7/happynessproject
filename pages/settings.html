@@ -10,8 +10,42 @@
   <link rel="stylesheet" href="../css/style.css">
   <script>document.documentElement.classList.add('hp-auth-pending');</script>
 </head>
-<body>
-  <main class="hp-placeholder"><h1>Account Settings</h1><p>Manage your HappynessProject account.</p><a href="../index.html">Back to Home</a></main>
+<body class="min-h-screen bg-background text-on-surface">
+  <main class="mx-auto min-h-screen w-full max-w-2xl px-4 pb-24 pt-8">
+    <p class="font-label-md text-label-md uppercase tracking-wide text-primary">Your Account</p>
+    <h1 class="mt-1 font-headline-lg-mobile text-headline-lg-mobile font-bold">Account Settings</h1>
+    <p class="mb-6 mt-2 font-body-sm text-body-sm text-on-surface-variant">Manage your HappynessProject account.</p>
+    <div class="space-y-5">
+      <form data-form-kind="profile" class="space-y-4 rounded-2xl bg-surface-container-lowest p-5 shadow-sm">
+        <h2 class="font-title-md text-title-md font-semibold">Profile</h2>
+        <label class="block font-label-md text-label-md">Username<input name="username" id="settings-username" required maxlength="40" autocomplete="username" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+        <label class="block font-label-md text-label-md">Full name<input name="full_name" id="settings-full-name" required maxlength="120" autocomplete="name" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+        <button class="rounded-xl bg-primary px-4 py-3 font-label-lg text-label-lg text-on-primary" type="submit">Save Profile</button>
+        <p data-form-status class="font-body-sm text-body-sm" role="status" hidden></p>
+      </form>
+      <form data-form-kind="mobile" class="space-y-4 rounded-2xl bg-surface-container-lowest p-5 shadow-sm">
+        <h2 class="font-title-md text-title-md font-semibold">Mobile Number</h2>
+        <label class="block font-label-md text-label-md">Mobile<input name="mobile" id="settings-mobile" type="tel" required maxlength="30" autocomplete="tel" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">TODO: Mobile number changes are not yet verified by OTP.</p>
+        <button class="rounded-xl bg-primary px-4 py-3 font-label-lg text-label-lg text-on-primary" type="submit">Save Mobile</button>
+        <p data-form-status class="font-body-sm text-body-sm" role="status" hidden></p>
+      </form>
+      <form data-form-kind="email" class="space-y-4 rounded-2xl bg-surface-container-lowest p-5 shadow-sm">
+        <h2 class="font-title-md text-title-md font-semibold">Email Address</h2>
+        <label class="block font-label-md text-label-md">Email<input name="email" id="settings-email" type="email" required maxlength="254" autocomplete="email" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Supabase will send a confirmation link to verify the new address.</p>
+        <button class="rounded-xl bg-primary px-4 py-3 font-label-lg text-label-lg text-on-primary" type="submit">Change Email</button>
+        <p data-form-status class="font-body-sm text-body-sm" role="status" hidden></p>
+      </form>
+      <form data-form-kind="password" class="space-y-4 rounded-2xl bg-surface-container-lowest p-5 shadow-sm">
+        <h2 class="font-title-md text-title-md font-semibold">Change Password</h2>
+        <label class="block font-label-md text-label-md">New password<input name="password" type="password" required minlength="6" autocomplete="new-password" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+        <label class="block font-label-md text-label-md">Confirm new password<input name="confirm_password" type="password" required minlength="6" autocomplete="new-password" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+        <button class="rounded-xl bg-primary px-4 py-3 font-label-lg text-label-lg text-on-primary" type="submit">Update Password</button>
+        <p data-form-status class="font-body-sm text-body-sm" role="status" hidden></p>
+      </form>
+    </div>
+  </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
   <script src="../js/config.js"></script>
   <script src="../js/supabase-client.js"></script>
@@ -19,5 +53,6 @@
   <script src="../js/auth.js"></script>
   <script src="../js/header.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/forms.js"></script>
 </body>
 </html>

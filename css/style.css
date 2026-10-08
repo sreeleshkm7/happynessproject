@@ -9,6 +9,14 @@
   --rainbow-gradient: linear-gradient(90deg, var(--rainbow-red), var(--rainbow-orange), var(--rainbow-yellow), var(--rainbow-green), var(--rainbow-blue), var(--rainbow-indigo), var(--rainbow-violet));
 }
 
+.hp-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .hp-site-header {
   position: fixed;
   top: 0;

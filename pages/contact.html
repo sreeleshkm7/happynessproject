@@ -9,8 +9,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-  <main class="hp-placeholder"><h1>Contact Us</h1><p>Our trip team is ready to help with your plans.</p><a href="https://wa.me/">Chat with our trip team</a></main>
+<body class="min-h-screen bg-background text-on-surface">
+  <main class="mx-auto min-h-screen w-full max-w-2xl px-4 pb-24 pt-8">
+    <p class="font-label-md text-label-md uppercase tracking-wide text-primary">We're Here to Help</p>
+    <h1 class="mt-1 font-headline-lg-mobile text-headline-lg-mobile font-bold">Contact Us</h1>
+    <p class="mb-4 mt-2 font-body-sm text-body-sm text-on-surface-variant">Our trip team is ready to help with your plans.</p>
+    <a class="mb-6 inline-block text-primary underline" href="https://wa.me/">Chat with our trip team</a>
+    <form id="contact-form" data-form-kind="contact" class="space-y-4 rounded-2xl bg-surface-container-lowest p-5 shadow-sm">
+      <label class="block font-label-md text-label-md">Name<input name="name" required maxlength="120" autocomplete="name" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+      <label class="block font-label-md text-label-md">Email<input name="email" type="email" required maxlength="254" autocomplete="email" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+      <label class="block font-label-md text-label-md">Subject<input name="subject" required maxlength="200" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+      <label class="block font-label-md text-label-md">Message<textarea name="message" rows="5" required maxlength="5000" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></textarea></label>
+      <div class="hp-honeypot" aria-hidden="true"><label>Leave this field blank<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="rounded-xl bg-secondary-container px-5 py-3 font-label-lg text-label-lg text-white" type="submit">Send Message</button>
+      <p data-form-status class="font-body-sm text-body-sm" role="status" aria-live="polite" hidden></p>
+    </form>
+  </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
   <script src="../js/config.js"></script>
   <script src="../js/supabase-client.js"></script>
@@ -18,5 +32,6 @@
   <script src="../js/auth.js"></script>
   <script src="../js/header.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/forms.js"></script>
 </body>
 </html>

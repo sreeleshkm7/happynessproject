@@ -353,6 +353,32 @@
     }
   }
 
+  async function updateAccountEmail(email) {
+    if (!client) throw new Error('Email updates are unavailable until Supabase is configured.');
+    try {
+      const { error } = await client.auth.updateUser({ email: String(email || '').trim() });
+      if (error) throw error;
+    } catch (error) {
+      throw new Error(friendlyError(error, 'settings'), { cause: error });
+    }
+  }
+
+  async function updateAccountPassword(password) {
+    if (!client) throw new Error('Password updates are unavailable until Supabase is configured.');
+    if (String(password || '').length < 6) throw new Error('Use a password with at least 6 characters.');
+    try {
+      const { error } = await client.auth.updateUser({ password });
+      if (error) throw error;
+    } catch (error) {
+      throw new Error(friendlyError(error, 'settings'), { cause: error });
+    }
+  }
+
+  async function refreshProfile() {
+    if (session?.user) await loadProfile(session.user);
+    return profile;
+  }
+
   async function logout() {
     if (!client) {
       notify('Sign-out is unavailable until Supabase is configured.');
@@ -421,6 +447,9 @@
     signInWithGoogle,
     sendPasswordReset,
     updatePassword,
+    updateAccountEmail,
+    updateAccountPassword,
+    refreshProfile,
     updateCounts: (force) => updateItemCounts(Boolean(force))
   };
 })();

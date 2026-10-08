@@ -51,6 +51,7 @@ This repository is intended as a travel UI prototype or demo application rather 
 - Tailwind CSS via CDN
 - Supabase JS v2 for authentication and trip-catalogue data
 - Supabase-backed wishlist and cart persistence
+- Supabase-backed profile settings, custom trip requests, contact messages, and newsletter subscriptions
 - Browser sessionStorage only for the temporary trip/traveller checkout hand-off
 - Static site structure with multiple HTML pages
 
@@ -71,6 +72,7 @@ happynessproject/
 │   ├── config.js              # Supabase URL and public anon key placeholders
 │   ├── auth.js                # Login/auth guards and session behavior
 │   ├── checkout.js            # Booking and checkout logic
+│   ├── forms.js               # Settings and public request/newsletter forms
 │   ├── header.js              # Shared navbar/header rendering
 │   ├── host.js                # Host trip wizard, host dashboard, and approvals
 │   ├── main.js                # Core trip browsing, wishlist, and cart behavior
@@ -119,6 +121,7 @@ The app is a static multi-page front end backed by Supabase for authentication a
 - Booking submissions call the `create_booking` RPC so prices, seat checks, booking references, and payment amounts are computed on the server.
 - Booking history, confirmation details, and cancellation use owner-scoped Supabase queries/RPCs; the only browser storage used during checkout is a session-scoped trip ID and traveller count.
 - Hosts can save drafts and submit trips for approval; admins review pending trips. Host and admin capabilities are enforced by profile roles and RLS, not by page visibility alone.
+- Profile and email/password changes use Supabase Auth and the owner-scoped profile policy. Contact, custom-trip, and newsletter forms use insert-only RLS; their browser honeypots and rate limits are basic client-side spam controls, not server-side abuse prevention.
 - Supabase Auth session checks redirect users to the login page when protected actions are triggered.
 - The layout and styling use a travel-brand design system with warm earth tones, teal accents, and modern card-based UI
 

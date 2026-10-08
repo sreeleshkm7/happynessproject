@@ -9,8 +9,45 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-  <main class="hp-placeholder"><h1>Customize Trip</h1><p>Tell us what kind of group trip you have in mind.</p><form><label for="trip-idea">Trip idea</label><textarea id="trip-idea" rows="4"></textarea><button type="button" onclick="location.href='contact.html'">Send trip request</button></form></main>
+<body class="min-h-screen bg-background text-on-surface">
+  <main class="mx-auto min-h-screen w-full max-w-2xl px-4 pb-24 pt-8">
+    <p class="font-label-md text-label-md uppercase tracking-wide text-primary">Personalized Journeys</p>
+    <h1 class="mt-1 font-headline-lg-mobile text-headline-lg-mobile font-bold">Customize Trip</h1>
+    <p class="mb-6 mt-2 font-body-sm text-body-sm text-on-surface-variant">Tell us what kind of group trip you have in mind.</p>
+    <form id="custom-trip-form" data-form-kind="custom-trip" class="space-y-4 rounded-2xl bg-surface-container-lowest p-5 shadow-sm">
+      <label class="block font-label-md text-label-md">Destination ideas<textarea name="destination_ideas" rows="3" maxlength="2000" required placeholder="Where would you like to go?" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></textarea></label>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="block font-label-md text-label-md">Start date<input name="start_date" type="date" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+        <label class="block font-label-md text-label-md">End date<input name="end_date" type="date" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+      </div>
+      <label class="flex items-center gap-2 font-body-sm text-body-sm"><input name="flexible" type="checkbox" class="rounded border-outline">My dates are flexible</label>
+      <label class="block font-label-md text-label-md">Travellers<input name="travellers" type="number" min="1" max="100" value="1" required class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="block font-label-md text-label-md">Minimum budget (₹)<input name="budget_min" type="number" min="0" step="100" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+        <label class="block font-label-md text-label-md">Maximum budget (₹)<input name="budget_max" type="number" min="0" step="100" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+      </div>
+      <fieldset class="space-y-2">
+        <legend class="font-label-md text-label-md">Interests</legend>
+        <div class="flex flex-wrap gap-3 font-body-sm text-body-sm">
+          <label class="flex items-center gap-1.5"><input name="interests" type="checkbox" value="nature">Nature</label>
+          <label class="flex items-center gap-1.5"><input name="interests" type="checkbox" value="adventure">Adventure</label>
+          <label class="flex items-center gap-1.5"><input name="interests" type="checkbox" value="culture">Culture</label>
+          <label class="flex items-center gap-1.5"><input name="interests" type="checkbox" value="food">Food</label>
+          <label class="flex items-center gap-1.5"><input name="interests" type="checkbox" value="beach">Beach</label>
+        </div>
+      </fieldset>
+      <label class="block font-label-md text-label-md">Stay preference<select name="stay_preference" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"><option value="">No preference</option><option>Hotel</option><option>Homestay</option><option>Camping</option><option>Resort</option></select></label>
+      <label class="block font-label-md text-label-md">Additional notes<textarea name="notes" rows="3" maxlength="3000" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></textarea></label>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="block font-label-md text-label-md">Your name<input name="contact_name" required maxlength="120" autocomplete="name" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+        <label class="block font-label-md text-label-md">Email<input name="contact_email" type="email" required maxlength="254" autocomplete="email" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+      </div>
+      <label class="block font-label-md text-label-md">Mobile (optional)<input name="contact_mobile" type="tel" maxlength="30" autocomplete="tel" class="mt-1.5 w-full rounded-xl border border-surface-variant bg-surface px-4 py-3"></label>
+      <div class="hp-honeypot" aria-hidden="true"><label>Leave this field blank<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="rounded-xl bg-secondary-container px-5 py-3 font-label-lg text-label-lg text-white" type="submit">Send trip request</button>
+      <p data-form-status class="font-body-sm text-body-sm" role="status" aria-live="polite" hidden></p>
+    </form>
+  </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
   <script src="../js/config.js"></script>
   <script src="../js/supabase-client.js"></script>
@@ -18,5 +55,6 @@
   <script src="../js/auth.js"></script>
   <script src="../js/header.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/forms.js"></script>
 </body>
 </html>
