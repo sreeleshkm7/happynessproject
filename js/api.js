@@ -104,6 +104,46 @@
     return listTrips({ ...(filters || {}), text }, sort, page);
   }
 
+  async function listFeaturedDestinations() {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('trips')
+        .select('destination,cover_image_path,start_date,created_at')
+        .eq('status', 'approved')
+        .or(`start_date.gte.${todayDate()},start_date.is.null`)
+        .order('start_date', { ascending: true, nullsFirst: false })
+        .order('created_at', { ascending: false })
+        .limit(100);
+      if (error) throw error;
+      const destinations = new Map();
+      (data || []).forEach((trip) => {
+        const name = String(trip.destination || '').trim();
+        const key = name.toLocaleLowerCase();
+        if (name && !destinations.has(key)) {
+          destinations.set(key, { destination: name, cover_image_path: trip.cover_image_path });
+        }
+      });
+      return [...destinations.values()].slice(0, 4);
+    } catch (error) {
+      throw new Error('Could not load popular destinations.', { cause: error });
+    }
+  }
+
+  async function listRecentReviews(limit) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('reviews')
+        .select('rating,comment,created_at,trip:trips!inner(title,destination,status)')
+        .eq('trip.status', 'approved')
+        .order('created_at', { ascending: false })
+        .limit(Math.max(1, Math.min(8, Number(limit) || 6)));
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      throw new Error('Could not load recent trip reviews.', { cause: error });
+    }
+  }
+
   async function getTrip(slugOrId) {
     const key = String(slugOrId || '').trim();
     if (!key) throw new Error('A trip ID or slug is required.');
@@ -582,6 +622,8 @@
     listTrips,
     getTrip,
     searchTrips,
+    listFeaturedDestinations,
+    listRecentReviews,
     resolveImage,
     canReviewTrip,
     createReview,

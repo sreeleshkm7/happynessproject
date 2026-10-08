@@ -175,7 +175,7 @@
 <span class="material-symbols-outlined text-primary text-xl">location_on</span>
 <div class="flex-1 min-w-0">
 <span class="block font-label-sm text-label-sm text-on-surface-variant font-medium">Where to?</span>
-<input class="w-full bg-transparent p-0 text-title-md font-title-md text-on-surface border-0 focus:ring-0 focus:outline-none truncate" placeholder="Search destination" type="text" value="Manali, Ladakh, Meghalaya"/>
+<input class="w-full bg-transparent p-0 text-title-md font-title-md text-on-surface border-0 focus:ring-0 focus:outline-none truncate" placeholder="Search destination" type="text"/>
 </div>
 </div>
 <!-- Month Selector & Budget Row -->
@@ -245,43 +245,11 @@
 <h2 class="font-headline-md text-headline-md font-bold text-on-surface">Popular Destinations</h2>
 </div>
 </div>
-<div class="grid grid-cols-2 gap-3">
-<!-- Destination 1: Rajasthan Forts -->
-<div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-sm group">
-<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Majestic golden hour photograph of Jaisalmer Fort rising from golden Thar desert dunes in Rajasthan. Glowing warm sandstone palace walls with intricate jharokhas are framed in soft desert haze with warm golden lighting, embodying regal heritage and travel allure." src="images/image-396f23f.jpg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/85 via-transparent to-transparent"></div>
-<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
-<h4 class="font-title-md text-title-md font-bold">Rajasthan Forts</h4>
-<span class="font-label-sm text-label-sm text-surface-variant/90">8 upcoming trips</span>
-</div>
-</div>
-<!-- Destination 2: Kerala Backwaters -->
-<div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-sm group">
-<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="A tranquil traditional wooden houseboat cruising gently through serene coconut palm-lined waterways in Alleppey, Kerala. Glossy reflections shimmer on the water surface during a peaceful tropical afternoon, with vibrant natural emerald greenery and soothing water tones." src="images/image-601fa88.jpg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/85 via-transparent to-transparent"></div>
-<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
-<h4 class="font-title-md text-title-md font-bold">Kerala Backwaters</h4>
-<span class="font-label-sm text-label-sm text-surface-variant/90">5 upcoming trips</span>
-</div>
-</div>
-<!-- Destination 3: Spiti Valley -->
-<div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-sm group">
-<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="A scenic panoramic highway snaking through high mountain passes in Spiti with dramatic snow-capped peaks and traditional prayer flags fluttering in mountain breezes. Soft mountain atmospheric glow enhances the remote beauty and untouched serenity." src="images/image-072d66a.jpg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/85 via-transparent to-transparent"></div>
-<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
-<h4 class="font-title-md text-title-md font-bold">Spiti Valley</h4>
-<span class="font-label-sm text-label-sm text-surface-variant/90">12 upcoming trips</span>
-</div>
-</div>
-<!-- Destination 4: Gokarna -->
-<div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-sm group">
-<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Golden sunset spilling over Om Beach in Gokarna with gentle ocean foam rolling over smooth granite coastal rocks. Warm amber sun rays illuminate sandy shores with travelers gathered around in the distance celebrating twilight." src="images/image-6fd6f3a.jpg"/>
-<div class="absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/85 via-transparent to-transparent"></div>
-<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
-<h4 class="font-title-md text-title-md font-bold">Gokarna Sunset</h4>
-<span class="font-label-sm text-label-sm text-surface-variant/90">6 upcoming trips</span>
-</div>
-</div>
+<div class="grid grid-cols-2 gap-3" data-popular-destinations aria-live="polite">
+<div class="aspect-[4/5] animate-pulse rounded-2xl bg-surface-container"></div>
+<div class="aspect-[4/5] animate-pulse rounded-2xl bg-surface-container"></div>
+<div class="aspect-[4/5] animate-pulse rounded-2xl bg-surface-container"></div>
+<div class="aspect-[4/5] animate-pulse rounded-2xl bg-surface-container"></div>
 </div>
 </section>
 <!-- HOW IT WORKS (3-Step Visual Guide) -->
@@ -324,56 +292,15 @@
 </div>
 </section>
 <!-- COMMUNITY TESTIMONIALS -->
-<section class="py-6">
+<section id="home-reviews-section" class="py-6">
 <div class="px-margin-mobile mb-4">
 <span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider">Unfiltered Stories</span>
 <h2 class="font-headline-md text-headline-md font-bold text-on-surface">Loved by 10,000+ Nomads</h2>
 </div>
 <!-- Testimonials Carousel -->
-<div class="flex gap-3 overflow-x-auto no-scrollbar px-margin-mobile">
-<!-- Review 1 -->
-<div class="flex-shrink-0 w-[270px] bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-surface-container-high flex flex-col justify-between">
-<div>
-<div class="flex items-center gap-1 text-secondary-container mb-2">
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface italic">
-              "Joined the Meghalaya trip solo and returned with 11 best friends! The host Rohan made sure every solo female felt safe and cared for."
-            </p>
-</div>
-<div class="flex items-center gap-2.5 mt-4 pt-3 border-t border-surface-container">
-<img class="w-9 h-9 rounded-full object-cover" data-alt="A portrait of a cheerful young South Asian woman in casual outdoor hiking apparel smiling warmly. Natural outdoor daylight, soft focus green mountain foliage in the background, matching clean editorial travel photography." src="images/image-3c1ad33.jpg"/>
-<div>
-<span class="block font-label-md text-label-md font-bold text-on-surface">Ananya Sen</span>
-<span class="block font-label-sm text-label-sm text-outline">Traveled to Meghalaya</span>
-</div>
-</div>
-</div>
-<!-- Review 2 -->
-<div class="flex-shrink-0 w-[270px] bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-surface-container-high flex flex-col justify-between">
-<div>
-<div class="flex items-center gap-1 text-secondary-container mb-2">
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-<span class="material-symbols-outlined text-sm fill-icon">star</span>
-</div>
-<p class="font-body-sm text-body-sm text-on-surface italic">
-              "Chandratal lake stargazing was literally magic. The local Spitian homestays and food were unbeatable. Everything ran exactly on time."
-            </p>
-</div>
-<div class="flex items-center gap-2.5 mt-4 pt-3 border-t border-surface-container">
-<img class="w-9 h-9 rounded-full object-cover" data-alt="Portrait of an Indian male traveler in cozy knitted winter beanie smiling against crisp alpine scenic backdrop. Editorial natural lighting, warm and welcoming expression." src="images/image-9b8ad3a.jpg"/>
-<div>
-<span class="block font-label-md text-label-md font-bold text-on-surface">Kabir Mehta</span>
-<span class="block font-label-sm text-label-sm text-outline">Traveled to Spiti Valley</span>
-</div>
-</div>
+<div class="flex gap-3 overflow-x-auto no-scrollbar px-margin-mobile" data-home-reviews aria-live="polite">
+<div class="h-40 w-[270px] shrink-0 animate-pulse rounded-2xl bg-surface-container" aria-hidden="true"></div>
+<div class="h-40 w-[270px] shrink-0 animate-pulse rounded-2xl bg-surface-container" aria-hidden="true"></div>
 </div>
 </div>
 </section>

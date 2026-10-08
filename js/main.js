@@ -469,6 +469,128 @@
     document.getElementById('loadMoreTrips')?.addEventListener('click', () => loadCatalog(true));
   }
 
+  async function loadPopularDestinations() {
+    const container = document.querySelector('[data-popular-destinations]');
+    if (!container) return;
+    container.setAttribute('aria-busy', 'true');
+    try {
+      const destinations = await window.HappynessAPI.listFeaturedDestinations();
+      container.replaceChildren();
+      if (!destinations.length) {
+        const empty = document.createElement('p');
+        empty.className = 'col-span-2 py-8 text-center font-body-sm text-body-sm text-on-surface-variant';
+        empty.textContent = 'No upcoming destinations are available yet.';
+        container.append(empty);
+        return;
+      }
+      destinations.forEach((destination) => {
+        const card = document.createElement('article');
+        card.className = 'relative overflow-hidden rounded-2xl aspect-[4/5] shadow-sm group';
+        if (destination.cover_image_path) {
+          const image = document.createElement('img');
+          image.className = 'h-full w-full object-cover transition-transform duration-300 group-hover:scale-105';
+          image.src = window.HappynessAPI.resolveImage(destination.cover_image_path);
+          image.alt = destination.destination;
+          card.append(image);
+        } else {
+          card.classList.add('bg-surface-container');
+        }
+        const overlay = document.createElement('div');
+        overlay.className = 'absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/85 via-transparent to-transparent';
+        const caption = document.createElement('div');
+        caption.className = 'absolute bottom-3 left-3 right-3 text-surface-container-lowest';
+        const title = document.createElement('h4');
+        title.className = 'font-title-md text-title-md font-bold';
+        title.textContent = destination.destination;
+        const label = document.createElement('span');
+        label.className = 'font-label-sm text-label-sm text-surface-variant/90';
+        label.textContent = 'Upcoming group trips';
+        caption.append(title, label);
+        card.append(overlay, caption);
+        container.append(card);
+      });
+    } catch (error) {
+      container.replaceChildren();
+      const message = document.createElement('p');
+      message.className = 'col-span-2 py-8 text-center font-body-sm text-body-sm text-on-surface-variant';
+      message.textContent = 'Popular destinations could not be loaded.';
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'mt-2 rounded-xl bg-primary px-4 py-2 text-on-primary';
+      retry.textContent = 'Retry';
+      retry.addEventListener('click', () => loadPopularDestinations());
+      container.append(message, retry);
+      console.error(error);
+    } finally {
+      container.removeAttribute('aria-busy');
+    }
+  }
+
+  function renderHomeReviews(reviews) {
+    const container = document.querySelector('[data-home-reviews]');
+    const section = document.getElementById('home-reviews-section');
+    if (!container || !section) return;
+    const items = (reviews || []).filter((review) => review.trip && String(review.comment || '').trim());
+    if (!items.length) {
+      section.hidden = true;
+      return;
+    }
+    container.replaceChildren();
+    items.forEach((review) => {
+      const card = document.createElement('article');
+      card.className = 'flex flex-shrink-0 w-[270px] flex-col justify-between rounded-2xl border border-surface-container-high bg-surface-container-lowest p-4 shadow-sm';
+      const content = document.createElement('div');
+      const stars = document.createElement('div');
+      stars.className = 'mb-2 flex items-center gap-1 text-secondary-container';
+      for (let index = 0; index < 5; index += 1) {
+        const star = document.createElement('span');
+        star.className = 'material-symbols-outlined text-sm' + (index < Number(review.rating) ? ' fill-icon' : '');
+        star.textContent = 'star';
+        stars.append(star);
+      }
+      const comment = document.createElement('p');
+      comment.className = 'font-body-sm text-body-sm italic text-on-surface';
+      comment.textContent = `“${review.comment}”`;
+      content.append(stars, comment);
+      const attribution = document.createElement('div');
+      attribution.className = 'mt-4 flex items-center gap-2.5 border-t border-surface-container pt-3';
+      const badge = document.createElement('span');
+      badge.className = 'flex h-9 w-9 items-center justify-center rounded-full bg-primary-fixed font-label-md text-label-md font-bold text-primary';
+      badge.setAttribute('aria-hidden', 'true');
+      badge.textContent = '✓';
+      const details = document.createElement('div');
+      const reviewer = document.createElement('span');
+      reviewer.className = 'block font-label-md text-label-md font-bold text-on-surface';
+      reviewer.textContent = 'Verified traveler';
+      const destination = document.createElement('span');
+      destination.className = 'block font-label-sm text-label-sm text-outline';
+      destination.textContent = `Traveled to ${review.trip.destination || review.trip.title}`;
+      details.append(reviewer, destination);
+      attribution.append(badge, details);
+      card.append(content, attribution);
+      container.append(card);
+    });
+  }
+
+  async function loadHomeReviews() {
+    const container = document.querySelector('[data-home-reviews]');
+    const section = document.getElementById('home-reviews-section');
+    if (!container || !section) return;
+    try {
+      const reviews = await window.HappynessAPI.listRecentReviews(6);
+      renderHomeReviews(reviews);
+    } catch (error) {
+      container.textContent = 'Traveler stories could not be loaded.';
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'ml-3 rounded-xl bg-primary px-4 py-2 text-on-primary';
+      retry.textContent = 'Retry';
+      retry.addEventListener('click', () => loadHomeReviews());
+      container.append(retry);
+      console.error(error);
+    }
+  }
+
   async function initializeTripCards() {
     document.querySelectorAll('[data-trip-list]').forEach((container) => {
       container.replaceChildren();
@@ -784,6 +906,8 @@
     });
     updateWishlistBadges();
     void initializeTripCards();
+    void loadPopularDestinations();
+    void loadHomeReviews();
     if (isWishlistPage()) renderWishlist();
     if (isCartPage()) renderCart();
     if (sessionStorage.getItem('wishlistLoginNotice') === 'true') {
