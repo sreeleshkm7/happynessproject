@@ -43,7 +43,7 @@
     if (/cancellation|refund policy/.test(label)) return routes.cancellation;
     if (/safety/.test(label)) return routes.safety;
     if (/group charters/.test(label)) return routes.charters;
-    if (/account settings|^settings$|^profile$|^sree$/.test(label)) return routes.settings;
+    if (/account settings|^settings$|^profile$/.test(label)) return routes.settings;
     if (/forgot password/.test(label)) return routes.forgot;
     if (/logout|log out/.test(label)) return routes.home;
     return null;
@@ -58,7 +58,7 @@
       return [];
     }
   };
-  const isLoggedIn = () => localStorage.getItem('loggedIn') === 'true';
+  const isLoggedIn = () => window.HappynessAuth?.isLoggedIn() === true;
   const resolveTrip = (id) => trips.find((trip) => trip.id === id);
   const pageImage = (image) => (isHome ? '' : '../') + (image.startsWith('images/') ? image : 'images/' + image);
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
@@ -111,7 +111,8 @@
     window.HappynessAuth?.updateCounts();
   }
 
-  function toggleWishlist(button) {
+  async function toggleWishlist(button) {
+    await window.HappynessAuth?.ready;
     const trip = resolveTrip(button.dataset.tripId);
     if (!trip) return;
     if (!isLoggedIn()) {
@@ -301,23 +302,6 @@
     }
   }
 
-  window.happynessLoginSubmit = function (event) {
-    event.preventDefault();
-    const username = document.getElementById('usernameInput');
-    const password = document.getElementById('passwordInput');
-    // Demo-only credentials; replace this check with real server-side authentication.
-    if (!username || !password || username.value !== 'sree' || password.value !== '1234') {
-      window.alert('Use the demo username and password shown on this page.');
-      return;
-    }
-    localStorage.setItem('loggedIn', 'true');
-    localStorage.setItem('username', username.value.trim());
-    const returnTo = sessionStorage.getItem('authReturnTo') || sessionStorage.getItem('wishlistReturnTo') || new URLSearchParams(window.location.search).get('returnTo');
-    sessionStorage.removeItem('authReturnTo');
-    sessionStorage.removeItem('wishlistReturnTo');
-    window.location.href = returnTo || routes.home;
-  };
-
   window.toggleHeart = function (button) {
     if (button?.dataset.tripId) toggleWishlist(button);
   };
@@ -336,7 +320,8 @@
     showToast('Removed from wishlist');
   }
 
-  function addDetailToCart() {
+  async function addDetailToCart() {
+    await window.HappynessAuth?.ready;
     const button = document.querySelector('[data-detail-add-cart]');
     const trip = resolveTrip(button?.dataset.tripId);
     if (!trip) return;
@@ -468,5 +453,7 @@
     if (event.key === 'cart' && isCartPage()) renderCart();
   });
 
-  document.addEventListener('DOMContentLoaded', buildNavigation);
+  document.addEventListener('DOMContentLoaded', () => {
+    window.HappynessAuth?.ready.then(buildNavigation);
+  });
 })();

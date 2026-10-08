@@ -451,8 +451,11 @@
 .hp-placeholder p { line-height: 1.65; }
 .hp-placeholder a { color: #005c55; }
 .hp-placeholder form { display: grid; gap: 0.75rem; max-width: 32rem; }
+.hp-placeholder input { padding: 0.75rem; border: 1px solid #bdc9c6; border-radius: 0.5rem; font: inherit; }
 .hp-placeholder textarea { padding: 0.75rem; border: 1px solid #bdc9c6; border-radius: 0.5rem; font: inherit; }
 .hp-placeholder button { justify-self: start; padding: 0.7rem 1rem; color: #fff; background: #005c55; border: 0; border-radius: 0.5rem; font: inherit; cursor: pointer; }
+.hp-placeholder form[hidden] { display: none; }
+.hp-auth-pending body { visibility: hidden; }
 
 @media (max-width: 640px) {
   .hp-site-header { height: 52px; min-height: 52px; padding-inline: 0.75rem; }

@@ -49,9 +49,12 @@
     if (item) beginCheckout(item);
   });
 
-  if (window.location.pathname.endsWith('/booking.html')) initializeBookingPage();
-  if (window.location.pathname.endsWith('/booking-confirmation.html')) initializeConfirmationPage();
-  if (window.location.pathname.endsWith('/my-bookings.html')) initializeMyBookingsPage();
+  window.HappynessAuth?.ready.then(() => {
+    if (!window.HappynessAuth.isLoggedIn()) return;
+    if (window.location.pathname.endsWith('/booking.html')) initializeBookingPage();
+    if (window.location.pathname.endsWith('/booking-confirmation.html')) initializeConfirmationPage();
+    if (window.location.pathname.endsWith('/my-bookings.html')) initializeMyBookingsPage();
+  });
 
   function initializeBookingPage() {
     const checkout = JSON.parse(localStorage.getItem('checkout') || 'null');
@@ -80,7 +83,9 @@
     const payButton = document.getElementById('booking-pay-button');
     const payNowLabel = document.getElementById('booking-pay-total');
     const nameField = document.getElementById('contact-name');
-    const username = localStorage.getItem('username') || '';
+    const user = window.HappynessAuth?.getUser();
+    const profile = window.HappynessAuth?.getProfile();
+    const username = profile?.full_name || profile?.username || user?.user_metadata?.full_name || user?.email || '';
     if (nameField) nameField.value = username;
 
     const image = document.getElementById('booking-trip-image');

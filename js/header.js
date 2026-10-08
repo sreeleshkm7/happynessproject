@@ -13,6 +13,7 @@
   }
 
   function render() {
+    if (!window.HappynessAuth?.isReady?.()) return;
     document.querySelectorAll('header').forEach((header) => header.remove());
     document.querySelectorAll('nav').forEach((nav) => {
       const text = nav.textContent.toLowerCase();
@@ -21,7 +22,10 @@
 
     const loggedIn = window.HappynessAuth?.isLoggedIn() === true;
     const onUpcomingEventsPage = pathname.endsWith('/upcoming-events.html');
-    const username = localStorage.getItem('username') || 'Traveler';
+    const user = window.HappynessAuth?.getUser();
+    const userProfile = window.HappynessAuth?.getProfile();
+    const emailName = user?.email ? user.email.split('@')[0] : '';
+    const username = String(userProfile?.username || user?.user_metadata?.username || emailName || 'Traveler');
     const displayName = username.trim().replace(/^./, (letter) => letter.toUpperCase());
     const firstLetter = escapeHtml(displayName.charAt(0) || 'T');
     const popup = loggedIn
@@ -48,5 +52,15 @@
   }
 
   window.HappynessHeader = { render };
-  document.addEventListener('DOMContentLoaded', render);
+  document.addEventListener('DOMContentLoaded', () => {
+    window.HappynessAuth?.ready.then(render);
+  });
+  window.addEventListener('hp-auth-changed', render);
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('[data-auth-logout]')) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      window.HappynessAuth?.logout();
+    }
+  });
 })();
