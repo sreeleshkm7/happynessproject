@@ -19,19 +19,18 @@
       window.HappynessAuth?.requireLogin('/pages/cart.html');
       return;
     }
-    const trip = (window.HAPPINESS_TRIPS || []).find((entry) => entry.id === item.id) || {};
     const checkout = {
       id: item.id,
-      title: item.title || trip.title || 'Group trip',
-      image: item.image || trip.image || '',
-      location: item.location || trip.location || '',
-      dates: item.dates || trip.dates || '',
-      duration: item.duration || trip.duration || '',
-      price: Number(item.price) || Number(trip.price) || 0,
+      title: item.title || 'Group trip',
+      image: item.image || '',
+      location: item.location || '',
+      dates: item.dates || '',
+      duration: item.duration || '',
+      price: Number(item.price) || 0,
       quantity: Math.max(1, Number(item.travellers ?? item.quantity) || 1),
-      seatsLeft: Number(item.seatsLeft) || Number(trip.seatsLeft) || 14,
-      pickupPoints: item.pickupPoints || trip.pickupPoints || ['Majnu Ka Tilla, New Delhi', 'ISBT Sector 43, Chandigarh'],
-      payAtPickupAllowed: item.payAtPickupAllowed ?? trip.payAtPickupAllowed ?? false
+      seatsLeft: Number(item.seatsLeft) || 0,
+      pickupPoints: item.pickupPoints || [],
+      payAtPickupAllowed: item.payAtPickupAllowed ?? false
     };
     localStorage.setItem('checkout', JSON.stringify(checkout));
     window.location.href = 'booking.html';
@@ -69,7 +68,7 @@
     const ADULT_MIN = 1;
     const CHILD_MIN = 0;
     const INFANT_MIN = 0;
-    const trip = (window.HAPPINESS_TRIPS || []).find((entry) => entry.id === checkout.id) || checkout;
+    const trip = checkout;
     const adultPrice = Number(checkout.price) || 0;
     const childPrice = Math.round(adultPrice * CHILD_PRICE_PERCENT);
     const seatLimit = Math.max(1, Number(checkout.seatsLeft) || Number(trip.seatsLeft) || 14);

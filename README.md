@@ -50,6 +50,7 @@ This repository is intended as a travel UI prototype or demo application rather 
 - CSS3
 - JavaScript (vanilla ES6+)
 - Tailwind CSS via CDN
+- Supabase JS v2 for authentication and trip-catalogue data
 - Browser localStorage for app state persistence
 - Static site structure with multiple HTML pages
 
@@ -66,14 +67,13 @@ happynessproject/
 │   └── style.css              # Shared styling
 ├── images/                    # Travel imagery and page previews
 ├── js/
-│   ├── api.js                 # Backend data-access layer
+│   ├── api.js                 # Supabase data-access layer, including trip catalogue
 │   ├── config.js              # Supabase URL and public anon key placeholders
 │   ├── auth.js                # Login/auth guards and session behavior
 │   ├── checkout.js            # Booking and checkout logic
 │   ├── header.js              # Shared navbar/header rendering
 │   ├── main.js                # Core trip browsing, wishlist, and cart behavior
 │   ├── supabase-client.js     # Shared Supabase browser client
-│   └── trips.js               # Trip data definitions
 ├── pages/
 │   ├── about.html
 │   ├── booking.html
@@ -108,11 +108,11 @@ happynessproject/
 
 ## How the App Works
 
-The app is built as a front-end experience with client-side state management:
+The app is a static multi-page front end backed by Supabase for authentication and trip-catalogue reads:
 
-- Trip data is defined in JavaScript modules and rendered into the UI
-- Wishlist, cart, bookings, and login state are stored in browser `localStorage`
-- Authentication checks redirect users to the login page when protected actions are triggered
+- Approved trips and their detail data are loaded through `js/api.js` from Supabase.
+- Wishlist, cart, and booking persistence remain in browser `localStorage` until their later migration phases.
+- Supabase Auth session checks redirect users to the login page when protected actions are triggered.
 - The layout and styling use a travel-brand design system with warm earth tones, teal accents, and modern card-based UI
 
 ## Running the Project
@@ -138,15 +138,13 @@ http://localhost:8000
 ## Notes
 
 - This project is intended for UI/UX demonstration and frontend prototyping.
-- It does not include a real backend, payment gateway, or production authentication service.
-- Data is persisted locally in the browser, which is suitable for demos and local testing.
+- Supabase Auth and the approved trip catalogue are connected; the Supabase schema and seed still need to be applied in the project dashboard.
+- Wishlist, cart, and booking persistence remain local until their migration phases are complete.
+- No production payment gateway is connected.
 
 ## Suggested Future Enhancements
 
-- Real backend API integration
-- User authentication with a secure auth service
-- Database-backed bookings and inventory tracking
-- Search and filter logic for large trip catalogs
+- Database-backed wishlist, cart, bookings, and inventory tracking
 - Payment gateway integration
 - Admin dashboard for trip and booking management
 

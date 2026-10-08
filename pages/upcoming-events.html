@@ -157,29 +157,29 @@
 <!-- Search Input Field -->
 <div class="relative mb-3.5">
 <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-xl" data-icon="search">search</span>
-<input class="w-full h-12 pl-11 pr-10 bg-surface-container-lowest border border-outline-variant/60 rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-sm" placeholder="Search destinations, treks, or weekends..." type="text"/>
+<input class="w-full h-12 pl-11 pr-10 bg-surface-container-lowest border border-outline-variant/60 rounded-xl font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-sm" id="trip-search" placeholder="Search destinations, treks, or weekends..." type="text"/>
 <button aria-label="Voice search" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
 <span class="material-symbols-outlined text-xl" data-icon="mic">mic</span>
 </button>
 </div>
 <!-- Quick Pill Filters Horizontal Rail -->
 <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 mb-4 -mx-margin-mobile px-margin-mobile">
-<button class="h-8 px-3.5 rounded-full bg-primary text-on-primary font-label-md text-label-md flex items-center whitespace-nowrap shadow-sm active:scale-95 transition-transform">
+<button class="h-8 px-3.5 rounded-full bg-primary text-on-primary font-label-md text-label-md flex items-center whitespace-nowrap shadow-sm active:scale-95 transition-transform is-selected" data-trip-filter="all" type="button">
         All
       </button>
-<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95">
+<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95" data-trip-filter="weekend" type="button">
         This Weekend
       </button>
-<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95">
+<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95" data-trip-filter="budget" type="button">
         Under ₹10k
       </button>
-<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95">
+<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95" data-trip-filter="himalayan" type="button">
         Himalayan
       </button>
-<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95">
+<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95" data-trip-filter="beach" type="button">
         Beach &amp; Sun
       </button>
-<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95">
+<button class="h-8 px-3.5 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center whitespace-nowrap hover:bg-tertiary-fixed transition-colors active:scale-95" data-trip-filter="heritage" type="button">
         Heritage &amp; Culture
       </button>
 </div>
@@ -190,305 +190,29 @@
 <div class="flex items-center gap-1.5 overflow-hidden">
 <span class="material-symbols-outlined text-primary text-lg" data-icon="tune">tune</span>
 <span class="font-label-md text-label-md text-on-surface font-semibold truncate">Filters</span>
-<span class="bg-primary/10 text-primary font-label-sm text-label-sm px-1.5 py-0.5 rounded-full">5</span>
+<span class="bg-primary/10 text-primary font-label-sm text-label-sm px-1.5 py-0.5 rounded-full" id="active-trip-filter-count">0</span>
 </div>
 <span class="font-label-sm text-label-sm text-outline truncate ml-1 hidden sm:inline">Dates, Budget, Duration</span>
 <span class="material-symbols-outlined text-outline text-base ml-1" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
 </button>
 <!-- Sort Trigger Button -->
-<button class="h-10 px-3 bg-surface-container-lowest border border-outline-variant/60 rounded-xl shadow-sm flex items-center gap-1.5 hover:border-primary transition-colors text-on-surface active:scale-98" type="button">
+<label class="h-10 px-3 bg-surface-container-lowest border border-outline-variant/60 rounded-xl shadow-sm flex items-center gap-1.5 hover:border-primary transition-colors text-on-surface">
 <span class="material-symbols-outlined text-primary text-base" data-icon="sort">sort</span>
-<span class="font-label-md text-label-md text-on-surface font-medium whitespace-nowrap">Sort: Earliest</span>
-</button>
+<select aria-label="Sort trips" class="font-label-md text-label-md text-on-surface font-medium whitespace-nowrap bg-transparent outline-none" id="trip-sort">
+<option value="earliest">Sort: Earliest</option>
+<option value="price_asc">Sort: Lowest price</option>
+<option value="price_desc">Sort: Highest price</option>
+<option value="rating_desc">Sort: Highest rated</option>
+</select>
+</label>
 </div>
 <!-- Active Filters Summary Chips -->
-<div class="flex items-center gap-2 mb-4 overflow-x-auto no-scrollbar text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-2 mb-4 overflow-x-auto no-scrollbar text-on-surface-variant font-label-sm text-label-sm" id="active-trip-filters">
 <span class="text-outline whitespace-nowrap">Active filters:</span>
-<span class="inline-flex items-center gap-1 bg-surface-container px-2 py-1 rounded-lg">
-        Apr - May
-        <span class="material-symbols-outlined text-xs cursor-pointer" data-icon="close">close</span>
-</span>
-<span class="inline-flex items-center gap-1 bg-surface-container px-2 py-1 rounded-lg">
-        Group 12-16
-        <span class="material-symbols-outlined text-xs cursor-pointer" data-icon="close">close</span>
-</span>
-<button class="text-primary font-semibold underline whitespace-nowrap ml-1">Clear all</button>
+<button class="text-primary font-semibold underline whitespace-nowrap ml-1" id="clear-trip-filters" type="button">Clear all</button>
 </div>
 <!-- FEED OF TRAVEL PACKAGES -->
-<div class="space-y-5">
-<!-- CARD 1: Kerala Backwaters & Rainforest Trek -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow transition-all duration-200 hover:-translate-y-1">
-<div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="Sunlight piercing through misty dense tropical palm groves along tranquil emerald Kerala backwaters with an authentic wooden houseboat drifting slowly. Warm golden morning light bathes the lush green canopy in a serene travel photograph highlighting deep coastal teals and organic terracotta tones. Calm reflections ripple on the glassy river surface." src="../images/image-f827caa.jpg"/>
-<!-- Wishlist Heart Button -->
-<button aria-label="Save Kerala Trip to Wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/85 backdrop-blur-md flex items-center justify-center text-on-surface transition-transform active:scale-90 shadow-sm" onclick="toggleHeart(this)" type="button">
-<span class="material-symbols-outlined text-xl transition-colors" data-icon="favorite">favorite</span>
-</button>
-<!-- Top-left Badges -->
-<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
-<span class="bg-tertiary-fixed text-primary font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-lg shadow-sm">
-              Heritage &amp; Nature
-            </span>
-<span class="bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-lg shadow-sm">
-              6 seats left
-            </span>
-</div>
-<!-- Rating Bottom Overlay -->
-<div class="absolute bottom-2.5 left-3 bg-black/60 backdrop-blur-sm text-white px-2 py-0.5 rounded-md flex items-center gap-1 font-label-sm text-label-sm">
-<span class="material-symbols-outlined text-secondary-fixed text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-bold">4.9</span>
-<span class="text-white/80">(48)</span>
-</div>
-</div>
-<div class="p-4">
-<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm mb-1.5">
-<div class="flex items-center gap-1 text-primary">
-<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
-<span class="font-medium">Wayanad &amp; Alleppey</span>
-</div>
-<div class="flex items-center gap-1 font-medium text-outline">
-<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
-<span>April 24-27</span>
-</div>
-</div>
-<h2 class="font-title-md text-title-md text-on-surface leading-tight mb-2">Kerala Backwaters &amp; Rainforest Trek</h2>
-<!-- Meta tags / attributes -->
-<div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm pb-3 border-b border-surface-container">
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="schedule">schedule</span>
-<span>4D/3N</span>
-</div>
-<span class="text-outline-variant">•</span>
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="groups">groups</span>
-<span>Max 14 travelers</span>
-</div>
-<span class="text-outline-variant">•</span>
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="hiking">hiking</span>
-<span>Easy-Mod</span>
-</div>
-</div>
-<!-- Pricing & CTA Row -->
-<div class="flex items-center justify-between pt-3">
-<div>
-<span class="font-label-sm text-label-sm text-outline block">Total Package</span>
-<div class="flex items-baseline gap-1">
-<span class="font-price-display text-price-display text-primary">₹12,499</span>
-<span class="font-label-sm text-label-sm text-outline">/person</span>
-</div>
-</div>
-<button class="h-11 px-5 rounded-xl bg-secondary-container text-white font-label-lg text-label-lg shadow-sm hover:brightness-105 active:bg-secondary active:scale-95 transition-all">
-              View Details
-            </button>
-</div>
-</div>
-</article>
-<!-- CARD 2: Meghalaya: Living Root Bridges & Caving -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow transition-all duration-200 hover:-translate-y-1">
-<div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="A spectacular double-decker living root bridge interwoven across a crystal clear turquoise river nestled in the dense rainforest of Cherrapunji Meghalaya. Atmospheric morning mist gently hovers over dramatic wet boulders and lush hanging ferns. The vibrant color palette highlights rich coastal teal moss, soft limestone rock, and crisp bright emerald jungle foliage." src="../images/image-840f3eb.jpg"/>
-<!-- Wishlist Heart Button -->
-<button aria-label="Save Meghalaya Trip to Wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/85 backdrop-blur-md flex items-center justify-center text-on-surface transition-transform active:scale-90 shadow-sm" onclick="toggleHeart(this)" type="button">
-<span class="material-symbols-outlined text-xl transition-colors" data-icon="favorite">favorite</span>
-</button>
-<!-- Top-left Badges -->
-<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
-<span class="bg-tertiary-fixed text-primary font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-lg shadow-sm">
-              Adventure
-            </span>
-<span class="bg-error text-on-error font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-lg shadow-sm animate-pulse">
-              Only 3 seats left
-            </span>
-</div>
-<!-- Rating Bottom Overlay -->
-<div class="absolute bottom-2.5 left-3 bg-black/60 backdrop-blur-sm text-white px-2 py-0.5 rounded-md flex items-center gap-1 font-label-sm text-label-sm">
-<span class="material-symbols-outlined text-secondary-fixed text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-bold">4.95</span>
-<span class="text-white/80">(62)</span>
-</div>
-</div>
-<div class="p-4">
-<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm mb-1.5">
-<div class="flex items-center gap-1 text-primary">
-<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
-<span class="font-medium">Cherrapunji &amp; Shnongpdeng</span>
-</div>
-<div class="flex items-center gap-1 font-medium text-outline">
-<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
-<span>May 2-7</span>
-</div>
-</div>
-<h2 class="font-title-md text-title-md text-on-surface leading-tight mb-2">Meghalaya: Living Root Bridges &amp; Caving</h2>
-<!-- Meta tags -->
-<div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm pb-3 border-b border-surface-container">
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="schedule">schedule</span>
-<span>6D/5N</span>
-</div>
-<span class="text-outline-variant">•</span>
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="groups">groups</span>
-<span>Max 12 travelers</span>
-</div>
-<span class="text-outline-variant">•</span>
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="kayaking">kayaking</span>
-<span>River Camping</span>
-</div>
-</div>
-<!-- Pricing & CTA Row -->
-<div class="flex items-center justify-between pt-3">
-<div>
-<span class="font-label-sm text-label-sm text-outline block">Total Package</span>
-<div class="flex items-baseline gap-1">
-<span class="font-price-display text-price-display text-primary">₹21,999</span>
-<span class="font-label-sm text-label-sm text-outline">/person</span>
-</div>
-</div>
-<button class="h-11 px-5 rounded-xl bg-secondary-container text-white font-label-lg text-label-lg shadow-sm hover:brightness-105 active:bg-secondary active:scale-95 transition-all">
-              View Details
-            </button>
-</div>
-</div>
-</article>
-<!-- CARD 3: Gokarna & Murudeshwar Beach Camp -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow transition-all duration-200 hover:-translate-y-1">
-<div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="A warm sunset over pristine crescent shoreline of Gokarna with dramatic coastal cliffs and gentle Arabian Sea waves breaking on golden sand. Atmospheric glowing bonfire with cozy traveler tents pitched under coconut trees in the soft evening breeze. The shot evokes wanderlust in warm coral sunset glows contrasting with deep turquoise coastal water." src="../images/image-7982c16.jpg"/>
-<!-- Wishlist Heart Button -->
-<button aria-label="Save Gokarna Beach Camp to Wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/85 backdrop-blur-md flex items-center justify-center text-on-surface transition-transform active:scale-90 shadow-sm" onclick="toggleHeart(this)" type="button">
-<span class="material-symbols-outlined text-xl transition-colors" data-icon="favorite">favorite</span>
-</button>
-<!-- Top-left Badges -->
-<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
-<span class="bg-tertiary-fixed text-primary font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-lg shadow-sm">
-              Beach &amp; Chill
-            </span>
-<span class="bg-primary text-on-primary font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-lg shadow-sm">
-              Weekend Special
-            </span>
-</div>
-<!-- Rating Bottom Overlay -->
-<div class="absolute bottom-2.5 left-3 bg-black/60 backdrop-blur-sm text-white px-2 py-0.5 rounded-md flex items-center gap-1 font-label-sm text-label-sm">
-<span class="material-symbols-outlined text-secondary-fixed text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-bold">4.82</span>
-<span class="text-white/80">(94)</span>
-</div>
-</div>
-<div class="p-4">
-<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm mb-1.5">
-<div class="flex items-center gap-1 text-primary">
-<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
-<span class="font-medium">Gokarna Cliff Trail</span>
-</div>
-<div class="flex items-center gap-1 font-medium text-secondary">
-<span class="material-symbols-outlined text-sm" data-icon="bolt">bolt</span>
-<span>8 seats left</span>
-</div>
-</div>
-<h2 class="font-title-md text-title-md text-on-surface leading-tight mb-2">Gokarna &amp; Murudeshwar Beach Camp</h2>
-<!-- Meta tags -->
-<div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm pb-3 border-b border-surface-container">
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="schedule">schedule</span>
-<span>3D/2N</span>
-</div>
-<span class="text-outline-variant">•</span>
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="groups">groups</span>
-<span>Max 16 travelers</span>
-</div>
-<span class="text-outline-variant">•</span>
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="water">water</span>
-<span>Beach Trek</span>
-</div>
-</div>
-<!-- Pricing & CTA Row -->
-<div class="flex items-center justify-between pt-3">
-<div>
-<span class="font-label-sm text-label-sm text-outline block">Total Package</span>
-<div class="flex items-baseline gap-1">
-<span class="font-price-display text-price-display text-primary">₹7,999</span>
-<span class="font-label-sm text-label-sm text-outline">/person</span>
-</div>
-</div>
-<button class="h-11 px-5 rounded-xl bg-secondary-container text-white font-label-lg text-label-lg shadow-sm hover:brightness-105 active:bg-secondary active:scale-95 transition-all">
-              View Details
-            </button>
-</div>
-</div>
-</article>
-<!-- CARD 4: Jaisalmer Dune Camping & Stargazing -->
-<article class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow transition-all duration-200 hover:-translate-y-1">
-<div class="relative w-full aspect-[16/10] overflow-hidden bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="Wide majestic sand dunes of the Thar desert near Jaisalmer during dusk under an enchanting dark indigo sky brimming with visible stars and the Milky Way. Warm amber lantern lamps glow softly around traditional desert floor seating and white canopy tents. Fine sand ripple textures illuminated by warm fires evoke an inviting tranquil wilderness expedition." src="../images/image-1cb936b.jpg"/>
-<!-- Wishlist Heart Button -->
-<button aria-label="Save Jaisalmer Trip to Wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/85 backdrop-blur-md flex items-center justify-center text-on-surface transition-transform active:scale-90 shadow-sm" onclick="toggleHeart(this)" type="button">
-<span class="material-symbols-outlined text-xl transition-colors" data-icon="favorite">favorite</span>
-</button>
-<!-- Top-left Badges -->
-<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
-<span class="bg-tertiary-fixed text-primary font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-lg shadow-sm">
-              Oct Season Special
-            </span>
-<span class="bg-secondary-container text-white font-label-sm text-label-sm font-semibold px-2 py-0.5 rounded-lg shadow-sm">
-              Fast Filling
-            </span>
-</div>
-<!-- Rating Bottom Overlay -->
-<div class="absolute bottom-2.5 left-3 bg-black/60 backdrop-blur-sm text-white px-2 py-0.5 rounded-md flex items-center gap-1 font-label-sm text-label-sm">
-<span class="material-symbols-outlined text-secondary-fixed text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-bold">4.88</span>
-<span class="text-white/80">(77)</span>
-</div>
-</div>
-<div class="p-4">
-<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm mb-1.5">
-<div class="flex items-center gap-1 text-primary">
-<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
-<span class="font-medium">Thar Desert &amp; Fort</span>
-</div>
-<div class="flex items-center gap-1 font-medium text-outline">
-<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
-<span>Autumn Departure</span>
-</div>
-</div>
-<h2 class="font-title-md text-title-md text-on-surface leading-tight mb-2">Jaisalmer Dune Camping &amp; Stargazing</h2>
-<!-- Meta tags -->
-<div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm pb-3 border-b border-surface-container">
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="schedule">schedule</span>
-<span>4D/3N</span>
-</div>
-<span class="text-outline-variant">•</span>
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="groups">groups</span>
-<span>Max 15 travelers</span>
-</div>
-<span class="text-outline-variant">•</span>
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-base text-primary" data-icon="nights_stay">nights_stay</span>
-<span>Stargazing</span>
-</div>
-</div>
-<!-- Pricing & CTA Row -->
-<div class="flex items-center justify-between pt-3">
-<div>
-<span class="font-label-sm text-label-sm text-outline block">Total Package</span>
-<div class="flex items-baseline gap-1">
-<span class="font-price-display text-price-display text-primary">₹14,800</span>
-<span class="font-label-sm text-label-sm text-outline">/person</span>
-</div>
-</div>
-<button class="h-11 px-5 rounded-xl bg-secondary-container text-white font-label-lg text-label-lg shadow-sm hover:brightness-105 active:bg-secondary active:scale-95 transition-all">
-              View Details
-            </button>
-</div>
-</div>
-</article>
-</div>
+<div class="space-y-5" data-trip-list="events"></div>
 <!-- Empty State / Load More Section -->
 <div class="my-8 text-center pt-2 pb-6">
 <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-surface-container mb-3 text-primary">
@@ -498,7 +222,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs mx-auto mb-4">
         Can't find your dates or destination? We curate private group journeys for 8+ travelers.
       </p>
-<button class="w-full h-12 rounded-xl border border-primary text-primary font-label-lg text-label-lg hover:bg-primary/5 active:scale-98 transition-all flex items-center justify-center gap-2 mb-3">
+<button class="w-full h-12 rounded-xl border border-primary text-primary font-label-lg text-label-lg hover:bg-primary/5 active:scale-98 transition-all flex items-center justify-center gap-2 mb-3" id="loadMoreTrips" hidden style="display:none" type="button">
 <span class="material-symbols-outlined text-lg" data-icon="refresh">refresh</span>
         Load More Upcoming Experiences
       </button>
@@ -508,9 +232,9 @@
 </div>
 </main>
 <!-- INTERACTIVE FILTER DRAWER OVERLAY & MODAL (Hidden by default) -->
-<div class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0 flex flex-col justify-end" id="filterDrawer">
+<div aria-hidden="true" class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0 flex flex-col justify-end" id="filterDrawer">
 <!-- Backdrop -->
-<div class="absolute inset-0 bg-black/50 backdrop-blur-sm pointer-events-auto" id="filterBackdrop"></div>
+<div class="absolute inset-0 bg-black/50 backdrop-blur-sm pointer-events-none" id="filterBackdrop"></div>
 <!-- Drawer Sheet -->
 <div class="relative w-full max-w-lg mx-auto bg-surface-container-lowest rounded-t-2xl max-h-[751px] overflow-y-auto p-5 pointer-events-auto shadow-2xl transition-transform duration-300 translate-y-full flex flex-col">
 <!-- Drag Handle -->
@@ -531,9 +255,9 @@
 <div>
 <div class="flex justify-between items-center mb-2">
 <span class="font-label-lg text-label-lg text-on-surface">Max Budget</span>
-<span class="font-title-md text-title-md font-bold text-primary">₹25,000</span>
+<span class="font-title-md text-title-md font-bold text-primary" data-budget-value>₹25,000</span>
 </div>
-<input class="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" max="40000" min="5000" step="1000" type="range" value="25000"/>
+<input class="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" id="trip-max-budget" max="40000" min="5000" step="1000" type="range" value="25000" data-active="false"/>
 <div class="flex justify-between text-label-sm font-label-sm text-outline mt-1">
 <span>₹5,000</span>
 <span>₹40,000+</span>
@@ -543,27 +267,27 @@
 <div>
 <span class="font-label-lg text-label-lg text-on-surface block mb-2">Trip Duration</span>
 <div class="grid grid-cols-3 gap-2">
-<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md border border-transparent hover:border-primary">2 - 3 Days</button>
-<button class="h-10 rounded-lg bg-primary text-on-primary font-label-md text-label-md">4 - 6 Days</button>
-<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md border border-transparent hover:border-primary">7+ Days</button>
+<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md border border-transparent hover:border-primary" data-duration-filter="short" type="button">2 - 3 Days</button>
+<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md border border-transparent hover:border-primary" data-duration-filter="medium" type="button">4 - 6 Days</button>
+<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md border border-transparent hover:border-primary" data-duration-filter="long" type="button">7+ Days</button>
 </div>
 </div>
 <!-- Group Type -->
 <div>
 <span class="font-label-lg text-label-lg text-on-surface block mb-2">Traveler Group Type</span>
 <div class="flex flex-wrap gap-2">
-<button class="h-8 px-3 rounded-full bg-primary text-on-primary font-label-md text-label-md">Small Group (8-14)</button>
-<button class="h-8 px-3 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Women Only</button>
-<button class="h-8 px-3 rounded-full bg-surface-container text-on-surface font-label-md text-label-md">Solo Friendly</button>
+<button class="h-8 px-3 rounded-full bg-surface-container text-on-surface font-label-md text-label-md" data-group-filter="small" type="button">Small Group (8-14)</button>
+<button class="h-8 px-3 rounded-full bg-surface-container text-on-surface font-label-md text-label-md" data-group-filter="women" type="button">Women Only</button>
+<button class="h-8 px-3 rounded-full bg-surface-container text-on-surface font-label-md text-label-md" data-group-filter="solo" type="button">Solo Friendly</button>
 </div>
 </div>
 <!-- Difficulty -->
 <div>
 <span class="font-label-lg text-label-lg text-on-surface block mb-2">Trek &amp; Physical Difficulty</span>
 <div class="grid grid-cols-3 gap-2">
-<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md">Leisure</button>
-<button class="h-10 rounded-lg bg-primary text-on-primary font-label-md text-label-md">Moderate</button>
-<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md">Challenging</button>
+<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md" data-difficulty-filter="Leisure" type="button">Leisure</button>
+<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md" data-difficulty-filter="Moderate" type="button">Moderate</button>
+<button class="h-10 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md" data-difficulty-filter="Challenging" type="button">Challenging</button>
 </div>
 </div>
 </div>
@@ -573,7 +297,7 @@
           Reset
         </button>
 <button class="w-2/3 h-12 rounded-xl bg-secondary-container text-white font-label-lg text-label-lg hover:brightness-105 active:scale-98 transition-all" id="applyFilterBtn" type="button">
-          Apply Filters (4 Trips)
+          Apply Filters
         </button>
 </div>
 </div>
@@ -640,19 +364,25 @@
     function openDrawer() {
       filterDrawer.classList.remove('pointer-events-none', 'opacity-0');
       filterDrawer.classList.add('pointer-events-auto', 'opacity-100');
-      const sheet = filterDrawer.querySelector('.max-h-\\[85vh\\]');
+      filterDrawer.setAttribute('aria-hidden', 'false');
+      filterBackdrop.classList.remove('pointer-events-none');
+      filterBackdrop.classList.add('pointer-events-auto');
+      const sheet = filterDrawer.querySelector('.max-h-\\[751px\\]');
       sheet.classList.remove('translate-y-full');
       sheet.classList.add('translate-y-0');
       document.body.classList.add('overflow-hidden');
     }
 
     function closeDrawer() {
-      const sheet = filterDrawer.querySelector('.max-h-\\[85vh\\]');
+      const sheet = filterDrawer.querySelector('.max-h-\\[751px\\]');
       sheet.classList.remove('translate-y-0');
       sheet.classList.add('translate-y-full');
       setTimeout(() => {
         filterDrawer.classList.add('pointer-events-none', 'opacity-0');
         filterDrawer.classList.remove('pointer-events-auto', 'opacity-100');
+        filterDrawer.setAttribute('aria-hidden', 'true');
+        filterBackdrop.classList.add('pointer-events-none');
+        filterBackdrop.classList.remove('pointer-events-auto');
         document.body.classList.remove('overflow-hidden');
       }, 250);
     }
@@ -669,6 +399,5 @@
 <script src="../js/api.js"></script>
 <script src="../js/auth.js"></script>
 <script src="../js/header.js"></script>
-<script src="../js/trips.js"></script>
 <script src="../js/main.js"></script>
 </body></html>
