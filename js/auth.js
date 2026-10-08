@@ -6,6 +6,9 @@
   let session = null;
   let profile = null;
   let readyResolved = false;
+  let itemCounts = { cart: 0, wishlist: 0 };
+  let itemCountsUserId = null;
+  let itemCountsLoad = null;
   let recoveryMode = new URLSearchParams(window.location.search).get('update') === '1';
 
   function notify(message, type) {
@@ -18,8 +21,48 @@
 
   function setSession(nextSession) {
     session = nextSession || null;
+    if (!session || itemCountsUserId !== session.user.id) {
+      itemCounts = { cart: 0, wishlist: 0 };
+      itemCountsUserId = session?.user.id || null;
+      itemCountsLoad = null;
+    }
     if (!session) profile = null;
     emitChange();
+  }
+
+  function renderItemCounts() {
+    document.querySelectorAll('[data-auth-cart-count]').forEach((badge) => {
+      badge.textContent = String(itemCounts.cart);
+      badge.hidden = itemCounts.cart === 0;
+    });
+    document.querySelectorAll('[data-auth-wishlist-count]').forEach((badge) => {
+      badge.textContent = String(itemCounts.wishlist);
+      badge.hidden = itemCounts.wishlist === 0;
+    });
+  }
+
+  async function updateItemCounts(force) {
+    const user = session?.user;
+    if (!user || !profileApi || typeof profileApi.getMyItemCounts !== 'function') {
+      itemCounts = { cart: 0, wishlist: 0 };
+      renderItemCounts();
+      return;
+    }
+    if (force) itemCountsLoad = null;
+    if (!itemCountsLoad) {
+      itemCountsLoad = profileApi.getMyItemCounts(user.id).then((counts) => {
+        if (session?.user.id === user.id) {
+          itemCounts = counts;
+          renderItemCounts();
+        }
+      }).catch((error) => {
+        itemCountsLoad = null;
+        console.error(error);
+        notify('Your cart and wishlist counts could not be loaded.');
+      });
+    }
+    await itemCountsLoad;
+    renderItemCounts();
   }
 
   async function loadProfile(user) {
@@ -376,27 +419,6 @@
     signInWithGoogle,
     sendPasswordReset,
     updatePassword,
-    updateCounts: () => {
-      const getCount = (key) => {
-        try {
-          const value = JSON.parse(localStorage.getItem(key) || '[]');
-          return Array.isArray(value) ? value.length : 0;
-        } catch (error) {
-          return 0;
-        }
-      };
-      const counts = {
-        cart: getCount('cart'),
-        wishlist: getCount('wishlist')
-      };
-      document.querySelectorAll('[data-auth-cart-count]').forEach((badge) => {
-        badge.textContent = String(counts.cart);
-        badge.hidden = counts.cart === 0;
-      });
-      document.querySelectorAll('[data-auth-wishlist-count]').forEach((badge) => {
-        badge.textContent = String(counts.wishlist);
-        badge.hidden = counts.wishlist === 0;
-      });
-    }
+    updateCounts: (force) => updateItemCounts(Boolean(force))
   };
 })();

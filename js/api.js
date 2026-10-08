@@ -200,6 +200,115 @@
     }
   }
 
+  async function getWishlist(userId) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('wishlist_items')
+        .select('trip_id,created_at,trip:trips(id,slug,title,destination,location,short_description,cover_image_path,price_per_person,start_date,date_label,duration_label,seats_left,max_group,difficulty,rating,review_count)')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      throw new Error('Could not load your wishlist.', { cause: error });
+    }
+  }
+
+  async function getWishlistIds(userId) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('wishlist_items')
+        .select('trip_id')
+        .eq('user_id', userId);
+      if (error) throw error;
+      return (data || []).map((item) => item.trip_id);
+    } catch (error) {
+      throw new Error('Could not load saved trips.', { cause: error });
+    }
+  }
+
+  async function addWishlistItem(userId, tripId) {
+    const client = getClient();
+    try {
+      const { error } = await client.from('wishlist_items')
+        .upsert({ user_id: userId, trip_id: tripId }, { onConflict: 'user_id,trip_id', ignoreDuplicates: true });
+      if (error) throw error;
+    } catch (error) {
+      throw new Error('Could not save this trip.', { cause: error });
+    }
+  }
+
+  async function removeWishlistItem(userId, tripId) {
+    const client = getClient();
+    try {
+      const { error } = await client.from('wishlist_items')
+        .delete()
+        .eq('user_id', userId)
+        .eq('trip_id', tripId);
+      if (error) throw error;
+    } catch (error) {
+      throw new Error('Could not remove this saved trip.', { cause: error });
+    }
+  }
+
+  async function getCart(userId) {
+    const client = getClient();
+    try {
+      const { data, error } = await client.from('cart_items')
+        .select('trip_id,travellers,created_at,updated_at,trip:trips(id,slug,title,destination,location,short_description,cover_image_path,price_per_person,start_date,date_label,duration_label,seats_left,max_group,difficulty,pay_at_pickup_allowed)')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      throw new Error('Could not load your cart.', { cause: error });
+    }
+  }
+
+  async function saveCartItem(userId, tripId, travellers) {
+    const client = getClient();
+    try {
+      const { error } = await client.from('cart_items')
+        .upsert({ user_id: userId, trip_id: tripId, travellers }, { onConflict: 'user_id,trip_id' });
+      if (error) throw error;
+    } catch (error) {
+      throw new Error('Could not update your cart.', { cause: error });
+    }
+  }
+
+  async function removeCartItem(userId, tripId) {
+    const client = getClient();
+    try {
+      const { error } = await client.from('cart_items')
+        .delete()
+        .eq('user_id', userId)
+        .eq('trip_id', tripId);
+      if (error) throw error;
+    } catch (error) {
+      throw new Error('Could not remove this trip from your cart.', { cause: error });
+    }
+  }
+
+  async function moveWishlistItemToCart(userId, tripId, travellers) {
+    await saveCartItem(userId, tripId, travellers);
+    await removeWishlistItem(userId, tripId);
+  }
+
+  async function getMyItemCounts(userId) {
+    const client = getClient();
+    try {
+      const [cart, wishlist] = await Promise.all([
+        client.from('cart_items').select('trip_id', { count: 'exact', head: true }).eq('user_id', userId),
+        client.from('wishlist_items').select('trip_id', { count: 'exact', head: true }).eq('user_id', userId)
+      ]);
+      if (cart.error) throw cart.error;
+      if (wishlist.error) throw wishlist.error;
+      return { cart: cart.count || 0, wishlist: wishlist.count || 0 };
+    } catch (error) {
+      throw new Error('Could not load your cart and wishlist counts.', { cause: error });
+    }
+  }
+
   async function getMyProfile(userId) {
     const client = getClient();
     try {
@@ -223,6 +332,15 @@
     resolveImage,
     canReviewTrip,
     createReview,
+    getWishlist,
+    getWishlistIds,
+    addWishlistItem,
+    removeWishlistItem,
+    getCart,
+    saveCartItem,
+    removeCartItem,
+    moveWishlistItemToCart,
+    getMyItemCounts,
     getMyProfile
   });
 })();

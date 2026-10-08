@@ -1,13 +1,4 @@
 (function () {
-  function readList(key) {
-    try {
-      const value = JSON.parse(localStorage.getItem(key) || '[]');
-      return Array.isArray(value) ? value : [];
-    } catch {
-      return [];
-    }
-  }
-
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, (char) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -19,33 +10,35 @@
       window.HappynessAuth?.requireLogin('/pages/cart.html');
       return;
     }
-    const checkout = {
-      id: item.id,
-      title: item.title || 'Group trip',
-      image: item.image || '',
-      location: item.location || '',
-      dates: item.dates || '',
-      duration: item.duration || '',
-      price: Number(item.price) || 0,
-      quantity: Math.max(1, Number(item.travellers ?? item.quantity) || 1),
-      seatsLeft: Number(item.seatsLeft) || 0,
-      pickupPoints: item.pickupPoints || [],
-      payAtPickupAllowed: item.payAtPickupAllowed ?? false
-    };
-    localStorage.setItem('checkout', JSON.stringify(checkout));
+    sessionStorage.setItem('happynessCheckoutSelection', JSON.stringify({
+      tripId: item.trip_id,
+      travellers: Math.max(1, Number(item.travellers) || 1)
+    }));
     window.location.href = 'booking.html';
   }
 
-  document.addEventListener('click', (event) => {
+  document.addEventListener('click', async (event) => {
     const selected = event.target.closest('[data-checkout-trip-id]');
     const cartButton = event.target.closest('[data-checkout-cart]');
     if (!selected && !cartButton) return;
     event.preventDefault();
-    const cart = readList('cart');
-    const item = selected
-      ? cart.find((entry) => entry.id === selected.dataset.checkoutTripId)
-      : cart[0];
-    if (item) beginCheckout(item);
+    await window.HappynessAuth?.ready;
+    const user = window.HappynessAuth?.getUser();
+    if (!user) {
+      window.HappynessAuth?.requireLogin('/pages/cart.html');
+      return;
+    }
+    try {
+      const cart = await window.HappynessAPI.getCart(user.id);
+      const item = selected
+        ? cart.find((entry) => entry.trip_id === selected.dataset.checkoutTripId)
+        : cart[0];
+      if (item) beginCheckout(item);
+      else if (!selected) window.happynessToast?.('Your cart is empty.');
+    } catch (error) {
+      console.error(error);
+      window.happynessToast?.(error.message || 'We could not start checkout. Please try again.');
+    }
   });
 
   window.HappynessAuth?.ready.then(() => {
@@ -386,7 +379,6 @@
         bookings.unshift(booking);
         localStorage.setItem('bookings', JSON.stringify(bookings));
         localStorage.setItem('lastBooking', JSON.stringify(booking));
-        localStorage.setItem('cart', JSON.stringify(readList('cart').filter((item) => item.id !== checkout.id)));
         localStorage.removeItem('checkout');
         window.location.href = 'booking-confirmation.html';
       }, 650);

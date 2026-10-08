@@ -50,14 +50,9 @@
   };
 
   const tripsById = new Map();
-  const readStore = (key) => {
-    try {
-      const value = JSON.parse(localStorage.getItem(key) || '[]');
-      return Array.isArray(value) ? value : [];
-    } catch {
-      return [];
-    }
-  };
+  let wishlistIds = new Set();
+  let wishlistUserId = null;
+  let wishlistLoad = null;
   const isLoggedIn = () => window.HappynessAuth?.isLoggedIn() === true;
   const resolveTrip = (id) => tripsById.get(id);
   const tripLocation = (trip) => trip.location || trip.destination || '';
@@ -65,12 +60,7 @@
   const tripImagePath = (trip) => trip.cover_image_path || trip.image || '';
   const tripDuration = (trip) => trip.duration_label || trip.duration || '';
   const tripDateLabel = (trip) => trip.date_label || trip.start_date || '';
-  const pageImage = (image) => {
-    if (!image) return '';
-    if (/^https?:\/\//i.test(image)) return image;
-    if (image.startsWith('../images/')) return image;
-    return (isHome ? '' : '../') + (image.startsWith('images/') ? image : 'images/' + image);
-  };
+  const pageImage = (image) => image ? window.HappynessAPI.resolveImage(image) : '';
   const formatPrice = (price) => `₹${Number(price || 0).toLocaleString('en-IN')}`;
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -104,11 +94,39 @@
     }
   }
 
-  function updateHeartStates() {
-    const ids = new Set(readStore('wishlist').map((trip) => trip.id));
+  function applyHeartStates() {
     document.querySelectorAll('[data-trip-heart][data-trip-id]').forEach((button) => {
-      setHeartState(button, ids.has(button.dataset.tripId));
+      setHeartState(button, wishlistIds.has(button.dataset.tripId));
     });
+  }
+
+  async function updateHeartStates() {
+    await window.HappynessAuth?.ready;
+    const user = window.HappynessAuth?.getUser();
+    if (!user) {
+      wishlistIds = new Set();
+      wishlistUserId = null;
+      wishlistLoad = null;
+    } else if (wishlistUserId !== user.id) {
+      wishlistUserId = user.id;
+      wishlistIds = new Set();
+      wishlistLoad = null;
+    }
+    if (user && !wishlistLoad) {
+      wishlistLoad = window.HappynessAPI.getWishlistIds(user.id).then((ids) => {
+        wishlistIds = new Set(ids);
+      }).catch((error) => {
+        wishlistLoad = null;
+        throw error;
+      });
+    }
+    try {
+      if (wishlistLoad) await wishlistLoad;
+    } catch (error) {
+      console.error(error);
+      showToast('We could not load your saved trips.');
+    }
+    applyHeartStates();
   }
 
   function saveTrips(trips) {
@@ -116,7 +134,7 @@
   }
 
   function updateWishlistBadges() {
-    const count = readStore('wishlist').length;
+    const count = wishlistIds.size;
     document.querySelectorAll('.hp-wishlist-count').forEach((badge) => {
       badge.textContent = String(count);
       badge.hidden = count === 0;
@@ -140,14 +158,27 @@
       return;
     }
 
-    const wishlist = readStore('wishlist');
-    const saved = wishlist.some((item) => item.id === trip.id);
-    const updated = saved ? wishlist.filter((item) => item.id !== trip.id) : [...wishlist, { ...trip }];
-    localStorage.setItem('wishlist', JSON.stringify(updated));
-    updateHeartStates();
+    const saved = wishlistIds.has(trip.id);
+    if (saved) wishlistIds.delete(trip.id);
+    else wishlistIds.add(trip.id);
+    applyHeartStates();
     updateWishlistBadges();
-    if (isWishlistPage()) renderWishlist();
-    showToast(saved ? 'Removed from wishlist' : 'Added to wishlist');
+    button.disabled = true;
+    try {
+      if (saved) await window.HappynessAPI.removeWishlistItem(window.HappynessAuth.getUser().id, trip.id);
+      else await window.HappynessAPI.addWishlistItem(window.HappynessAuth.getUser().id, trip.id);
+      showToast(saved ? 'Removed from wishlist' : 'Added to wishlist');
+    } catch (error) {
+      console.error(error);
+      if (saved) wishlistIds.add(trip.id);
+      else wishlistIds.delete(trip.id);
+      applyHeartStates();
+      if (isWishlistPage()) renderWishlist();
+      showToast(error.message || 'We could not update your wishlist.');
+    } finally {
+      button.disabled = false;
+      window.HappynessAuth?.updateCounts(true);
+    }
   }
 
   function isWishlistPage() {
@@ -158,45 +189,59 @@
     return currentPage.endsWith('/cart.html');
   }
 
-  function cartImage(item) {
-    const image = item.image || (resolveTrip(item.id) && tripImagePath(resolveTrip(item.id))) || '';
-    if (image.startsWith('../images/')) return image;
-    if (image.startsWith('images/')) return '../' + image;
-    return image ? '../images/' + image.replace(/^\/+/, '') : '';
-  }
-
-  function renderCart() {
+  async function renderCart() {
     const list = document.getElementById('cart-items');
     const empty = document.getElementById('cart-empty');
     const summary = document.getElementById('cart-summary');
     if (!list || !empty || !summary) return;
 
-    const items = readStore('cart');
+    const user = window.HappynessAuth?.getUser();
+    if (!user) return;
+    list.innerHTML = '<p class="font-body-sm text-body-sm text-on-surface-variant">Loading your cart…</p>';
+    empty.hidden = true;
+    summary.hidden = true;
+    let items;
+    try {
+      items = await window.HappynessAPI.getCart(user.id);
+    } catch (error) {
+      console.error(error);
+      list.replaceChildren();
+      const message = document.createElement('p');
+      message.className = 'font-body-sm text-body-sm text-on-surface-variant';
+      message.textContent = error.message || 'We could not load your cart.';
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'hp-cart-retry';
+      retry.textContent = 'Retry';
+      retry.addEventListener('click', () => renderCart());
+      list.append(message, retry);
+      return;
+    }
     const countLabel = document.getElementById('cart-count');
     if (countLabel) countLabel.textContent = items.length ? `(${items.length} trip${items.length === 1 ? '' : 's'})` : '';
     list.replaceChildren();
 
     let subtotal = 0;
     for (const item of items) {
-      const trip = resolveTrip(item.id) || {};
-      const title = item.title || trip.title || 'Group trip';
-      const location = item.location || (trip.id && tripLocation(trip)) || '';
-      const image = cartImage(item);
-      const unitPrice = Number(item.price) || (trip.id && tripPrice(trip)) || 0;
+      const trip = item.trip || {};
+      const title = trip.title || 'Group trip';
+      const location = tripLocation(trip);
+      const image = pageImage(tripImagePath(trip));
+      const unitPrice = tripPrice(trip);
       const travellers = Math.max(1, Number(item.travellers) || 1);
       subtotal += unitPrice * travellers;
 
       const card = document.createElement('article');
       card.className = 'hp-cart-item';
-      card.dataset.cartId = item.id;
-      card.innerHTML = `<a class="hp-cart-image" href="package-detail.html?id=${encodeURIComponent(item.id)}"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}"></a>` +
-        `<div class="hp-cart-info"><a class="hp-cart-title" href="package-detail.html?id=${encodeURIComponent(item.id)}">${escapeHtml(title)}</a>` +
+      card.dataset.cartId = item.trip_id;
+      card.innerHTML = `<a class="hp-cart-image" href="package-detail.html?id=${encodeURIComponent(item.trip_id)}"><img src="${escapeHtml(image)}" alt="${escapeHtml(title)}"></a>` +
+        `<div class="hp-cart-info"><a class="hp-cart-title" href="package-detail.html?id=${encodeURIComponent(item.trip_id)}">${escapeHtml(title)}</a>` +
         `<p class="hp-cart-location">${escapeHtml(location)}</p>` +
-        `<p class="hp-cart-dates">${escapeHtml(item.dates || (trip.id && tripDateLabel(trip)) || '')}${(item.duration || (trip.id && tripDuration(trip))) ? ' · ' + escapeHtml(item.duration || tripDuration(trip)) : ''}</p>` +
+        `<p class="hp-cart-dates">${escapeHtml(tripDateLabel(trip))}${tripDuration(trip) ? ' · ' + escapeHtml(tripDuration(trip)) : ''}</p>` +
         `<div class="hp-cart-controls"><div class="hp-cart-quantity" aria-label="Travellers">` +
         `<button type="button" data-cart-quantity="-1" aria-label="Remove one traveller">−</button><span>${travellers}</span><button type="button" data-cart-quantity="1" aria-label="Add one traveller">+</button>` +
         `</div><strong>₹${(unitPrice * travellers).toLocaleString('en-IN')}</strong></div>` +
-        `<button class="hp-cart-row-book" type="button" data-checkout-trip-id="${escapeHtml(item.id)}">Book Now</button>` +
+        `<button class="hp-cart-row-book" type="button" data-checkout-trip-id="${escapeHtml(item.trip_id)}">Book Now</button>` +
         `<button class="hp-cart-remove" type="button" data-cart-remove>Remove trip</button></div>`;
       card.dataset.unitPrice = String(unitPrice);
       list.append(card);
@@ -671,13 +716,41 @@
     }
   }
 
-  function renderWishlist() {
+  async function renderWishlist() {
     const section = document.getElementById('wishlist-items-section');
     const empty = document.getElementById('empty-state-section');
     if (!section || !empty) return;
-    const items = readStore('wishlist').map((item) => resolveTrip(item.id) || item);
+    const user = window.HappynessAuth?.getUser();
+    if (!user) return;
+    section.replaceChildren();
+    const loading = document.createElement('p');
+    loading.className = 'font-body-sm text-body-sm text-on-surface-variant';
+    loading.textContent = 'Loading your wishlist…';
+    section.append(loading);
+    let rows;
+    try {
+      rows = await window.HappynessAPI.getWishlist(user.id);
+    } catch (error) {
+      console.error(error);
+      section.replaceChildren();
+      const message = document.createElement('p');
+      message.className = 'font-body-sm text-body-sm text-on-surface-variant';
+      message.textContent = error.message || 'We could not load your wishlist.';
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'hp-cart-retry';
+      retry.textContent = 'Retry';
+      retry.addEventListener('click', () => renderWishlist());
+      section.append(message, retry);
+      empty.classList.add('hidden');
+      return;
+    }
+    const items = rows.filter((row) => row.trip).map((row) => row.trip);
+    wishlistIds = new Set(rows.map((row) => row.trip_id));
+    applyHeartStates();
     section.replaceChildren();
     for (const trip of items) {
+      saveTrips([trip]);
       const card = document.createElement('article');
       card.className = 'bg-surface-container-lowest rounded-2xl p-4 custom-card-shadow transition-all duration-200 flex flex-col gap-3.5 relative';
       card.dataset.tripId = trip.id;
@@ -693,8 +766,6 @@
     }
     section.classList.toggle('hidden', items.length === 0);
     empty.classList.toggle('hidden', items.length !== 0);
-    const demoToggle = document.getElementById('toggle-view-btn');
-    if (demoToggle) demoToggle.classList.add('hidden');
     updateWishlistBadges();
   }
 
@@ -731,12 +802,24 @@
     if (tripId) removeWishlistTrip(tripId);
   };
 
-  function removeWishlistTrip(id) {
-    localStorage.setItem('wishlist', JSON.stringify(readStore('wishlist').filter((trip) => trip.id !== id)));
-    renderWishlist();
-    updateHeartStates();
+  async function removeWishlistTrip(id) {
+    const user = window.HappynessAuth?.getUser();
+    if (!user) return;
+    wishlistIds.delete(id);
+    applyHeartStates();
     updateWishlistBadges();
-    showToast('Removed from wishlist');
+    try {
+      await window.HappynessAPI.removeWishlistItem(user.id, id);
+      showToast('Removed from wishlist');
+      await renderWishlist();
+      window.HappynessAuth?.updateCounts(true);
+    } catch (error) {
+      console.error(error);
+      wishlistIds.add(id);
+      applyHeartStates();
+      showToast(error.message || 'We could not remove this saved trip.');
+      await renderWishlist();
+    }
   }
 
   async function addDetailToCart() {
@@ -749,24 +832,49 @@
       return;
     }
     const travellers = Number(document.getElementById('pax-count')?.textContent) || 1;
-    const cart = readStore('cart');
-    const item = {
-      id: trip.id,
-      title: trip.title,
-      image: pageImage(tripImagePath(trip)),
-      dates: tripDateLabel(trip),
-      travellers,
-      price: tripPrice(trip),
-      title: trip.title,
-      location: tripLocation(trip),
-      duration: tripDuration(trip)
-    };
-    const existing = cart.findIndex((saved) => saved.id === trip.id);
-    if (existing >= 0) cart[existing] = item;
-    else cart.push(item);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    window.HappynessAuth?.updateCounts();
-    showToast('Added to cart');
+    try {
+      await window.HappynessAPI.saveCartItem(window.HappynessAuth.getUser().id, trip.id, travellers);
+      window.HappynessAuth?.updateCounts(true);
+      showToast('Added to cart');
+    } catch (error) {
+      console.error(error);
+      showToast(error.message || 'We could not add this trip to your cart.');
+    }
+  }
+
+  async function moveWishlistToCart(id) {
+    const user = window.HappynessAuth?.getUser();
+    if (!user) return;
+    const button = document.querySelector(`[data-move-to-cart="${CSS.escape(id)}"]`);
+    if (button) button.disabled = true;
+    try {
+      await window.HappynessAPI.moveWishlistItemToCart(user.id, id, 1);
+      wishlistIds.delete(id);
+      applyHeartStates();
+      await renderWishlist();
+      window.HappynessAuth?.updateCounts(true);
+      showToast('Moved to cart');
+    } catch (error) {
+      console.error(error);
+      showToast(error.message || 'We could not move this trip to your cart.');
+    } finally {
+      if (button) button.disabled = false;
+    }
+  }
+
+  async function changeCartItem(tripId, travellers) {
+    const user = window.HappynessAuth?.getUser();
+    if (!user) return;
+    try {
+      if (travellers === null) await window.HappynessAPI.removeCartItem(user.id, tripId);
+      else await window.HappynessAPI.saveCartItem(user.id, tripId, travellers);
+      await renderCart();
+      window.HappynessAuth?.updateCounts(true);
+      if (travellers === null) showToast('Removed from cart');
+    } catch (error) {
+      console.error(error);
+      showToast(error.message || 'We could not update your cart.');
+    }
   }
 
   async function shareDetail() {
@@ -780,29 +888,6 @@
         if (error.name !== 'AbortError') await copyShareLink(shareData.url);
       }
 
-      document.getElementById('trip-review-form')?.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const form = event.currentTarget;
-        const tripId = document.getElementById('heart-btn')?.dataset.tripId;
-        const user = window.HappynessAuth?.getUser();
-        const submit = form.querySelector('button[type="submit"]');
-        if (!tripId || !user) return;
-        submit.disabled = true;
-        try {
-          const data = new FormData(form);
-          await window.HappynessAPI.createReview(tripId, user.id, Number(data.get('rating')), String(data.get('comment') || '').trim());
-          showToast('Thank you for your review');
-          form.reset();
-          form.hidden = true;
-          const trip = await window.HappynessAPI.getTrip(tripId);
-          if (trip) renderPackageDetail(trip);
-        } catch (error) {
-          console.error(error);
-          showToast('Your review could not be submitted. Please try again.');
-        } finally {
-          submit.disabled = false;
-        }
-      });
       return;
     }
     await copyShareLink(shareData.url);
@@ -834,27 +919,18 @@
     }
     const remove = event.target.closest('[data-wishlist-remove]');
     if (remove) {
-      removeWishlistTrip(remove.dataset.wishlistRemove);
+      void removeWishlistTrip(remove.dataset.wishlistRemove);
       return;
     }
     const move = event.target.closest('[data-move-to-cart]');
     if (move) {
-      const id = move.dataset.moveToCart;
-      const trip = resolveTrip(id) || readStore('wishlist').find((item) => item.id === id);
-      if (!trip) return;
-      const cart = readStore('cart');
-      if (!cart.some((item) => item.id === id)) localStorage.setItem('cart', JSON.stringify([...cart, trip]));
-      removeWishlistTrip(id);
-      showToast('Moved to cart');
+      void moveWishlistToCart(move.dataset.moveToCart);
       return;
     }
     const cartRemove = event.target.closest('[data-cart-remove]');
     if (cartRemove) {
       const card = cartRemove.closest('[data-cart-id]');
-      const updated = readStore('cart').filter((item) => item.id !== card?.dataset.cartId);
-      localStorage.setItem('cart', JSON.stringify(updated));
-      renderCart();
-      showToast('Removed from cart');
+      if (card?.dataset.cartId) void changeCartItem(card.dataset.cartId, null);
       return;
     }
     const quantityButton = event.target.closest('[data-cart-quantity]');
@@ -862,12 +938,8 @@
       const card = quantityButton.closest('[data-cart-id]');
       const id = card?.dataset.cartId;
       const change = Number(quantityButton.dataset.cartQuantity);
-      const updated = readStore('cart').map((item) => {
-        if (item.id !== id) return item;
-        return { ...item, travellers: Math.max(1, (Number(item.travellers) || 1) + change) };
-      });
-      localStorage.setItem('cart', JSON.stringify(updated));
-      renderCart();
+      const current = Number(card?.querySelector('.hp-cart-quantity span')?.textContent) || 1;
+      if (id) void changeCartItem(id, Math.max(1, current + change));
       return;
     }
     if (event.target.closest('[data-detail-add-cart]')) {
@@ -890,13 +962,29 @@
     if (destination && !button.closest('form')) window.location.href = destination;
   });
 
-  window.addEventListener('storage', (event) => {
-    if (event.key === 'wishlist') {
-      updateWishlistBadges();
-      updateHeartStates();
-      if (isWishlistPage()) renderWishlist();
+  document.addEventListener('submit', async (event) => {
+    if (!event.target.matches('#trip-review-form')) return;
+    event.preventDefault();
+    const form = event.target;
+    const tripId = document.getElementById('heart-btn')?.dataset.tripId;
+    const user = window.HappynessAuth?.getUser();
+    const submit = form.querySelector('button[type="submit"]');
+    if (!tripId || !user) return;
+    submit.disabled = true;
+    try {
+      const data = new FormData(form);
+      await window.HappynessAPI.createReview(tripId, user.id, Number(data.get('rating')), String(data.get('comment') || '').trim());
+      showToast('Thank you for your review');
+      form.reset();
+      form.hidden = true;
+      const trip = await window.HappynessAPI.getTrip(tripId);
+      if (trip) renderPackageDetail(trip);
+    } catch (error) {
+      console.error(error);
+      showToast('Your review could not be submitted. Please try again.');
+    } finally {
+      submit.disabled = false;
     }
-    if (event.key === 'cart' && isCartPage()) renderCart();
   });
 
   document.addEventListener('DOMContentLoaded', () => {
