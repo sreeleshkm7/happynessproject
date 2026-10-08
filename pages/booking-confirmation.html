@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking Confirmation | HappynessProject</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <main class="booking-confirmation-page">
+    <section class="booking-confirmation-card">
+      <div class="booking-success-mark"><span class="material-symbols-outlined">check</span></div>
+      <p class="booking-eyebrow">HappynessProject</p>
+      <h1>Booking confirmed</h1>
+      <p class="booking-confirmation-lede">Your trip details are ready.</p>
+      <div class="booking-confirmation-id">Booking ID <strong id="confirmation-id"></strong><span id="confirmation-status"></span></div>
+      <div class="booking-confirmation-trip">
+        <img id="confirmation-image" src="../images/image-6fb112d.jpg" alt="Booked trip">
+        <div><h2 id="confirmation-trip"></h2><p id="confirmation-dates"></p><p id="confirmation-counts"></p></div>
+      </div>
+      <div class="booking-confirmation-paid"><span>Amount paid</span><strong id="confirmation-paid"></strong></div>
+      <div class="booking-confirmation-actions">
+        <button type="button" id="confirmation-print">View Ticket / Download Invoice</button>
+        <button type="button" id="confirmation-calendar">Add to Calendar</button>
+        <a href="my-bookings.html">Go to My Bookings</a>
+      </div>
+    </section>
+  </main>
+  <script src="../js/trips.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/header.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/checkout.js"></script>
+</body>
+</html>

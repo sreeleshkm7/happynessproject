@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spiti Valley Expedition &amp; Stargazing | HappynessProject</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#d5c5a6",
+            "on-primary-fixed-variant": "#00504a",
+            "primary-fixed-dim": "#80d5cb",
+            "on-surface-variant": "#3e4947",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "tertiary": "#5b5038",
+            "inverse-primary": "#80d5cb",
+            "error-container": "#ffdad6",
+            "surface-container-highest": "#e4e2df",
+            "secondary": "#ae3115",
+            "background": "#fbf9f6",
+            "surface-variant": "#e4e2df",
+            "on-error-container": "#93000a",
+            "surface-container": "#efeeeb",
+            "on-tertiary-container": "#f9e8c8",
+            "surface": "#fbf9f6",
+            "on-secondary-fixed": "#3d0600",
+            "on-tertiary-fixed-variant": "#50462e",
+            "outline-variant": "#bdc9c6",
+            "primary-fixed": "#9cf2e8",
+            "on-secondary-fixed-variant": "#8c1900",
+            "surface-container-low": "#f5f3f0",
+            "tertiary-fixed": "#f2e1c1",
+            "surface-bright": "#fbf9f6",
+            "on-secondary-container": "#640f00",
+            "surface-dim": "#dbdad7",
+            "primary": "#005c55",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#ffdad2",
+            "on-primary-fixed": "#00201d",
+            "secondary-fixed-dim": "#ffb4a3",
+            "tertiary-container": "#74684e",
+            "primary-container": "#0f766e",
+            "surface-container-high": "#eae8e5",
+            "on-background": "#1b1c1a",
+            "outline": "#6e7977",
+            "inverse-surface": "#30312f",
+            "on-tertiary-fixed": "#231b07",
+            "on-primary-container": "#a3faef",
+            "secondary-container": "#fd6a49",
+            "on-surface": "#1b1c1a",
+            "inverse-on-surface": "#f2f0ed",
+            "surface-tint": "#006a63",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter-sm": "1rem",
+            "space-xs": "0.25rem",
+            "margin-mobile": "1.25rem",
+            "margin": "3rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "price-display": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "price-display": ["22px", { "lineHeight": "28px", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .carousel-container::-webkit-scrollbar {
+      display: none;
+    }
+    .carousel-container {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .tab-active {
+      color: #005c55;
+      border-bottom: 2px solid #005c55;
+    }
+  </style>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="package-detail-page bg-background text-on-surface antialiased">
+<main class="hp-detail-content max-w-lg mx-auto px-4 pt-2">
+<!-- Gallery Carousel Section -->
+<section class="relative mt-2">
+<div class="carousel-container flex overflow-x-auto snap-x snap-mandatory rounded-2xl gap-3 scroll-smooth aspect-[4/3] shadow-sm" id="carousel">
+<!-- Photo 1: Key Monastery -->
+<div class="snap-center shrink-0 w-full h-full relative overflow-hidden rounded-2xl bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Iconic whitewashed Key Monastery perched high upon a rugged mountain conical cliff in Spiti Valley. Golden hour morning sunlight bathes the ancient stone monastery against crisp azure Himalayan skies. Crisp editorial photography with deep teal and warm sand natural tones." src="../images/image-a912037.jpg"/>
+<div class="absolute bottom-3 left-3 bg-inverse-surface/70 backdrop-blur-md text-inverse-on-surface px-3 py-1 rounded-full text-label-sm font-label-sm">
+            Key Gompa • 13,668 ft
+          </div>
+</div>
+<!-- Photo 2: Chandratal Lake -->
+<div class="snap-center shrink-0 w-full h-full relative overflow-hidden rounded-2xl bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Crescent shaped pristine turquoise Chandratal Lake in high altitude Spiti desert landscape mirroring snow capped peaks. Warm sunset reflections highlight rugged scree slopes and scattered yellow wildflower patches under calm pastel skies." src="../images/image-b9c4700.jpg"/>
+<div class="absolute bottom-3 left-3 bg-inverse-surface/70 backdrop-blur-md text-inverse-on-surface px-3 py-1 rounded-full text-label-sm font-label-sm">
+            Chandratal Moon Lake
+          </div>
+</div>
+<!-- Photo 3: Pin Valley -->
+<div class="snap-center shrink-0 w-full h-full relative overflow-hidden rounded-2xl bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Expansive panoramic view of Pin Valley National park in Himachal Pradesh showing meandering emerald river crossing dramatic steep rocky ravines and verdant cedar patches under dramatic high altitude clouds with warm sunset rim light." src="../images/image-3d2e40c.jpg"/>
+<div class="absolute bottom-3 left-3 bg-inverse-surface/70 backdrop-blur-md text-inverse-on-surface px-3 py-1 rounded-full text-label-sm font-label-sm">
+            Pin Valley &amp; Mudh Village
+          </div>
+</div>
+<!-- Photo 4: Campfire Stargazing -->
+<div class="snap-center shrink-0 w-full h-full relative overflow-hidden rounded-2xl bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Magical night sky astrophotography over an alpine campsite in Spiti with intense glowing Milky Way galaxy arching directly above warm amber campfire glowing tents and silhouetted friends sitting together under billion brilliant stars." src="../images/image-33e9357.jpg"/>
+<div class="absolute bottom-3 left-3 bg-inverse-surface/70 backdrop-blur-md text-inverse-on-surface px-3 py-1 rounded-full text-label-sm font-label-sm">
+            Stargazing Campfire Night
+          </div>
+</div>
+</div>
+<!-- Carousel Indicators -->
+<div class="flex justify-center items-center gap-1.5 mt-3">
+<span class="indicator-dot w-5 h-1.5 rounded-full bg-primary transition-all"></span>
+<span class="indicator-dot w-1.5 h-1.5 rounded-full bg-outline-variant transition-all"></span>
+<span class="indicator-dot w-1.5 h-1.5 rounded-full bg-outline-variant transition-all"></span>
+<span class="indicator-dot w-1.5 h-1.5 rounded-full bg-outline-variant transition-all"></span>
+</div>
+</section>
+<!-- Header & Title Block -->
+<section class="mt-4">
+<div class="flex items-center gap-2 text-label-md font-label-md text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+<span data-detail-location>Kaza, Spiti • Himachal Pradesh</span>
+</div>
+<h1 class="mt-1 font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">
+        Spiti Valley: High Altitude Stargazing &amp; Monastery Circuit
+      </h1>
+<div class="flex items-center gap-3 mt-2.5">
+<div class="flex items-center gap-1 bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-md font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold">4.96</span>
+<span class="text-on-surface-variant font-normal">(128 reviews)</span>
+</div>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 font-label-md text-label-md text-primary font-medium">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified">verified</span>
+          Verified Experience
+        </span>
+</div>
+<!-- Verified Host Card -->
+<div class="flex items-center justify-between p-3.5 mt-4 rounded-xl bg-surface-container-low border border-surface-container-high shadow-sm">
+<div class="flex items-center gap-3">
+<div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="Headshot of Aakash Mehta, experienced mountain expedition leader smiling warmly wearing fleece jacket with majestic Himalayan mountains behind him in natural daylight. Clean, friendly and authentic portrait." src="../images/image-b692567.jpg"/>
+</div>
+<div>
+<div class="flex items-center gap-1">
+<span class="font-title-md text-title-md text-on-surface font-semibold">Aakash Mehta</span>
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">8+ Spiti Expeditions led • Wilderness First Responder</p>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg border border-primary text-primary font-label-md text-label-md hover:bg-primary/5 transition-colors">
+          Chat
+        </button>
+</div>
+<!-- Package Highlights Chips -->
+<div class="flex flex-wrap gap-2 mt-4">
+<span class="h-8 px-3 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="hiking">hiking</span>
+          Adventure
+        </span>
+<span class="h-8 px-3 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="terrain">terrain</span>
+          High Altitude
+        </span>
+<span class="h-8 px-3 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="groups">groups</span>
+          Small Group (Max 14)
+        </span>
+<span class="h-8 px-3 rounded-full bg-tertiary-fixed/60 text-primary font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="photo_camera">photo_camera</span>
+          Guided Photography
+        </span>
+</div>
+<!-- Quick Overview Strip Bento Grid -->
+<div class="grid grid-cols-2 gap-2.5 mt-4">
+<div class="p-3 bg-surface-container-lowest rounded-xl shadow-sm flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="schedule">schedule</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Duration</div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">7 Days / 6 Nights</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl shadow-sm flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="altitude">altitude</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Peak Altitude</div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">12,500 ft - 15,000 ft</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl shadow-sm flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="fitness_center">fitness_center</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Physical Level</div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">Moderate Expedition</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl shadow-sm flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="directions_bus">directions_bus</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Pick-up Hub</div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">Delhi / Chandigarh</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Sticky Tab Navigation Strip for Fast Jump -->
+<div class="sticky top-14 z-30 bg-background/95 backdrop-blur-sm py-2 mt-6 border-b border-surface-container-highest">
+<div class="flex items-center justify-between text-label-md font-label-md overflow-x-auto whitespace-nowrap gap-4 px-1">
+<a class="tab-link pb-1 tab-active font-semibold" href="#overview">Overview</a>
+<a class="tab-link pb-1 text-on-surface-variant hover:text-primary transition-colors" href="#itinerary">Itinerary</a>
+<a class="tab-link pb-1 text-on-surface-variant hover:text-primary transition-colors" href="#inclusions">Inclusions</a>
+<a class="tab-link pb-1 text-on-surface-variant hover:text-primary transition-colors" href="#pickup">Pickups</a>
+<a class="tab-link pb-1 text-on-surface-variant hover:text-primary transition-colors" href="#reviews">Reviews</a>
+</div>
+</div>
+<!-- Section 1: Overview & Trip Story -->
+<section class="pt-6" id="overview">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-2">Trip Story &amp; Vibe</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        Leave the ordinary world behind as we traverse the awe-inspiring high passes of Himachal Pradesh into the middle land of Spiti. This intimate group journey balances rugged Himalayan exploration with quiet soulful pauses: sitting by ancient prayer wheels at thousand-year-old Key Gompa, sending hand-written postcards from the world's highest post office at Hikkim, and camping beside the mythical moon lake of Chandratal under zero light pollution.
+      </p>
+<div class="mt-4 p-4 rounded-xl bg-tertiary-fixed/30 border border-tertiary-fixed flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[24px] shrink-0" data-icon="tips_and_updates">tips_and_updates</span>
+<div class="font-body-sm text-body-sm text-on-surface">
+<strong class="font-semibold text-primary">High Altitude Acclimatization:</strong> We purposefully pace the first 48 hours with slow scenic drives, hydration schedules, and onboard medical-grade pulse oximeters and oxygen cylinders to ensure you feel energetic and safe.
+        </div>
+</div>
+</section>
+<!-- Section 2: Day-wise Itinerary Timeline -->
+<section class="pt-8" id="itinerary">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">7-Day Curated Itinerary</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Designed for mindful exploration and breathtaking views</p>
+</div>
+<button class="text-primary text-label-md font-label-md font-semibold hover:underline" id="toggle-all-days">
+          Expand All
+        </button>
+</div>
+<div class="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-2 before:top-3 before:bottom-3 before:w-0.5 before:bg-surface-container-highest">
+<!-- Day 1 -->
+<div class="relative group itinerary-card">
+<div class="absolute -left-6 top-1 w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
+<details class="bg-surface-container-lowest rounded-xl p-4 shadow-sm border border-surface-container-high transition-all" open="">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<div>
+<span class="text-label-sm font-label-sm text-primary font-bold tracking-wide">DAY 1</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Manali to Kaza via Atal Tunnel &amp; Kunzum Pass</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="pt-3 font-body-sm text-body-sm text-on-surface-variant border-t border-surface-container-low mt-3 space-y-2">
+<p>Depart early morning from Manali. Drive through the historic Atal Tunnel, crossing from lush green Kullu into the stark dry gorges of Lahaul. Ascent over the mighty Kunzum Pass (14,931 ft) with a ritual stop at Kunzum Mata Temple before rolling into Kaza for evening sunset chai and group orientation.</p>
+<div class="flex items-center gap-4 text-label-sm text-primary pt-1">
+<span>🚗 200 km / 8 hrs drive</span>
+<span>🏠 Traditional Spiti Homestay</span>
+</div>
+</div>
+</details>
+</div>
+<!-- Day 2 -->
+<div class="relative group itinerary-card">
+<div class="absolute -left-6 top-1 w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
+<details class="bg-surface-container-lowest rounded-xl p-4 shadow-sm border border-surface-container-high transition-all">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<div>
+<span class="text-label-sm font-label-sm text-primary font-bold tracking-wide">DAY 2</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Key Monastery &amp; Hikkim Post Office</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="pt-3 font-body-sm text-body-sm text-on-surface-variant border-t border-surface-container-low mt-3 space-y-2">
+<p>Ascend to Key Monastery for a private morning tea session with resident monks. Explore the ancient prayer chambers dating back to the 11th century. Later drive to Hikkim (14,567 ft) to post hand-stamped letters from the world's highest operational post office to your loved ones.</p>
+<div class="flex items-center gap-4 text-label-sm text-primary pt-1">
+<span>📮 Postcard writing workshop</span>
+<span>🍲 Spitian Thukpa lunch</span>
+</div>
+</div>
+</details>
+</div>
+<!-- Day 3 -->
+<div class="relative group itinerary-card">
+<div class="absolute -left-6 top-1 w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
+<details class="bg-surface-container-lowest rounded-xl p-4 shadow-sm border border-surface-container-high transition-all">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<div>
+<span class="text-label-sm font-label-sm text-primary font-bold tracking-wide">DAY 3</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Komic, Langza &amp; Astrophotography Workshop</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="pt-3 font-body-sm text-body-sm text-on-surface-variant border-t border-surface-container-low mt-3 space-y-2">
+<p>Visit Komic, the highest village in the world connected by a motorable road (15,027 ft). Head to Langza to marvel at the giant golden Buddha statue gazing at Chau Chau Kang Nilda peak. Evening guided astrophotography masterclass learning shutter drag, long exposures, and tracking the galactic core.</p>
+<div class="flex items-center gap-4 text-label-sm text-primary pt-1">
+<span>📸 Tripod &amp; camera assistance</span>
+<span>🌌 Bortle Class 1 night skies</span>
+</div>
+</div>
+</details>
+</div>
+<!-- Day 4 -->
+<div class="relative group itinerary-card">
+<div class="absolute -left-6 top-1 w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
+<details class="bg-surface-container-lowest rounded-xl p-4 shadow-sm border border-surface-container-high transition-all">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<div>
+<span class="text-label-sm font-label-sm text-primary font-bold tracking-wide">DAY 4</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Pin Valley National Park &amp; Mudh Homestay</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="pt-3 font-body-sm text-body-sm text-on-surface-variant border-t border-surface-container-low mt-3 space-y-2">
+<p>Head south into the lush, dramatic biome of Pin Valley. Spot Himalayan ibex grazing along shale screes and explore Mudh Village, the trailhead for the Pin Parvati pass. Cozy up inside an authentic wood-fired mud homestay eating fresh buckwheat rotis.</p>
+<div class="flex items-center gap-4 text-label-sm text-primary pt-1">
+<span>🐐 Wildlife spotting drive</span>
+<span>🏡 Farm-to-table Mudh dinner</span>
+</div>
+</div>
+</details>
+</div>
+<!-- Day 5 -->
+<div class="relative group itinerary-card">
+<div class="absolute -left-6 top-1 w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
+<details class="bg-surface-container-lowest rounded-xl p-4 shadow-sm border border-surface-container-high transition-all">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<div>
+<span class="text-label-sm font-label-sm text-primary font-bold tracking-wide">DAY 5</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Chandratal Lake Camping &amp; Milky Way Gazing</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="pt-3 font-body-sm text-body-sm text-on-surface-variant border-t border-surface-container-low mt-3 space-y-2">
+<p>Journey toward the crown jewel of Himachal: Chandratal (The Moon Lake). Check into premium insulated Swiss alpine tents. Walk 2km to the lake edge to watch the waters shift from deep turquoise to sapphire blue as twilight falls, followed by an open-air campfire astronomy session.</p>
+<div class="flex items-center gap-4 text-label-sm text-primary pt-1">
+<span>⛺ Heated Swiss alpine tents</span>
+<span>🔥 Campfire storytelling</span>
+</div>
+</div>
+</details>
+</div>
+<!-- Day 6 -->
+<div class="relative group itinerary-card">
+<div class="absolute -left-6 top-1 w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
+<details class="bg-surface-container-lowest rounded-xl p-4 shadow-sm border border-surface-container-high transition-all">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<div>
+<span class="text-label-sm font-label-sm text-primary font-bold tracking-wide">DAY 6</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Trekking Lake Perimeter &amp; Manali Return</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="pt-3 font-body-sm text-body-sm text-on-surface-variant border-t border-surface-container-low mt-3 space-y-2">
+<p>Witness a magnificent golden sunrise over the Chandra river basin. Scenic drive back over Rohtang/Atal pass into Old Manali. Celebrate our expedition completion with a celebratory dinner in a riverside cafe in Old Manali.</p>
+<div class="flex items-center gap-4 text-label-sm text-primary pt-1">
+<span>☕ Cafe celebration dinner</span>
+<span>🏨 Boutique resort stay</span>
+</div>
+</div>
+</details>
+</div>
+<!-- Day 7 -->
+<div class="relative group itinerary-card">
+<div class="absolute -left-6 top-1 w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
+<details class="bg-surface-container-lowest rounded-xl p-4 shadow-sm border border-surface-container-high transition-all">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<div>
+<span class="text-label-sm font-label-sm text-primary font-bold tracking-wide">DAY 7</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Farewell Breakfast &amp; Airport / Volvo Transfer</h3>
+</div>
+<span class="material-symbols-outlined text-outline-variant transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="pt-3 font-body-sm text-body-sm text-on-surface-variant border-t border-surface-container-low mt-3 space-y-2">
+<p>Relish a slow organic breakfast together, sharing photo drops and trip memoirs. Scheduled drop-off at Bhuntar Airport (Kullu) or luxury overnight Volvo bus transfers to Chandigarh/Delhi.</p>
+<div class="flex items-center gap-4 text-label-sm text-primary pt-1">
+<span>🚌 Drop to bus stand/airport</span>
+<span>💛 Happiness memory pack</span>
+</div>
+</div>
+</details>
+</div>
+</div>
+</section>
+<!-- Section 3: Inclusions & Exclusions Checklist -->
+<section class="pt-8" id="inclusions">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-3">What's Covered</h2>
+<!-- Interactive Toggle Tabs -->
+<div class="grid grid-cols-2 p-1 bg-surface-container rounded-xl mb-4 text-label-md font-label-md">
+<button class="py-2 rounded-lg bg-surface-container-lowest text-primary font-semibold shadow-sm transition-all" id="inc-tab-btn" onclick="switchChecklist('inclusions')">
+          Included (9 items)
+        </button>
+<button class="py-2 rounded-lg text-on-surface-variant font-medium transition-all" id="exc-tab-btn" onclick="switchChecklist('exclusions')">
+          Excluded (4 items)
+        </button>
+</div>
+<!-- Inclusions List -->
+<div class="space-y-2.5" id="inclusions-list">
+<div class="p-3 bg-surface-container-lowest rounded-xl flex items-start gap-3 border border-surface-container">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">All Accommodations (6 Nights)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Curated traditional mud homestays in Kaza &amp; Mudh, plus luxury Swiss camping at Chandratal on twin/triple sharing.</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl flex items-start gap-3 border border-surface-container">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">4x4 Dedicated High-Clearance Transport</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Modified Toyota Fortuner / Force Urbania with seasoned high-altitude mountain drivers throughout the journey.</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl flex items-start gap-3 border border-surface-container">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">Full Board Meals</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Daily mountain breakfasts and hot dinners prepared fresh with organic local Himalayan ingredients.</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl flex items-start gap-3 border border-surface-container">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">High Altitude Safety Kit &amp; O2 Cylinders</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Medical-grade portable oxygen cylinders, fingertip pulse oximeters, and first-aid kits in every vehicle.</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl flex items-start gap-3 border border-surface-container">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">Permits &amp; Inner Line Clearances</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">All Himachal tourism environmental cesses, green taxes, and special wildlife reserve entrance fees.</div>
+</div>
+</div>
+</div>
+<!-- Exclusions List (Initially Hidden) -->
+<div class="space-y-2.5 hidden" id="exclusions-list">
+<div class="p-3 bg-surface-container-lowest rounded-xl flex items-start gap-3 border border-surface-container">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" data-icon="cancel">cancel</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">Domestic Flights or Train Tickets</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Airfare to Chandigarh/Delhi or Bhuntar airport is not included.</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl flex items-start gap-3 border border-surface-container">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" data-icon="cancel">cancel</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">Lunch &amp; Personal Snack Expenses</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">En-route roadside cafes, maggi points, and personal beverage orders during drive stops.</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl flex items-start gap-3 border border-surface-container">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" data-icon="cancel">cancel</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">Travel &amp; Medical Insurance</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">We strongly recommend securing comprehensive adventure trek travel insurance before departure.</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-xl flex items-start gap-3 border border-surface-container">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5" data-icon="cancel">cancel</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface font-semibold">Camera Fees &amp; Monastery Donations</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Personal offerings at religious shrines and special commercial DSLR shooting permits.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Pickup & Drop Points -->
+<section class="pt-8" id="pickup">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-3">Pickup &amp; Departure Points</h2>
+<div class="space-y-3">
+<!-- Delhi Pickup -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="pin_drop">pin_drop</span>
+              Majnu Ka Tilla, New Delhi
+            </span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Hub 1</span>
+</div>
+<p class="mt-2 font-body-sm text-body-sm text-on-surface-variant">
+            Assembly point: HP Petrol Pump / Monastery Gate. Overnight luxury Volvo departs at 06:30 PM for Manali.
+          </p>
+<div class="mt-2 text-label-sm text-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="alarm">alarm</span>
+            Reporting Time: 05:45 PM Day 0
+          </div>
+</div>
+<!-- Chandigarh Pickup -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="pin_drop">pin_drop</span>
+              ISBT Sector 43, Chandigarh
+            </span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Hub 2</span>
+</div>
+<p class="mt-2 font-body-sm text-body-sm text-on-surface-variant">
+            Direct boarding at main platform bays. Convenient for travelers arriving via Chandigarh Airport (IXC) or Shatabdi.
+          </p>
+<div class="mt-2 text-label-sm text-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="alarm">alarm</span>
+            Reporting Time: 11:30 PM Day 0
+          </div>
+</div>
+</div>
+</section>
+<!-- Section 5: Cancellation Policy Card -->
+<section class="pt-8">
+<div class="p-4 rounded-xl bg-surface-container-low border border-surface-container-high">
+<div class="flex items-center gap-2 text-primary font-title-md text-title-md font-semibold">
+<span class="material-symbols-outlined" data-icon="policy">policy</span>
+<h3>Flexible Cancellation Policy</h3>
+</div>
+<ul class="mt-3 space-y-2 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span><strong class="font-medium text-on-surface">100% Free Cancellation:</strong> Cancel up to 15 days before departure for a full refund.</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span><strong class="font-medium text-on-surface">14 to 7 Days:</strong> 50% refund or free date shift to future batch.</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span><strong class="font-medium text-on-surface">Less than 7 Days:</strong> Non-refundable due to high-altitude permits.</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- Section 6: Traveler Reviews & Community Gallery -->
+<section class="pt-8" id="reviews">
+<div class="flex justify-between items-end mb-4">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Traveler Stories</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Unfiltered love from our past expeditions</p>
+</div>
+<button class="text-primary font-label-md text-label-md font-semibold hover:underline">
+          View All 128
+        </button>
+</div>
+<!-- Review Card 1 -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container shadow-sm mb-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close up warm portrait of traveler Priya Nair wearing colorful wool beanie and sunglasses smiling with cold flushed cheeks in crisp high altitude mountain lighting." src="../images/image-a8f9f2b.jpg"/>
+</div>
+<div>
+<div class="font-title-md text-title-md font-semibold text-on-surface">Priya Nair</div>
+<div class="font-label-sm text-label-sm text-outline">Traveled September 2024</div>
+</div>
+</div>
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="mt-3 font-body-sm text-body-sm text-on-surface-variant">
+          "The Milky Way at Chandratal made me cry happy tears. Aakash and the team managed our acclimatization effortlessly. The homestay hosts in Mudh treated us like family. Unforgettable group bonding!"
+        </p>
+</div>
+<!-- Review Card 2 -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Portrait of solo traveler Siddharth Verma holding a camera sitting at a high mountain pass with prayer flags fluttering in background under golden afternoon sun." src="../images/image-b8f4238.jpg"/>
+</div>
+<div>
+<div class="font-title-md text-title-md font-semibold text-on-surface">Siddharth V.</div>
+<div class="font-label-sm text-label-sm text-outline">Traveled August 2024</div>
+</div>
+</div>
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="mt-3 font-body-sm text-body-sm text-on-surface-variant">
+          "As a solo traveler, joining this HappynessProject cohort was the best decision. Small group size meant no chaos. 4x4 vehicles handled the river crossings like a breeze."
+        </p>
+</div>
+<!-- Community Photos Grid -->
+<div class="mt-4">
+<h4 class="font-label-lg text-label-lg text-on-surface mb-2 font-semibold">Community Snaps</h4>
+<div class="grid grid-cols-3 gap-2">
+<div class="aspect-square rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Community photo of travelers standing together wrapped in warm blankets holding mugs by night campfire under stars." src="../images/image-723307b.jpg"/>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Vibrant prayer flags fluttering against pure blue Himalayan sky outside Key Monastery." src="../images/image-aa75070.jpg"/>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Group of four travelers laughing happily atop Kunzum Pass holding a commemorative banner in mountain sunlight." src="../images/image-424fd6d.jpg"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Assurance Seal Banner -->
+<div class="mt-8 mb-6 p-4 rounded-2xl bg-surface-container-lowest border border-surface-container-high flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary-fixed/50 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[28px]" data-icon="shield">shield</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface font-semibold">Happyness SafeVoyage Guarantee</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Verified hosts, strict safety protocols, 24/7 on-ground assistance.</p>
+</div>
+</div>
+</main>
+<div class="hp-detail-action-bar" aria-label="Trip actions">
+  <div class="hp-detail-price"><strong data-trip-price>₹24,999</strong><span>/ person</span></div>
+  <button class="hp-detail-add-cart" type="button" data-detail-add-cart aria-label="Add to Cart">
+    <span class="material-symbols-outlined" aria-hidden="true">shopping_bag</span><span>Add to Cart</span>
+  </button>
+  <button class="hp-detail-icon-button" type="button" id="heart-btn" aria-label="Add to wishlist" data-trip-heart>
+    <span class="material-symbols-outlined" data-icon="favorite" id="heart-icon" aria-hidden="true">favorite</span>
+  </button>
+  <button class="hp-detail-icon-button" type="button" data-detail-share aria-label="Share trip">
+    <span class="material-symbols-outlined" aria-hidden="true">share</span>
+  </button>
+</div>
+<!-- Interactive Logic -->
+<script>
+    // Inclusions / Exclusions Switcher
+    function switchChecklist(type) {
+      const incBtn = document.getElementById('inc-tab-btn');
+      const excBtn = document.getElementById('exc-tab-btn');
+      const incList = document.getElementById('inclusions-list');
+      const excList = document.getElementById('exclusions-list');
+
+      if (type === 'inclusions') {
+        incBtn.className = "py-2 rounded-lg bg-surface-container-lowest text-primary font-semibold shadow-sm transition-all";
+        excBtn.className = "py-2 rounded-lg text-on-surface-variant font-medium transition-all";
+        incList.classList.remove('hidden');
+        excList.classList.add('hidden');
+      } else {
+        excBtn.className = "py-2 rounded-lg bg-surface-container-lowest text-primary font-semibold shadow-sm transition-all";
+        incBtn.className = "py-2 rounded-lg text-on-surface-variant font-medium transition-all";
+        excList.classList.remove('hidden');
+        incList.classList.add('hidden');
+      }
+    }
+
+    // Carousel Dot Sync on Scroll
+    const carousel = document.getElementById('carousel');
+    const dots = document.querySelectorAll('.indicator-dot');
+
+    carousel.addEventListener('scroll', () => {
+      const scrollIndex = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+      dots.forEach((dot, index) => {
+        if (index === scrollIndex) {
+          dot.className = "indicator-dot w-5 h-1.5 rounded-full bg-primary transition-all";
+        } else {
+          dot.className = "indicator-dot w-1.5 h-1.5 rounded-full bg-outline-variant transition-all";
+        }
+      });
+    });
+
+    // Toggle All Itinerary Days
+    const toggleBtn = document.getElementById('toggle-all-days');
+    const allDetails = document.querySelectorAll('.itinerary-card details');
+    let allOpen = false;
+
+    toggleBtn.addEventListener('click', () => {
+      allOpen = !allOpen;
+      allDetails.forEach(detail => detail.open = allOpen);
+      toggleBtn.textContent = allOpen ? 'Collapse All' : 'Expand All';
+    });
+
+  </script>
+<script src="../js/trips.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/header.js"></script>
+<script src="../js/main.js"></script>
+</body></html>

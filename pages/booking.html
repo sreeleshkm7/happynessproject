@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Complete Your Booking | HappynessProject</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="booking-page">
+  <main class="hp-booking-layout">
+    <div class="booking-main-column">
+      <div class="booking-page-heading">
+        <h1>Complete Your Booking</h1>
+        <ol class="booking-progress" aria-label="Booking progress">
+          <li class="is-current"><span>1</span> Travellers</li><li><span>2</span> Payment</li><li><span>3</span> Confirmation</li>
+        </ol>
+      </div>
+
+      <section class="booking-section booking-trip-summary">
+        <div class="booking-section-heading"><h2>Your trip</h2><a href="cart.html">Change</a></div>
+        <div class="booking-trip-card">
+          <img id="booking-trip-image" src="../images/image-6fb112d.jpg" alt="Trip destination">
+          <div><h3 id="booking-trip-title"></h3><p id="booking-trip-location"></p><p id="booking-trip-dates"></p></div>
+        </div>
+      </section>
+
+      <form id="booking-form" novalidate>
+        <section class="booking-section">
+          <div class="booking-section-heading"><h2>Travellers</h2><span class="booking-capacity">Seats available: <b id="seat-limit"></b></span></div>
+          <div class="booking-count-grid">
+            <div class="booking-count-card"><div><h3>Adults</h3><p>Age 12+</p></div><div class="booking-stepper"><button type="button" data-count-step="adults" data-change="-1" aria-label="Remove one adult">−</button><output data-count-value="adults">1</output><button type="button" data-count-step="adults" data-change="1" aria-label="Add one adult">+</button></div><strong id="price-adults"></strong></div>
+            <div class="booking-count-card"><div><h3>Children</h3><p>Age 5–11</p></div><div class="booking-stepper"><button type="button" data-count-step="children" data-change="-1" aria-label="Remove one child">−</button><output data-count-value="children">0</output><button type="button" data-count-step="children" data-change="1" aria-label="Add one child">+</button></div><strong id="price-children"></strong></div>
+            <div class="booking-count-card"><div><h3>Infants</h3><p>Under 5</p></div><div class="booking-stepper"><button type="button" data-count-step="infants" data-change="-1" aria-label="Remove one infant">−</button><output data-count-value="infants">0</output><button type="button" data-count-step="infants" data-change="1" aria-label="Add one infant">+</button></div><strong>₹0</strong></div>
+          </div>
+          <p id="seat-warning" class="booking-seat-warning" hidden></p>
+          <div id="traveller-forms" class="booking-traveller-forms"></div>
+        </section>
+
+        <section class="booking-section">
+          <h2>Primary contact</h2>
+          <div class="booking-field-grid">
+            <label>Full name<input id="contact-name" name="contact-name" autocomplete="name" required><small class="booking-error"></small></label>
+            <label>Mobile number<input id="contact-mobile" name="contact-mobile" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel" required><small class="booking-error">Enter a 10-digit mobile number.</small></label>
+            <label>Email<input id="contact-email" name="contact-email" type="email" autocomplete="email" required><small class="booking-error"></small></label>
+            <label>City<input id="contact-city" name="contact-city" autocomplete="address-level2" required><small class="booking-error"></small></label>
+          </div>
+        </section>
+
+        <section class="booking-section">
+          <h2>Emergency contact</h2>
+          <div class="booking-field-grid">
+            <label>Name<input id="emergency-name" required><small class="booking-error"></small></label>
+            <label>Relationship<input id="emergency-relationship" required><small class="booking-error"></small></label>
+            <label>Mobile number<input id="emergency-mobile" type="tel" inputmode="numeric" maxlength="10" required><small class="booking-error">Enter a 10-digit mobile number.</small></label>
+          </div>
+        </section>
+
+        <section class="booking-section">
+          <h2>Pickup &amp; requests</h2>
+          <label>Pickup point<select id="pickup-point" required><option value="">Select a pickup point</option></select><small class="booking-error"></small></label>
+          <label>Special requests or dietary needs<textarea id="special-requests" rows="3"></textarea></label>
+        </section>
+
+        <section class="booking-section booking-payment-section">
+          <h2>Payment method</h2>
+          <div class="booking-payment-options">
+            <label class="booking-payment-option"><input type="radio" name="payment-method" value="upi" checked><span class="material-symbols-outlined">account_balance</span><span>UPI</span></label>
+            <label class="booking-payment-option"><input type="radio" name="payment-method" value="card"><span class="material-symbols-outlined">credit_card</span><span>Credit / Debit Card</span></label>
+            <label class="booking-payment-option"><input type="radio" name="payment-method" value="net-banking"><span class="material-symbols-outlined">account_balance</span><span>Net Banking</span></label>
+            <label class="booking-payment-option"><input type="radio" name="payment-method" value="wallet"><span class="material-symbols-outlined">account_balance_wallet</span><span>Wallets</span></label>
+            <label class="booking-payment-option" data-pay-later-card hidden><input type="radio" name="payment-method" value="pay-later"><span class="material-symbols-outlined">schedule</span><span>Pay at Pickup / Pay Later</span></label>
+          </div>
+          <div class="booking-payment-panel" data-payment-panel="upi" hidden>
+            <label>UPI ID<input id="upi-id" placeholder="name@bank" data-required="true" autocomplete="off"><small class="booking-error">Enter a valid UPI ID, such as name@bank.</small></label>
+            <p class="booking-app-hints"><span>GPay</span><span>PhonePe</span><span>Paytm</span></p>
+          </div>
+          <div class="booking-payment-panel" data-payment-panel="card" hidden>
+            <div class="booking-field-grid"><label>Card number<input id="card-number" type="password" inputmode="numeric" autocomplete="cc-number" maxlength="23" data-required="true"><small class="booking-error">Enter a valid card number.</small></label><label>Name on card<input id="card-name" autocomplete="cc-name" data-required="true"><small class="booking-error"></small></label><label>Expiry MM/YY<input id="card-expiry" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" maxlength="5" data-required="true"><small class="booking-error">Enter a valid future expiry.</small></label><label>CVV<input id="card-cvv" type="password" inputmode="numeric" autocomplete="cc-csc" maxlength="4" data-required="true"><small class="booking-error">Enter 3 or 4 digits.</small></label></div>
+          </div>
+          <div class="booking-payment-panel" data-payment-panel="net-banking" hidden><label>Bank<select id="bank-name" data-required="true"><option value="">Choose your bank</option><option>State Bank of India</option><option>HDFC Bank</option><option>ICICI Bank</option><option>Axis Bank</option><option>Other bank</option></select><small class="booking-error"></small></label></div>
+          <div class="booking-payment-panel" data-payment-panel="wallet" hidden><p>Continue with a supported wallet to complete your demo payment.</p><p class="booking-app-hints"><span>Paytm</span><span>Amazon Pay</span><span>Mobikwik</span></p></div>
+          <div class="booking-payment-panel" data-payment-panel="pay-later" hidden><p>Your booking will be held for 30 minutes while payment is pending.</p></div>
+          <label class="booking-terms"><input id="terms-agree" type="checkbox" required><span>I agree to the <a href="terms.html" target="_blank" rel="noreferrer">Terms &amp; Conditions</a> and <a href="cancellation-policy.html" target="_blank" rel="noreferrer">Cancellation &amp; Refund Policy</a></span><small class="booking-error">Please agree before payment.</small></label>
+          <p class="booking-secure-note"><span class="material-symbols-outlined">lock</span> Your payment details are encrypted.</p>
+          <div class="booking-secure-badges"><span><span class="material-symbols-outlined">verified_user</span>Secure checkout</span><span><span class="material-symbols-outlined">lock</span>Encrypted payment</span></div>
+        </section>
+      </form>
+    </div>
+
+    <aside class="booking-price-card" aria-label="Price summary">
+      <h2>Price summary</h2>
+      <div class="booking-price-row"><span data-price-label="adults">Adults × count</span><strong id="line-adults"></strong></div>
+      <div class="booking-price-row"><span data-price-label="children">Children × count</span><strong id="line-children"></strong></div>
+      <div class="booking-price-row"><span data-price-label="infants">Infants × count</span><strong id="line-infants">₹0</strong></div>
+      <div class="booking-price-row booking-price-subtotal"><span>Subtotal</span><strong id="line-subtotal"></strong></div>
+      <div class="booking-coupon"><label for="coupon-code">Coupon code</label><div><input id="coupon-code" autocomplete="off"><button type="button" id="apply-coupon">Apply</button></div><small id="coupon-message" aria-live="polite"></small></div>
+      <div class="booking-price-row"><span>Discount</span><strong id="line-discount">−₹0</strong></div>
+      <div class="booking-price-row"><span>GST (5%)</span><strong id="line-gst"></strong></div>
+      <div class="booking-price-row"><span>Convenience fee</span><strong id="line-fee"></strong></div>
+      <div class="booking-price-row booking-price-total"><span>Total Amount</span><strong id="line-total"></strong></div>
+      <label class="booking-partial-toggle"><input id="reserve-partial" type="checkbox"><span>Pay only 25% now to reserve the seat (balance due 15 days before departure)</span></label>
+      <div id="partial-payment-lines" class="booking-payment-balance" hidden><div><span>Pay now</span><strong id="line-pay-now"></strong></div><div><span>Balance due</span><strong id="line-balance"></strong></div></div>
+    </aside>
+  </main>
+
+  <div class="booking-bottom-bar"><div><span>Total</span><strong id="sticky-pay-total"></strong></div><button id="booking-pay-button" type="submit" form="booking-form" disabled>Pay <span id="booking-pay-total"></span></button></div>
+  <script src="../js/trips.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/header.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/checkout.js"></script>
+</body>
+</html>

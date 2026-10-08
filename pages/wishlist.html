@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Wishlist - HappynessProject</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-container": "#0f766e",
+            "surface": "#fbf9f6",
+            "on-tertiary-container": "#f9e8c8",
+            "secondary-fixed-dim": "#ffb4a3",
+            "primary-fixed": "#9cf2e8",
+            "primary-fixed-dim": "#80d5cb",
+            "on-primary-fixed-variant": "#00504a",
+            "on-background": "#1b1c1a",
+            "on-tertiary": "#ffffff",
+            "primary": "#005c55",
+            "outline-variant": "#bdc9c6",
+            "on-secondary-container": "#640f00",
+            "tertiary-fixed": "#f2e1c1",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#d5c5a6",
+            "surface-tint": "#006a63",
+            "background": "#fbf9f6",
+            "tertiary-container": "#74684e",
+            "surface-container-low": "#f5f3f0",
+            "inverse-on-surface": "#f2f0ed",
+            "secondary-fixed": "#ffdad2",
+            "outline": "#6e7977",
+            "on-secondary": "#ffffff",
+            "surface-variant": "#e4e2df",
+            "inverse-surface": "#30312f",
+            "on-surface-variant": "#3e4947",
+            "on-surface": "#1b1c1a",
+            "surface-container": "#efeeeb",
+            "on-primary-container": "#a3faef",
+            "on-secondary-fixed-variant": "#8c1900",
+            "on-primary": "#ffffff",
+            "tertiary": "#5b5038",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed-variant": "#50462e",
+            "on-error-container": "#93000a",
+            "surface-container-high": "#eae8e5",
+            "surface-bright": "#fbf9f6",
+            "secondary": "#ae3115",
+            "on-tertiary-fixed": "#231b07",
+            "secondary-container": "#fd6a49",
+            "on-secondary-fixed": "#3d0600",
+            "inverse-primary": "#80d5cb",
+            "on-error": "#ffffff",
+            "on-primary-fixed": "#00201d",
+            "surface-dim": "#dbdad7",
+            "surface-container-highest": "#e4e2df"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin": "3rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "space-md": "1rem",
+            "gutter-sm": "1rem",
+            "margin-mobile": "1.25rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Inter"],
+            "price-display": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "price-display": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-card-shadow {
+      box-shadow: 0 4px 20px -2px rgba(15, 118, 110, 0.06), 0 2px 6px -1px rgba(31, 41, 55, 0.04);
+    }
+  </style>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen pb-28">
+<!-- Main Canvas Container -->
+<main class="max-w-md mx-auto px-4 pt-5 pb-6">
+<!-- Title & Controls Header -->
+<div class="flex flex-col gap-3 mb-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">My Wishlist</h1>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-label-md px-2.5 py-0.5 rounded-full" id="wishlist-count-badge">
+            4 saved trips
+          </span>
+</div>
+<!-- Live demo toggle to preview Empty State -->
+<button class="text-primary hover:text-primary-container font-label-sm text-label-sm flex items-center gap-1 bg-surface-container-low px-2.5 py-1.5 rounded-lg active:scale-95 transition-all" id="toggle-view-btn" onclick="toggleWishlistView()">
+<span class="material-symbols-outlined text-sm">swap_horiz</span>
+<span id="toggle-btn-text">Show Empty State</span>
+</button>
+</div>
+<!-- Sorting Controls Row -->
+<div class="flex items-center justify-between pt-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant">Hold spots before prices rise</p>
+<div class="relative inline-flex items-center">
+<select aria-label="Sort trips" class="appearance-none bg-surface-container-lowest border border-surface-variant font-label-md text-label-md text-on-surface rounded-xl pl-3 pr-8 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all shadow-sm">
+<option>Soonest departure</option>
+<option>Price low-to-high</option>
+<option>Date added</option>
+</select>
+<span class="material-symbols-outlined text-outline pointer-events-none absolute right-2.5 text-base">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Active List Container -->
+<section class="flex flex-col gap-4" id="wishlist-items-section">
+<!-- Card 1: Kerala -->
+<article class="bg-surface-container-lowest rounded-2xl p-4 custom-card-shadow transition-all duration-200 flex flex-col gap-3.5 relative" id="card-kerala">
+<div class="relative w-full h-44 rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Serene backwaters of Kerala during gentle golden hour with a traditional wooden houseboat floating smoothly between towering lush emerald coconut palms, calm reflective waters, premium editorial travel photo style, bright cheerful sunlight." src="../images/image-8982ab7.jpg"/>
+<!-- Translucent Wishlist Heart -->
+<button aria-label="Remove Kerala from wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center bg-white/85 backdrop-blur-md active:scale-90 transition-transform" onclick="removeItem('card-kerala')">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<!-- Status Tag -->
+<div class="absolute bottom-3 left-3">
+<span class="inline-flex items-center gap-1 bg-amber-500/90 text-white backdrop-blur-sm font-label-md text-label-md px-2.5 py-1 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-xs">local_fire_department</span>
+              Only 3 seats left!
+            </span>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-2 text-outline font-label-md text-label-md mb-1">
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">calendar_today</span>
+              Apr 24–27
+            </span>
+<span>•</span>
+<span>4D/3N</span>
+</div>
+<h2 class="font-title-md text-title-md text-on-surface line-clamp-1">Kerala Backwaters &amp; Rainforest Trek</h2>
+<div class="flex items-center gap-3 mt-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span> Small Group</span>
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-sm">terrain</span> Moderate</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high">
+<div>
+<span class="font-price-display text-price-display text-primary">₹12,499</span>
+<span class="font-label-sm text-label-sm text-outline">/person</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="font-label-lg text-label-lg text-primary hover:text-primary-container px-1 py-1 transition-colors" onclick="removeItem('card-kerala')">
+              Remove
+            </button>
+<button class="bg-secondary-container hover:bg-[#ff5530] active:scale-95 text-white font-label-lg text-label-lg px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">shopping_bag</span>
+              Move to Cart
+            </button>
+</div>
+</div>
+</article>
+<!-- Card 2: Meghalaya -->
+<article class="bg-surface-container-lowest rounded-2xl p-4 custom-card-shadow transition-all duration-200 flex flex-col gap-3.5 relative" id="card-meghalaya">
+<div class="relative w-full h-44 rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Majestic living root bridge nestled in the misty deep green jungles of Meghalaya, clear turquoise mountain river running underneath, sunbeams filtering through dense lush canopy, bright vivid natural travel photography." src="../images/image-9602150.jpg"/>
+<button aria-label="Remove Meghalaya from wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center bg-white/85 backdrop-blur-md active:scale-90 transition-transform" onclick="removeItem('card-meghalaya')">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute bottom-3 left-3">
+<span class="inline-flex items-center gap-1 bg-emerald-600/90 text-white backdrop-blur-sm font-label-md text-label-md px-2.5 py-1 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-xs">trending_down</span>
+              Price dropped ₹2,000
+            </span>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-2 text-outline font-label-md text-label-md mb-1">
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">calendar_today</span>
+              May 2–7
+            </span>
+<span>•</span>
+<span>6D/5N</span>
+</div>
+<h2 class="font-title-md text-title-md text-on-surface line-clamp-1">Meghalaya: Living Root Bridges &amp; Caving</h2>
+<div class="flex items-center gap-3 mt-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span> Small Group</span>
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-sm">water_drop</span> Waterfalls</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high">
+<div>
+<div class="flex items-baseline gap-1.5">
+<span class="font-price-display text-price-display text-primary">₹21,999</span>
+<span class="text-xs text-outline line-through">₹23,999</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">/person</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="font-label-lg text-label-lg text-primary hover:text-primary-container px-1 py-1 transition-colors" onclick="removeItem('card-meghalaya')">
+              Remove
+            </button>
+<button class="bg-secondary-container hover:bg-[#ff5530] active:scale-95 text-white font-label-lg text-label-lg px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">shopping_bag</span>
+              Move to Cart
+            </button>
+</div>
+</div>
+</article>
+<!-- Card 3: Spiti Valley -->
+<article class="bg-surface-container-lowest rounded-2xl p-4 custom-card-shadow transition-all duration-200 flex flex-col gap-3.5 relative" id="card-spiti">
+<div class="relative w-full h-44 rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="High altitude mountain desert vista in Spiti Valley with dramatic rugged snowcapped peaks, an ancient cliffside monastery illuminated by crisp morning sunlight under an expansive brilliant azure sky, cinematic wanderlust vibe." src="../images/image-5b7c3df.jpg"/>
+<button aria-label="Remove Spiti Valley from wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center bg-white/85 backdrop-blur-md active:scale-90 transition-transform" onclick="removeItem('card-spiti')">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute bottom-3 left-3">
+<span class="inline-flex items-center gap-1 bg-amber-500/90 text-white backdrop-blur-sm font-label-md text-label-md px-2.5 py-1 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-xs">airline_seat_recline_normal</span>
+              4 seats left
+            </span>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-2 text-outline font-label-md text-label-md mb-1">
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">calendar_today</span>
+              May 18–24
+            </span>
+<span>•</span>
+<span>7D/6N</span>
+</div>
+<h2 class="font-title-md text-title-md text-on-surface line-clamp-1">Spiti Valley: High Altitude Stargazing</h2>
+<div class="flex items-center gap-3 mt-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span> Small Group</span>
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-sm">nights_stay</span> Dark Skies</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high">
+<div>
+<span class="font-price-display text-price-display text-primary">₹24,999</span>
+<span class="font-label-sm text-label-sm text-outline">/person</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="font-label-lg text-label-lg text-primary hover:text-primary-container px-1 py-1 transition-colors" onclick="removeItem('card-spiti')">
+              Remove
+            </button>
+<button class="bg-secondary-container hover:bg-[#ff5530] active:scale-95 text-white font-label-lg text-label-lg px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">shopping_bag</span>
+              Move to Cart
+            </button>
+</div>
+</div>
+</article>
+<!-- Card 4: Gokarna -->
+<article class="bg-surface-container-lowest rounded-2xl p-4 custom-card-shadow transition-all duration-200 flex flex-col gap-3.5 relative" id="card-gokarna">
+<div class="relative w-full h-44 rounded-xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Cozy beachfront safari tents on golden sand overlooking rolling ocean waves in Gokarna at twilight, warm fairy string lights hanging between tropical palms with campers enjoying sunset, lively warm communal vibe." src="../images/image-43ff0a2.jpg"/>
+<button aria-label="Remove Gokarna from wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center bg-white/85 backdrop-blur-md active:scale-90 transition-transform" onclick="removeItem('card-gokarna')">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div>
+<div class="flex items-center gap-2 text-outline font-label-md text-label-md mb-1">
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">calendar_today</span>
+              May 10–12
+            </span>
+<span>•</span>
+<span>3D/2N</span>
+</div>
+<h2 class="font-title-md text-title-md text-on-surface line-clamp-1">Gokarna &amp; Murudeshwar Beach Camp</h2>
+<div class="flex items-center gap-3 mt-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span> Small Group</span>
+<span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-sm">beach_access</span> Coastal</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high">
+<div>
+<span class="font-price-display text-price-display text-primary">₹7,999</span>
+<span class="font-label-sm text-label-sm text-outline">/person</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="font-label-lg text-label-lg text-primary hover:text-primary-container px-1 py-1 transition-colors" onclick="removeItem('card-gokarna')">
+              Remove
+            </button>
+<button class="bg-secondary-container hover:bg-[#ff5530] active:scale-95 text-white font-label-lg text-label-lg px-4 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">shopping_bag</span>
+              Move to Cart
+            </button>
+</div>
+</div>
+</article>
+</section>
+<!-- Empty State Variant (Seamlessly toggled or displayed when list empties) -->
+<section class="hidden flex-col items-center justify-center text-center py-10 px-4 bg-surface-container-lowest rounded-2xl custom-card-shadow mt-2" id="empty-state-section">
+<!-- Friendly Illustration with compass, map and travel vibe -->
+<div class="w-36 h-36 rounded-full bg-tertiary-fixed/40 flex items-center justify-center mb-6 relative">
+<div class="w-24 h-24 rounded-full bg-white shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-5xl">explore</span>
+</div>
+<!-- Decorative companion icons -->
+<div class="absolute top-2 right-2 w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-lg">map</span>
+</div>
+<div class="absolute bottom-1 left-2 w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</div>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Nothing saved yet</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mb-8">
+        Explore upcoming small-group treks, beach camps, and heritage circuits to curate your bucket list.
+      </p>
+<button class="bg-secondary-container hover:bg-[#ff5530] active:scale-95 text-white font-label-lg text-label-lg px-8 py-3.5 rounded-full shadow-md transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-xl">travel_explore</span>
+<span>Browse Upcoming Trips</span>
+</button>
+</section>
+<!-- Curated Bucket List Tips Banner -->
+<div class="mt-6 p-4 rounded-xl bg-surface-container-low border border-surface-variant/60 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5">verified_user</span>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Happiness Guarantee</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Saved items automatically receive alert notifications whenever departure groups reach 80% capacity.</p>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component Implementation - 5 Destinations, 'Wishlist' Active) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 border-t border-surface-container-high dark:border-surface-variant md:hidden bg-surface-container-lowest shadow-[0_-4px_20px_-2px_rgba(15,118,110,0.06)]">
+<!-- Destination 1: Explore -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors duration-150 active:scale-95 py-1 px-3" href="../index.html">
+<span class="material-symbols-outlined text-2xl">explore</span>
+<span class="font-label-sm text-label-sm mt-0.5">Explore</span>
+</a>
+<!-- Destination 2: Wishlist (ACTIVE STATE MATCH) -->
+<a class="flex flex-col items-center justify-center text-secondary font-semibold active:scale-95 py-1 px-3" href="wishlist.html">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-sm text-label-sm mt-0.5">Wishlist</span>
+</a>
+<!-- Destination 3: Bookings -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors duration-150 active:scale-95 py-1 px-3" href="my-bookings.html">
+<span class="material-symbols-outlined text-2xl">luggage</span>
+<span class="font-label-sm text-label-sm mt-0.5">Bookings</span>
+</a>
+<!-- Destination 4: Host -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors duration-150 active:scale-95 py-1 px-3" href="host-a-trip.html">
+<span class="material-symbols-outlined text-2xl">add_circle</span>
+<span class="font-label-sm text-label-sm mt-0.5">Host</span>
+</a>
+<!-- Destination 5: Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors duration-150 active:scale-95 py-1 px-3" href="settings.html">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="font-label-sm text-label-sm mt-0.5">Profile</span>
+</a>
+</nav>
+<!-- Interactive script for removing items & toggling empty state variant -->
+<script>
+    let remainingCards = 4;
+
+    function removeItem(cardId) {
+      const card = document.getElementById(cardId);
+      if (card) {
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          card.remove();
+          remainingCards--;
+          updateCardCount();
+          if (remainingCards <= 0) {
+            showEmptyStateView();
+          }
+        }, 200);
+      }
+    }
+
+    function updateCardCount() {
+      const badge = document.getElementById('wishlist-count-badge');
+      if (badge) {
+        badge.innerText = `${remainingCards} saved trip${remainingCards === 1 ? '' : 's'}`;
+      }
+    }
+
+    function showEmptyStateView() {
+      const listSec = document.getElementById('wishlist-items-section');
+      const emptySec = document.getElementById('empty-state-section');
+      const toggleText = document.getElementById('toggle-btn-text');
+      const badge = document.getElementById('wishlist-count-badge');
+      
+      listSec.classList.add('hidden');
+      emptySec.classList.remove('hidden');
+      if (toggleText) toggleText.innerText = "Show Trips";
+      if (badge) badge.innerText = "0 saved trips";
+    }
+
+    function toggleWishlistView() {
+      const listSec = document.getElementById('wishlist-items-section');
+      const emptySec = document.getElementById('empty-state-section');
+      const toggleText = document.getElementById('toggle-btn-text');
+      const isCurrentlyEmpty = !emptySec.classList.contains('hidden');
+
+      if (isCurrentlyEmpty) {
+        emptySec.classList.add('hidden');
+        listSec.classList.remove('hidden');
+        toggleText.innerText = "Show Empty State";
+        updateCardCount();
+      } else {
+        showEmptyStateView();
+      }
+    }
+  </script>
+<script src="../js/trips.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/header.js"></script>
+<script src="../js/main.js"></script>
+</body></html>

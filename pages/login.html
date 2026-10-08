@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HappynessProject - Welcome Back</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-container": "#0f766e",
+            "surface": "#fbf9f6",
+            "on-tertiary-container": "#f9e8c8",
+            "secondary-fixed-dim": "#ffb4a3",
+            "primary-fixed": "#9cf2e8",
+            "primary-fixed-dim": "#80d5cb",
+            "on-primary-fixed-variant": "#00504a",
+            "on-background": "#1b1c1a",
+            "on-tertiary": "#ffffff",
+            "primary": "#005c55",
+            "outline-variant": "#bdc9c6",
+            "on-secondary-container": "#640f00",
+            "tertiary-fixed": "#f2e1c1",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#d5c5a6",
+            "surface-tint": "#006a63",
+            "background": "#fbf9f6",
+            "tertiary-container": "#74684e",
+            "surface-container-low": "#f5f3f0",
+            "inverse-on-surface": "#f2f0ed",
+            "secondary-fixed": "#ffdad2",
+            "outline": "#6e7977",
+            "on-secondary": "#ffffff",
+            "surface-variant": "#e4e2df",
+            "inverse-surface": "#30312f",
+            "on-surface-variant": "#3e4947",
+            "on-surface": "#1b1c1a",
+            "surface-container": "#efeeeb",
+            "on-primary-container": "#a3faef",
+            "on-secondary-fixed-variant": "#8c1900",
+            "on-primary": "#ffffff",
+            "tertiary": "#5b5038",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed-variant": "#50462e",
+            "on-error-container": "#93000a",
+            "surface-container-high": "#eae8e5",
+            "surface-bright": "#fbf9f6",
+            "secondary": "#ae3115",
+            "on-tertiary-fixed": "#231b07",
+            "secondary-container": "#fd6a49",
+            "on-secondary-fixed": "#3d0600",
+            "inverse-primary": "#80d5cb",
+            "on-error": "#ffffff",
+            "on-primary-fixed": "#00201d",
+            "surface-dim": "#dbdad7",
+            "surface-container-highest": "#e4e2df"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-xs": "0.25rem",
+            "margin": "3rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "space-md": "1rem",
+            "gutter-sm": "1rem",
+            "margin-mobile": "1.25rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Inter"],
+            "price-display": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "price-display": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- MAIN SCROLLABLE CONTENT CANVAS (Mobile Form Factor Centered) -->
+<main class="flex-grow flex flex-col items-center px-4 py-4 max-w-md mx-auto w-full pb-16">
+<!-- Scenic Travel Hero Strip -->
+<div class="w-full relative h-36 rounded-2xl overflow-hidden shadow-sm mb-5">
+<div class="w-full h-full bg-cover bg-center" data-alt="A cinematic sun-drenched coastal lagoon and misty pine cliffs in early morning golden light, shot with clean minimal aesthetic in rich coastal teals and warm sand highlights, embodying serene exploration and peaceful wanderlust." style="background-image: url('../images/login-image-01-ac0fc50.jpg')"></div>
+<!-- Soft Coastal Teal Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent flex flex-col justify-end p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary font-label-sm text-label-sm w-fit shadow-xs mb-1">
+<span class="material-symbols-outlined text-[14px]">explore</span>
+          Curated Group Journeys
+        </span>
+<p class="text-white font-title-md text-title-md drop-shadow-sm font-semibold">"Collect moments, not things."</p>
+</div>
+</div>
+<!-- Editorial Headline & Subtext -->
+<div class="w-full mb-6 text-left">
+<h1 class="text-headline-md font-headline-md text-on-surface tracking-tight">Welcome back</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1 leading-relaxed">
+        Sign in to book trips, save favourites and host your own journeys.
+      </p>
+</div>
+<!-- Tab Switcher: [Login] (active) | [Sign Up] -->
+<div class="w-full grid grid-cols-2 p-1 bg-surface-container rounded-xl mb-6">
+<button class="py-2.5 text-center font-label-lg text-label-lg rounded-lg transition-all duration-200 bg-surface-container-lowest text-primary shadow-sm font-bold" id="loginTabBtn" onclick="switchTab('login')">
+        Login
+      </button>
+<button class="py-2.5 text-center font-label-lg text-label-lg rounded-lg transition-all duration-200 text-on-surface-variant hover:text-on-surface" id="signupTabBtn" onclick="switchTab('signup')">
+        Sign Up
+      </button>
+</div>
+<!-- TAB 1: LOGIN FORM CARD -->
+<div class="w-full bg-surface-container-lowest rounded-2xl p-6 shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06),0_2px_6px_-1px_rgba(31,41,55,0.04)] border border-surface-variant/40 transition-all duration-300" id="loginFormContainer">
+<form class="space-y-4" onsubmit="handleLoginSubmit(event)">
+<!-- Username Field -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1.5" for="usernameInput">Username or Email</label>
+<div class="relative flex items-center">
+<span class="absolute left-3.5 text-on-surface-variant material-symbols-outlined text-[20px] pointer-events-none">person</span>
+<input class="w-full h-12 pl-11 pr-4 bg-surface-container-lowest border border-surface-variant rounded-xl font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all placeholder:text-outline" id="usernameInput" name="username" placeholder="Enter your username" required="" type="text" value="sree"/>
+</div>
+</div>
+<!-- Password Field -->
+<div>
+<div class="flex justify-between items-center mb-1.5">
+<label class="block font-label-md text-label-md text-on-surface" for="passwordInput">Password</label>
+</div>
+<div class="relative flex items-center">
+<span class="absolute left-3.5 text-on-surface-variant material-symbols-outlined text-[20px] pointer-events-none">lock</span>
+<input class="w-full h-12 pl-11 pr-12 bg-surface-container-lowest border border-surface-variant rounded-xl font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all" id="passwordInput" name="password" placeholder="••••••••" required="" type="password" value="1234"/>
+<button aria-label="Toggle password view" class="absolute right-3 p-1.5 rounded-lg text-on-surface-variant hover:text-primary transition-colors focus:outline-none" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-[20px]" id="passwordEyeIcon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember Me Checkbox & Forgot Password Link -->
+<div class="flex items-center justify-between pt-1">
+<label class="flex items-center gap-2.5 cursor-pointer select-none">
+<input checked="" class="w-5 h-5 rounded text-primary-container focus:ring-primary-container border-outline/50 cursor-pointer" id="rememberMe" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Remember me</span>
+</label>
+<a class="font-label-md text-label-md text-primary hover:text-primary-container transition-colors" href="forgot-password.html">
+            Forgot password?
+          </a>
+</div>
+<!-- Sunset Coral Pill Login Button -->
+<button class="w-full h-12 mt-2 bg-secondary-container hover:bg-[#e05334] text-white font-label-lg text-label-lg rounded-xl shadow-sm hover:-translate-y-0.5 active:translate-y-0 active:scale-98 transition-all duration-150 flex items-center justify-center gap-2" type="submit">
+<span>Login</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<!-- Divider Line with 'or' -->
+<div class="relative flex items-center justify-center my-5">
+<div class="w-full border-t border-surface-variant"></div>
+<span class="absolute bg-surface-container-lowest px-3 font-label-sm text-label-sm text-outline uppercase tracking-wider">or</span>
+</div>
+<!-- Continue with Google Outline Button -->
+<button class="w-full h-12 border border-outline/40 hover:bg-surface-container-low rounded-xl font-label-lg text-label-lg text-on-surface flex items-center justify-center gap-3 transition-all duration-150 active:scale-98" onclick="triggerDemoLogin()" type="button">
+<svg class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path>
+</svg>
+<span>Continue with Google</span>
+</button>
+<!-- Footer Callout Link -->
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant pt-2">
+          New here? 
+          <button class="font-label-md text-label-md text-primary font-semibold hover:underline ml-1" onclick="switchTab('signup')" type="button">
+            Create account
+          </button>
+</p>
+</form>
+</div>
+<!-- TAB 2: SIGN UP CONTAINER (Hidden by default, toggleable) -->
+<div class="hidden w-full bg-surface-container-lowest rounded-2xl p-6 shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06),0_2px_6px_-1px_rgba(31,41,55,0.04)] border border-surface-variant/40 transition-all duration-300" id="signupFormContainer">
+<form class="space-y-3.5" onsubmit="handleSignupSubmit(event)">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Full Name</label>
+<input class="w-full h-11 px-4 bg-surface-container-lowest border border-surface-variant rounded-xl font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container focus:outline-none" placeholder="e.g. Sreekanth Iyer" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Username</label>
+<input class="w-full h-11 px-4 bg-surface-container-lowest border border-surface-variant rounded-xl font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container focus:outline-none" placeholder="Pick a unique handle" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Email Address</label>
+<input class="w-full h-11 px-4 bg-surface-container-lowest border border-surface-variant rounded-xl font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container focus:outline-none" placeholder="name@domain.com" type="email"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Mobile Number</label>
+<div class="flex gap-2">
+<span class="inline-flex items-center px-3 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md border border-surface-variant">+91</span>
+<input class="flex-1 h-11 px-4 bg-surface-container-lowest border border-surface-variant rounded-xl font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container focus:outline-none" placeholder="98765 43210" type="tel"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Password</label>
+<input class="w-full h-11 px-3 bg-surface-container-lowest border border-surface-variant rounded-xl font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container focus:outline-none" placeholder="••••••••" type="password"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Confirm</label>
+<input class="w-full h-11 px-3 bg-surface-container-lowest border border-surface-variant rounded-xl font-body-sm text-body-sm focus:ring-2 focus:ring-primary-container focus:outline-none" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<button class="w-full h-12 mt-3 bg-secondary-container hover:bg-[#e05334] text-white font-label-lg text-label-lg rounded-xl shadow-sm hover:-translate-y-0.5 transition-all" type="submit">
+          Create Account
+        </button>
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant pt-1">
+          Already registered? 
+          <button class="font-label-md text-label-md text-primary font-semibold hover:underline ml-1" onclick="switchTab('login')" type="button">
+            Login here
+          </button>
+</p>
+</form>
+</div>
+<!-- INTERACTIVE DEMO PREVIEW: Logged-in State Card & Toast Simulation -->
+<div class="w-full mt-8 p-4 rounded-2xl bg-surface-container-low border border-surface-variant/60">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">preview</span>
+<span class="font-label-lg text-label-lg text-on-surface">Interactive Simulation</span>
+</div>
+<button class="px-3 py-1 bg-primary text-white rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors" onclick="triggerDemoLogin()">
+          Simulate Login
+        </button>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm">
+        Tap the button above or "Login" to preview the floating success toast and updated header state with Sree's authenticated profile dropdown.
+      </p>
+</div>
+</main>
+<!-- FLOATING SUCCESS TOAST NOTIFICATION -->
+<div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 transform -translate-y-20 opacity-0 pointer-events-none max-w-sm w-[90%]" id="successToast">
+<div class="bg-primary text-white px-4 py-3.5 rounded-xl shadow-xl flex items-center justify-between border border-primary-fixed/30 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-primary-container text-[24px]">check_circle</span>
+<div>
+<p class="font-label-lg text-label-lg text-white">Welcome back, sree!</p>
+<p class="font-body-sm text-body-sm text-on-primary-container">Redirecting to explore trips...</p>
+</div>
+</div>
+<button class="text-white/80 hover:text-white p-1" onclick="hideToast()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<!-- AUTHENTICATED HEADER PREVIEW MODAL / DRAWER (Shown on simulated login) -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-start justify-center pt-3 px-4 hidden transition-opacity" id="authHeaderModal">
+<div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-surface-variant animate-in fade-in zoom-in-95 duration-200">
+<!-- Simulating Updated Logged-In TopBar -->
+<div class="p-4 border-b border-surface-container-high flex items-center justify-between bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="text-headline-sm font-headline-sm font-bold text-primary">HappynessProject</span>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm rounded-full">Live User</span>
+</div>
+<!-- Right side: Upcoming, Cart badge, Avatar -->
+<div class="flex items-center gap-3">
+<!-- Cart Icon with Count Badge 2 -->
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface text-[24px]">shopping_bag</span>
+<span class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-secondary-container text-white font-label-sm text-[10px] flex items-center justify-center font-bold">2</span>
+</div>
+<!-- User Avatar with dropdown open preview -->
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-bold flex items-center justify-center font-label-md text-label-md ring-2 ring-primary-fixed">
+            S
+          </div>
+</div>
+</div>
+<!-- User Dropdown Menu Content -->
+<div class="p-4 space-y-1">
+<div class="px-3 py-2.5 rounded-xl bg-surface-container-low mb-2">
+<div class="flex items-center justify-between">
+<div>
+<p class="font-title-md text-title-md font-bold text-on-surface">sree</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">sree@happynessproject.in</p>
+</div>
+<span class="px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Traveler</span>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-surface-container transition-colors text-on-surface" href="upcoming-events.html">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">event</span>
+<span class="font-label-lg text-label-lg">Upcoming Events</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-semibold">1 active</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-surface-container transition-colors text-on-surface" href="wishlist.html">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px]">favorite</span>
+<span class="font-label-lg text-label-lg">Saved Wishlist</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">4</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-surface-container transition-colors text-on-surface" href="my-bookings.html">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">luggage</span>
+<span class="font-label-lg text-label-lg">My Bookings</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">2</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-surface-container transition-colors text-on-surface" href="host-a-trip.html">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">travel_explore</span>
+<span class="font-label-lg text-label-lg">Host a Trip</span>
+</div>
+<span class="text-label-sm font-label-sm text-secondary font-bold">Earn</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-surface-container transition-colors text-on-surface" href="settings.html">
+<span class="material-symbols-outlined text-outline text-[20px]">settings</span>
+<span class="font-label-lg text-label-lg">Account Settings</span>
+</a>
+<div class="pt-2 border-t border-surface-variant">
+<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-error hover:bg-error-container/40 transition-colors" onclick="closeDemoModal()">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="font-label-lg text-label-lg">Logout &amp; Return to Login</span>
+</button>
+</div>
+</nav>
+</div>
+<!-- Action to dismiss preview -->
+<div class="p-3 bg-surface-container-low border-t border-surface-container flex justify-end">
+<button class="px-4 py-2 bg-primary text-white rounded-xl font-label-lg text-label-lg hover:bg-primary-container" onclick="closeDemoModal()">
+          Close Preview
+        </button>
+</div>
+</div>
+</div>
+<!-- SIMPLE COMPACT SCRIPT FOR TABS, EYE TOGGLE & TOAST -->
+<script>
+    function switchTab(tab) {
+      const loginBtn = document.getElementById('loginTabBtn');
+      const signupBtn = document.getElementById('signupTabBtn');
+      const loginForm = document.getElementById('loginFormContainer');
+      const signupForm = document.getElementById('signupFormContainer');
+
+      if (tab === 'login') {
+        loginBtn.className = "py-2.5 text-center font-label-lg text-label-lg rounded-lg transition-all duration-200 bg-surface-container-lowest text-primary shadow-sm font-bold";
+        signupBtn.className = "py-2.5 text-center font-label-lg text-label-lg rounded-lg transition-all duration-200 text-on-surface-variant hover:text-on-surface";
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+      } else {
+        signupBtn.className = "py-2.5 text-center font-label-lg text-label-lg rounded-lg transition-all duration-200 bg-surface-container-lowest text-primary shadow-sm font-bold";
+        loginBtn.className = "py-2.5 text-center font-label-lg text-label-lg rounded-lg transition-all duration-200 text-on-surface-variant hover:text-on-surface";
+        signupForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById('passwordInput');
+      const eyeIcon = document.getElementById('passwordEyeIcon');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.textContent = 'visibility_off';
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.textContent = 'visibility';
+      }
+    }
+
+    function handleLoginSubmit(event) {
+      window.happynessLoginSubmit(event);
+    }
+
+    function handleSignupSubmit(event) {
+      event.preventDefault();
+      switchTab('login');
+    }
+
+    function triggerDemoLogin() {
+      const toast = document.getElementById('successToast');
+      toast.classList.remove('-translate-y-20', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        document.getElementById('authHeaderModal').classList.remove('hidden');
+      }, 1200);
+
+      setTimeout(() => {
+        hideToast();
+      }, 4000);
+    }
+
+    function hideToast() {
+      const toast = document.getElementById('successToast');
+      toast.classList.add('-translate-y-20', 'opacity-0', 'pointer-events-none');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }
+
+    function closeDemoModal() {
+      document.getElementById('authHeaderModal').classList.add('hidden');
+    }
+  </script>
+<script src="../js/auth.js"></script>
+<script src="../js/header.js"></script>
+<script src="../js/main.js"></script>
+</body></html>

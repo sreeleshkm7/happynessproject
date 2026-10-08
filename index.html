@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HappynessProject - Travel together. Find your happiness.</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#d5c5a6",
+            "on-primary-fixed-variant": "#00504a",
+            "primary-fixed-dim": "#80d5cb",
+            "on-surface-variant": "#3e4947",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "tertiary": "#5b5038",
+            "inverse-primary": "#80d5cb",
+            "error-container": "#ffdad6",
+            "surface-container-highest": "#e4e2df",
+            "secondary": "#ae3115",
+            "background": "#fbf9f6",
+            "surface-variant": "#e4e2df",
+            "on-error-container": "#93000a",
+            "surface-container": "#efeeeb",
+            "on-tertiary-container": "#f9e8c8",
+            "surface": "#fbf9f6",
+            "on-secondary-fixed": "#3d0600",
+            "on-tertiary-fixed-variant": "#50462e",
+            "outline-variant": "#bdc9c6",
+            "primary-fixed": "#9cf2e8",
+            "on-secondary-fixed-variant": "#8c1900",
+            "surface-container-low": "#f5f3f0",
+            "tertiary-fixed": "#f2e1c1",
+            "surface-bright": "#fbf9f6",
+            "on-secondary-container": "#640f00",
+            "surface-dim": "#dbdad7",
+            "primary": "#005c55",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#ffdad2",
+            "on-primary-fixed": "#00201d",
+            "secondary-fixed-dim": "#ffb4a3",
+            "tertiary-container": "#74684e",
+            "primary-container": "#0f766e",
+            "surface-container-high": "#eae8e5",
+            "on-background": "#1b1c1a",
+            "outline": "#6e7977",
+            "inverse-surface": "#30312f",
+            "on-tertiary-fixed": "#231b07",
+            "on-primary-container": "#a3faef",
+            "secondary-container": "#fd6a49",
+            "on-surface": "#1b1c1a",
+            "inverse-on-surface": "#f2f0ed",
+            "surface-tint": "#006a63",
+            "error": "#ba1a1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter-sm": "1rem",
+            "space-xs": "0.25rem",
+            "margin-mobile": "1.25rem",
+            "margin": "3rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "price-display": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+            "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "headline-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "headline-xl-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "price-display": ["22px", {"lineHeight": "28px", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed pb-24">
+<!-- TOP APP BAR (Shared Component Anchor) -->
+<main>
+<!-- HERO SECTION -->
+<section class="relative px-margin-mobile pt-3 pb-6">
+<div class="relative rounded-2xl overflow-hidden min-h-[380px] flex flex-col justify-between p-6 shadow-md bg-inverse-surface">
+<!-- Hero Background Image -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover brightness-[0.75]" data-alt="A cinematic, breathtaking wide-angle shot of Pangong Tso Lake in Leh-Ladakh during early golden morning sunrise. The calm turquoise azure waters reflect majestic rugged Himalayan snow-capped peaks in the background. Pristine warm golden light filters across the dramatic landscape, embodying authentic communal travel adventures with rich deep teals and ambient warm tones." src="images/image-c797811.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/90 via-[#0B2B2A]/40 to-transparent"></div>
+</div>
+<!-- Top Hero Tag -->
+<div class="relative z-10 flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-sm">groups</span> Curated Small-Group Journeys
+          </span>
+</div>
+<!-- Headline & Subtitle -->
+<div class="relative z-10 mt-auto mb-2 text-surface-container-lowest">
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-surface-container-lowest font-extrabold tracking-tight leading-tight">
+            Travel together.<br/><span class="text-secondary-fixed">Find your happiness.</span>
+</h1>
+<p class="font-body-sm text-body-sm text-surface-variant/90 mt-2 max-w-xs">
+            Join verified Indian creators, solo nomads, and lively group travel circles across unexplored terrains.
+          </p>
+</div>
+</div>
+<!-- FLOATING SEARCH WIDGET CARD -->
+<div class="-mt-8 relative z-20 mx-1 bg-surface-container-lowest rounded-2xl p-4 shadow-[0_14px_30px_-4px_rgba(15,118,110,0.12),0_4px_10px_-2px_rgba(31,41,55,0.04)] border border-surface-container-high">
+<div class="grid grid-cols-1 gap-3">
+<!-- Destination Field -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl border border-surface-container-high">
+<span class="material-symbols-outlined text-primary text-xl">location_on</span>
+<div class="flex-1 min-w-0">
+<span class="block font-label-sm text-label-sm text-on-surface-variant font-medium">Where to?</span>
+<input class="w-full bg-transparent p-0 text-title-md font-title-md text-on-surface border-0 focus:ring-0 focus:outline-none truncate" placeholder="Search destination" type="text" value="Manali, Ladakh, Meghalaya"/>
+</div>
+</div>
+<!-- Month Selector & Budget Row -->
+<div class="grid grid-cols-2 gap-2">
+<!-- Month Selector -->
+<div class="flex items-center gap-2 p-2.5 bg-surface-container-low rounded-xl border border-surface-container-high">
+<span class="material-symbols-outlined text-primary text-lg">calendar_month</span>
+<div class="min-w-0 flex-1">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">When</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate block">Apr - May 2026</span>
+</div>
+</div>
+<!-- Budget Filter -->
+<div class="flex items-center gap-2 p-2.5 bg-surface-container-low rounded-xl border border-surface-container-high">
+<span class="material-symbols-outlined text-primary text-lg">payments</span>
+<div class="min-w-0 flex-1">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Budget</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate block">Under ₹15,000</span>
+</div>
+</div>
+</div>
+<!-- Search CTA Button -->
+<button class="w-full bg-secondary-container hover:brightness-105 active:bg-secondary text-on-primary font-label-lg text-label-lg py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all duration-150">
+<span class="material-symbols-outlined text-lg">travel_explore</span>
+            Find My Happiness Trip
+          </button>
+</div>
+</div>
+</section>
+<!-- QUICK CATEGORY CHIPS (Horizontal Scroll) -->
+<section class="py-2 overflow-x-auto no-scrollbar px-margin-mobile flex gap-2">
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md whitespace-nowrap shadow-sm">
+<span class="material-symbols-outlined text-base">near_me</span> All Trips
+      </button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-tertiary-fixed text-primary font-label-md text-label-md whitespace-nowrap hover:bg-tertiary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-base">terrain</span> Adventure
+      </button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-tertiary-fixed text-primary font-label-md text-label-md whitespace-nowrap hover:bg-tertiary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-base">fort</span> Heritage
+      </button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-tertiary-fixed text-primary font-label-md text-label-md whitespace-nowrap hover:bg-tertiary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-base">wb_sunny</span> Weekend Getaway
+      </button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-tertiary-fixed text-primary font-label-md text-label-md whitespace-nowrap hover:bg-tertiary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-base">water</span> Beach
+      </button>
+</section>
+<!-- UPCOMING TRIPS SECTION (Horizontal Carousel) -->
+<section class="pt-6 pb-4">
+<div class="px-margin-mobile flex justify-between items-baseline mb-3">
+<div>
+<span class="font-label-md text-label-md text-secondary font-bold tracking-wide uppercase">Handcrafted Itineraries</span>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Upcoming Group Trips</h2>
+</div>
+<a class="text-primary font-label-md text-label-md font-semibold flex items-center gap-0.5" href="pages/upcoming-events.html">
+          See all <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Experience Cards Rail -->
+<div class="flex gap-4 overflow-x-auto no-scrollbar px-margin-mobile pb-4 pt-1">
+<!-- Card 1: Meghalaya -->
+<article class="flex-shrink-0 w-[290px] bg-surface-container-lowest rounded-2xl shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06),0_2px_6px_-1px_rgba(31,41,55,0.04)] overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_30px_-4px_rgba(15,118,110,0.12)]">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Vibrant double-decker living root bridge nestled inside lush green rainforests in Cherrapunji, Meghalaya. A tranquil turquoise natural river pool flows below while dappled tropical sunlight filters through dense canopy leaves. The scene captures pure untamed ecological beauty with vivid natural tones and clean outdoor styling." src="images/image-3398b60.jpg"/>
+<!-- Category Chip Badge -->
+<span class="absolute top-3 left-3 px-2.5 py-1 bg-surface-container-lowest/90 backdrop-blur-md rounded-full font-label-sm text-label-sm font-semibold text-primary">
+              Adventure
+            </span>
+<!-- Wishlist Heart Button -->
+<button aria-label="Add to wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-container-lowest/85 backdrop-blur-md flex items-center justify-center text-on-surface hover:text-secondary-container transition-transform active:scale-90">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+<!-- Duration & Rating Overlays -->
+<div class="absolute bottom-3 left-3 right-3 flex justify-between items-center">
+<span class="px-2 py-0.5 rounded-lg bg-inverse-surface/80 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> 6D / 5N
+              </span>
+<span class="px-2 py-0.5 rounded-lg bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary-container text-xs fill-icon">star</span> 4.9 (42)
+              </span>
+</div>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm mb-1">
+<span class="material-symbols-outlined text-sm text-primary">location_on</span> Shillong &amp; Cherrapunji
+              </div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface line-clamp-1">Meghalaya Monsoon Trek &amp; Waterfalls</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-2">Cliff jumping into crystal pools, bamboo trail treks, and starry bonfire nights.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container flex items-baseline justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-outline">Group: 12-14 slots</span>
+<div class="flex items-baseline gap-1">
+<span class="font-price-display text-price-display text-primary">₹18,499</span>
+<span class="font-label-sm text-label-sm text-outline">/person</span>
+</div>
+</div>
+<button class="px-3.5 py-2 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:brightness-105 active:scale-95 transition-all">
+                Join Trip
+              </button>
+</div>
+</div>
+</article>
+<!-- Card 2: Spiti Valley -->
+<article class="flex-shrink-0 w-[290px] bg-surface-container-lowest rounded-2xl shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06),0_2px_6px_-1px_rgba(31,41,55,0.04)] overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_30px_-4px_rgba(15,118,110,0.12)]">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Dramatic mountain panorama of the ancient Key Monastery perched high on a rugged hill in Spiti Valley, Himachal Pradesh. The stark, cold desert Himalayas stretch under crisp crystal blue skies with snow dustings, bathed in striking high-altitude sunlight with natural rich earthy palettes." src="images/image-6fb112d.jpg"/>
+<span class="absolute top-3 left-3 px-2.5 py-1 bg-surface-container-lowest/90 backdrop-blur-md rounded-full font-label-sm text-label-sm font-semibold text-primary">
+              Adventure
+            </span>
+<button aria-label="Add to wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-container-lowest/85 backdrop-blur-md flex items-center justify-center text-secondary-container transition-transform active:scale-90">
+<span class="material-symbols-outlined text-xl fill-icon">favorite</span>
+</button>
+<div class="absolute bottom-3 left-3 right-3 flex justify-between items-center">
+<span class="px-2 py-0.5 rounded-lg bg-inverse-surface/80 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> 8D / 7N
+              </span>
+<span class="px-2 py-0.5 rounded-lg bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary-container text-xs fill-icon">star</span> 5.0 (68)
+              </span>
+</div>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm mb-1">
+<span class="material-symbols-outlined text-sm text-primary">location_on</span> Kaza &amp; Chandratal
+              </div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface line-clamp-1">Spiti Valley Stargazing &amp; Homestays</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-2">High mountain passes, stargazing beside sacred Chandratal lake, local cuisine.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container flex items-baseline justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-outline">Only 3 spots left</span>
+<div class="flex items-baseline gap-1">
+<span class="font-price-display text-price-display text-primary">₹23,999</span>
+<span class="font-label-sm text-label-sm text-outline">/person</span>
+</div>
+</div>
+<button class="px-3.5 py-2 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:brightness-105 active:scale-95 transition-all">
+                Join Trip
+              </button>
+</div>
+</div>
+</article>
+<!-- Card 3: Gokarna Beach -->
+<article class="flex-shrink-0 w-[290px] bg-surface-container-lowest rounded-2xl shadow-[0_4px_20px_-2px_rgba(15,118,110,0.06),0_2px_6px_-1px_rgba(31,41,55,0.04)] overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_30px_-4px_rgba(15,118,110,0.12)]">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A serene twilight vista of Kudle Beach in Gokarna with gentle Arabian Sea ocean waves sweeping over golden sands. Silhouetted palm trees lean gently in the coastal breeze under a vibrant coral and amber sunset sky, evoking relaxed nomadic communal travel vibes." src="images/image-2865119.jpg"/>
+<span class="absolute top-3 left-3 px-2.5 py-1 bg-surface-container-lowest/90 backdrop-blur-md rounded-full font-label-sm text-label-sm font-semibold text-primary">
+              Beach &amp; Chill
+            </span>
+<button aria-label="Add to wishlist" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-container-lowest/85 backdrop-blur-md flex items-center justify-center text-on-surface hover:text-secondary-container transition-transform active:scale-90">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+<div class="absolute bottom-3 left-3 right-3 flex justify-between items-center">
+<span class="px-2 py-0.5 rounded-lg bg-inverse-surface/80 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> 4D / 3N
+              </span>
+<span class="px-2 py-0.5 rounded-lg bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary-container text-xs fill-icon">star</span> 4.8 (29)
+              </span>
+</div>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm mb-1">
+<span class="material-symbols-outlined text-sm text-primary">location_on</span> Gokarna &amp; Murudeshwar
+              </div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface line-clamp-1">Gokarna Cliffside Sunset &amp; Acoustic Jam</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-2">Beach hopping treks, bioluminescent sea night walks, and sunset ukulele jam sessions.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container flex items-baseline justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-outline">Weekend trip</span>
+<div class="flex items-baseline gap-1">
+<span class="font-price-display text-price-display text-primary">₹11,200</span>
+<span class="font-label-sm text-label-sm text-outline">/person</span>
+</div>
+</div>
+<button class="px-3.5 py-2 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:brightness-105 active:scale-95 transition-all">
+                Join Trip
+              </button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- DUAL ACTION CARDS (Side-by-side) -->
+<section class="px-margin-mobile py-4">
+<div class="grid grid-cols-2 gap-3">
+<!-- Customize Trip -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl border border-surface-container-high shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary mb-2.5">
+<span class="material-symbols-outlined text-2xl">tune</span>
+</div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface leading-snug">Private Group Charter</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Custom route for your college gang or family.</p>
+</div>
+<button class="mt-4 w-full bg-secondary-container hover:brightness-105 active:bg-secondary text-on-primary font-label-md text-label-md py-2.5 rounded-xl transition-all shadow-sm">
+            Customize Trip
+          </button>
+</div>
+<!-- Host a Trip -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl border border-surface-container-high shadow-sm flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary mb-2.5">
+<span class="material-symbols-outlined text-2xl">add_circle</span>
+</div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface leading-snug">Lead an Experience</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Host and monetize your own secret trail.</p>
+</div>
+<button class="mt-4 w-full border-[1.5px] border-primary-container text-primary-container hover:bg-primary-container/10 active:scale-95 font-label-md text-label-md py-2.5 rounded-xl transition-all">
+            Host a Trip
+          </button>
+</div>
+</div>
+</section>
+<!-- WHY HAPPYNESSPROJECT (Value Props Bento Grid) -->
+<section class="px-margin-mobile py-6">
+<div class="mb-4">
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">The Happyness Standard</span>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mt-0.5">Why travelers wander with us</h2>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Prop 1 -->
+<div class="bg-surface-container-low p-4 rounded-2xl border border-surface-container">
+<div class="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-xl">verified_user</span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface text-sm">Verified Hosts</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-xs mt-1">Background-checked passionate certified leads.</p>
+</div>
+<!-- Prop 2 -->
+<div class="bg-surface-container-low p-4 rounded-2xl border border-surface-container">
+<div class="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-xl">lock</span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface text-sm">Secure Payments</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-xs mt-1">100% UPI &amp; Escrow protection until tour ends.</p>
+</div>
+<!-- Prop 3 -->
+<div class="bg-surface-container-low p-4 rounded-2xl border border-surface-container">
+<div class="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-xl">groups_2</span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface text-sm">Curated Groups</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-xs mt-1">Strict caps of 12-16 travellers for deep bonding.</p>
+</div>
+<!-- Prop 4 -->
+<div class="bg-surface-container-low p-4 rounded-2xl border border-surface-container">
+<div class="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-xl">support_agent</span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface text-sm">24/7 Support</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-xs mt-1">Real human SOS &amp; logistics team always on standby.</p>
+</div>
+</div>
+</section>
+<!-- POPULAR DESTINATIONS (Editorial 2x2 Photo Grid) -->
+<section class="px-margin-mobile py-4">
+<div class="flex justify-between items-baseline mb-3">
+<div>
+<span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wide">Top Traveled</span>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Popular Destinations</h2>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Destination 1: Rajasthan Forts -->
+<div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-sm group">
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Majestic golden hour photograph of Jaisalmer Fort rising from golden Thar desert dunes in Rajasthan. Glowing warm sandstone palace walls with intricate jharokhas are framed in soft desert haze with warm golden lighting, embodying regal heritage and travel allure." src="images/image-396f23f.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/85 via-transparent to-transparent"></div>
+<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
+<h4 class="font-title-md text-title-md font-bold">Rajasthan Forts</h4>
+<span class="font-label-sm text-label-sm text-surface-variant/90">8 upcoming trips</span>
+</div>
+</div>
+<!-- Destination 2: Kerala Backwaters -->
+<div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-sm group">
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="A tranquil traditional wooden houseboat cruising gently through serene coconut palm-lined waterways in Alleppey, Kerala. Glossy reflections shimmer on the water surface during a peaceful tropical afternoon, with vibrant natural emerald greenery and soothing water tones." src="images/image-601fa88.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/85 via-transparent to-transparent"></div>
+<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
+<h4 class="font-title-md text-title-md font-bold">Kerala Backwaters</h4>
+<span class="font-label-sm text-label-sm text-surface-variant/90">5 upcoming trips</span>
+</div>
+</div>
+<!-- Destination 3: Spiti Valley -->
+<div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-sm group">
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="A scenic panoramic highway snaking through high mountain passes in Spiti with dramatic snow-capped peaks and traditional prayer flags fluttering in mountain breezes. Soft mountain atmospheric glow enhances the remote beauty and untouched serenity." src="images/image-072d66a.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/85 via-transparent to-transparent"></div>
+<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
+<h4 class="font-title-md text-title-md font-bold">Spiti Valley</h4>
+<span class="font-label-sm text-label-sm text-surface-variant/90">12 upcoming trips</span>
+</div>
+</div>
+<!-- Destination 4: Gokarna -->
+<div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-sm group">
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Golden sunset spilling over Om Beach in Gokarna with gentle ocean foam rolling over smooth granite coastal rocks. Warm amber sun rays illuminate sandy shores with travelers gathered around in the distance celebrating twilight." src="images/image-6fd6f3a.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0B2B2A]/85 via-transparent to-transparent"></div>
+<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
+<h4 class="font-title-md text-title-md font-bold">Gokarna Sunset</h4>
+<span class="font-label-sm text-label-sm text-surface-variant/90">6 upcoming trips</span>
+</div>
+</div>
+</div>
+</section>
+<!-- HOW IT WORKS (3-Step Visual Guide) -->
+<section class="px-margin-mobile py-6 bg-surface-container-low my-4 rounded-3xl mx-3">
+<div class="text-center mb-6">
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Simple &amp; Seamless</span>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mt-1">How Happyness Works</h2>
+</div>
+<div class="space-y-4">
+<!-- Step 1 -->
+<div class="flex items-start gap-3.5 bg-surface-container-lowest p-3.5 rounded-2xl shadow-sm">
+<div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center font-headline-sm font-bold flex-shrink-0">
+            1
+          </div>
+<div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Browse Experiences</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Explore weekend escapes, roadtrips, and secret trails curated by local experts.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex items-start gap-3.5 bg-surface-container-lowest p-3.5 rounded-2xl shadow-sm">
+<div class="w-10 h-10 rounded-xl bg-secondary-container text-on-primary flex items-center justify-center font-headline-sm font-bold flex-shrink-0">
+            2
+          </div>
+<div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Book Your Slot</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Secure your bed with easy UPI or split-payment, and get added to the group circle.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex items-start gap-3.5 bg-surface-container-lowest p-3.5 rounded-2xl shadow-sm">
+<div class="w-10 h-10 rounded-xl bg-tertiary-fixed text-primary flex items-center justify-center font-headline-sm font-bold flex-shrink-0">
+            3
+          </div>
+<div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Travel &amp; Bond</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Meet at the assembly spot, share campfire laughter, and forge lifelong friendships.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- COMMUNITY TESTIMONIALS -->
+<section class="py-6">
+<div class="px-margin-mobile mb-4">
+<span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider">Unfiltered Stories</span>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Loved by 10,000+ Nomads</h2>
+</div>
+<!-- Testimonials Carousel -->
+<div class="flex gap-3 overflow-x-auto no-scrollbar px-margin-mobile">
+<!-- Review 1 -->
+<div class="flex-shrink-0 w-[270px] bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-surface-container-high flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-secondary-container mb-2">
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+              "Joined the Meghalaya trip solo and returned with 11 best friends! The host Rohan made sure every solo female felt safe and cared for."
+            </p>
+</div>
+<div class="flex items-center gap-2.5 mt-4 pt-3 border-t border-surface-container">
+<img class="w-9 h-9 rounded-full object-cover" data-alt="A portrait of a cheerful young South Asian woman in casual outdoor hiking apparel smiling warmly. Natural outdoor daylight, soft focus green mountain foliage in the background, matching clean editorial travel photography." src="images/image-3c1ad33.jpg"/>
+<div>
+<span class="block font-label-md text-label-md font-bold text-on-surface">Ananya Sen</span>
+<span class="block font-label-sm text-label-sm text-outline">Traveled to Meghalaya</span>
+</div>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="flex-shrink-0 w-[270px] bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-surface-container-high flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-secondary-container mb-2">
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+<span class="material-symbols-outlined text-sm fill-icon">star</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+              "Chandratal lake stargazing was literally magic. The local Spitian homestays and food were unbeatable. Everything ran exactly on time."
+            </p>
+</div>
+<div class="flex items-center gap-2.5 mt-4 pt-3 border-t border-surface-container">
+<img class="w-9 h-9 rounded-full object-cover" data-alt="Portrait of an Indian male traveler in cozy knitted winter beanie smiling against crisp alpine scenic backdrop. Editorial natural lighting, warm and welcoming expression." src="images/image-9b8ad3a.jpg"/>
+<div>
+<span class="block font-label-md text-label-md font-bold text-on-surface">Kabir Mehta</span>
+<span class="block font-label-sm text-label-sm text-outline">Traveled to Spiti Valley</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- NEWSLETTER SIGNUP STRIP (Warm Sand) -->
+<section class="px-margin-mobile py-6">
+<div class="bg-tertiary-fixed rounded-2xl p-5 shadow-sm text-on-tertiary-fixed">
+<div class="flex items-center gap-2 mb-1.5">
+<span class="material-symbols-outlined text-primary text-xl">mark_email_unread</span>
+<span class="font-label-md text-label-md font-bold tracking-wide uppercase text-primary">Secret Drop Alerts</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold leading-tight">Get ₹1,000 off your first group escape</h3>
+<p class="font-body-sm text-body-sm text-on-tertiary-fixed-variant mt-1 mb-4">Subscribe to early-bird seat openings and curated weekend itineraries.</p>
+<form class="flex flex-col gap-2" onsubmit="event.preventDefault(); alert('Subscribed to HappynessProject drop alerts!');">
+<input class="w-full bg-surface-container-lowest px-4 py-3 rounded-xl border border-surface-container-high text-on-surface font-body-sm focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Enter your email or WhatsApp number" required="" type="email"/>
+<button class="w-full bg-secondary-container hover:brightness-105 active:bg-secondary text-on-primary font-label-lg text-label-lg py-3 rounded-xl transition-all shadow-sm" type="submit">
+            Claim ₹1,000 Voucher
+          </button>
+</form>
+</div>
+</section>
+<!-- WHATSAPP FLOATING HELPER BUTTON -->
+<section class="px-margin-mobile pb-6">
+<a class="flex items-center justify-between p-3.5 bg-surface-container-lowest border border-surface-container-high rounded-2xl shadow-sm hover:bg-surface-container-low transition-colors" href="https://wa.me/">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">chat</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface text-sm">Need trip guidance?</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-xs">Chat live with our trip architects on WhatsApp</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</a>
+</section>
+</main>
+<!-- MIDNIGHT FOOTER (Shared Component Anchor) -->
+<footer class="bg-inverse-surface text-inverse-on-surface w-full py-12 px-6">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Brand & Mission -->
+<div>
+<a class="text-headline-md font-headline-md font-bold text-inverse-on-surface tracking-tight block" href="index.html">
+          HappynessProject
+        </a>
+<p class="font-body-sm text-body-sm text-outline-variant mt-2 max-w-sm">
+          Travel together. Find your happiness. India's favorite community-first platform for experiential group escapes, secret trails, and nomadic connections.
+        </p>
+<div class="mt-4 flex items-center gap-2 text-inverse-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-base">verified</span>
+<span>Govt. of India Recognized Startup • 100% Escrow Protected</span>
+</div>
+</div>
+<!-- Quick Links Grid -->
+<div class="grid grid-cols-2 gap-6 pt-4 border-t border-surface-variant/20">
+<div>
+<h4 class="font-label-md text-label-md text-secondary-fixed font-bold uppercase tracking-wider mb-3">Explore</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-inverse-on-surface transition-colors" href="index.html">Explore Trips</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-inverse-on-surface transition-colors" href="pages/upcoming-events.html">Upcoming Events</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-inverse-on-surface transition-colors" href="pages/host-a-trip.html">Host a Trip</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-inverse-on-surface transition-colors" href="pages/group-charters.html">Group Charters</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-secondary-fixed font-bold uppercase tracking-wider mb-3">Company &amp; Trust</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-inverse-on-surface transition-colors" href="pages/about.html">About Us</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-inverse-on-surface transition-colors" href="pages/safety-guidelines.html">Safety &amp; Guidelines</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-inverse-on-surface transition-colors" href="pages/cancellation-policy.html">Cancellation Policy</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-inverse-on-surface transition-colors" href="pages/faq.html">Help Center</a></li>
+</ul>
+</div>
+</div>
+<!-- Compliance & Copyright -->
+<div class="pt-6 border-t border-surface-variant/20 flex flex-col gap-2">
+<p class="font-body-sm text-body-sm text-outline-variant text-xs">
+          © 2025 HappynessProject Travel Experiences Pvt Ltd. All rights reserved. Prices inclusive of GST.
+        </p>
+<div class="flex items-center gap-4 text-xs text-outline-variant">
+<a class="hover:underline" href="pages/terms.html">Terms &amp; Conditions</a>
+<span>•</span>
+<a class="hover:underline" href="pages/privacy.html">Privacy Policy</a>
+<span>•</span>
+<a class="hover:underline" href="pages/contact.html">Contact Us</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- DOCKED BOTTOM NAVBAR (Shared Component Mobile Anchor) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 bg-surface-container-lowest shadow-[0_-4px_20px_-2px_rgba(15,118,110,0.06)] md:hidden">
+<!-- Explore (Active Destination) -->
+<a aria-label="Explore" class="flex flex-col items-center justify-center text-secondary font-semibold active:scale-95 transition-transform" href="index.html">
+<span class="material-symbols-outlined text-2xl fill-icon">explore</span>
+<span class="font-label-sm text-label-sm mt-0.5">Explore</span>
+</a>
+<!-- Wishlist -->
+<a aria-label="Wishlist" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" href="pages/wishlist.html">
+<span class="material-symbols-outlined text-2xl">favorite</span>
+<span class="font-label-sm text-label-sm mt-0.5">Wishlist</span>
+</a>
+<!-- Bookings -->
+<a aria-label="Bookings" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" href="pages/my-bookings.html">
+<span class="material-symbols-outlined text-2xl">luggage</span>
+<span class="font-label-sm text-label-sm mt-0.5">Bookings</span>
+</a>
+<!-- Host -->
+<a aria-label="Host" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" href="pages/host-a-trip.html">
+<span class="material-symbols-outlined text-2xl">add_circle</span>
+<span class="font-label-sm text-label-sm mt-0.5">Host</span>
+</a>
+<!-- Profile -->
+<a aria-label="Profile" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" href="pages/settings.html">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="font-label-sm text-label-sm mt-0.5">Profile</span>
+</a>
+</nav>
+<script src="js/trips.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/header.js"></script>
+<script src="js/main.js"></script>
+</body></html>

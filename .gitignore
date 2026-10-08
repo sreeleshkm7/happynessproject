@@ -1,0 +1,15 @@
+# Windows file metadata noise
+**/*.Zone.Identifier
+**/*:Zone.Identifier
+**/*.Identifier
+
+# macOS/editor noise
+.DS_Store
+**/.DS_Store
+.vscode/
+
+# Unused design/export assets not required for the app
+_unused/
+
+# Logs
+*.log
