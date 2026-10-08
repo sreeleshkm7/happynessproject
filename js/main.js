@@ -6,7 +6,6 @@
     home: isHome ? 'index.html' : '../index.html',
     events: pageRoute('upcoming-events.html'),
     package: pageRoute('package-detail.html'),
-    bookingDetail: pageRoute('package-detail-booking.html'),
     login: pageRoute('login.html'),
     forgot: pageRoute('forgot-password.html'),
     wishlist: pageRoute('wishlist.html'),

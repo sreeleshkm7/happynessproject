@@ -59,15 +59,20 @@ This repository is intended as a travel UI prototype or demo application rather 
 happynessproject/
 ├── index.html                 # Main landing page
 ├── README.md                  # Project documentation
-├── scan_site.py               # Utility script (if used for site scanning/export)
+├── tools/
+│   └── scan_site.py           # Utility script for checking links and assets
+├── archive/                   # Non-deployable design and exported assets
 ├── css/
 │   └── style.css              # Shared styling
 ├── images/                    # Travel imagery and page previews
 ├── js/
+│   ├── api.js                 # Backend data-access layer
+│   ├── config.js              # Supabase URL and public anon key placeholders
 │   ├── auth.js                # Login/auth guards and session behavior
 │   ├── checkout.js            # Booking and checkout logic
 │   ├── header.js              # Shared navbar/header rendering
 │   ├── main.js                # Core trip browsing, wishlist, and cart behavior
+│   ├── supabase-client.js     # Shared Supabase browser client
 │   └── trips.js               # Trip data definitions
 ├── pages/
 │   ├── about.html
@@ -81,22 +86,18 @@ happynessproject/
 │   ├── login.html
 │   ├── my-bookings.html
 │   ├── package-detail.html
-│   ├── package-detail-booking.html
 │   ├── privacy.html
 │   ├── settings.html
 │   ├── terms.html
 │   ├── upcoming-events.html
 │   ├── wishlist.html
 │   └── ...
-└── _unused/
-    └── design and exported assets
 ```
 
 ## Main Pages
 
 - `index.html` – home page and trip discovery dashboard
 - `pages/package-detail.html` – detailed destination package information
-- `pages/package-detail-booking.html` – booking CTA and trip selection flow
 - `pages/booking.html` – traveler and payment details form
 - `pages/booking-confirmation.html` – successful booking summary
 - `pages/my-bookings.html` – user booking history

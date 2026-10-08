@@ -5,7 +5,7 @@ import re
 import sys
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 
 
 class PageAudit(HTMLParser):
@@ -30,7 +30,10 @@ class PageAudit(HTMLParser):
 
 
 def main():
-    pages = sorted(path for path in ROOT.rglob("*.html") if "_unused" not in path.relative_to(ROOT).parts)
+    pages = sorted(
+        path for path in ROOT.rglob("*.html")
+        if not {"archive", "tools"}.intersection(path.relative_to(ROOT).parts)
+    )
     broken = []
     missing_images = []
     placeholders = []

@@ -8,8 +8,17 @@
 **/.DS_Store
 .vscode/
 
-# Unused design/export assets not required for the app
-_unused/
+# Local dependencies and secrets
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Local Firebase state
+.firebase/
+
+# Archived design/export assets not required for the app
+archive/
 
 # Logs
 *.log
